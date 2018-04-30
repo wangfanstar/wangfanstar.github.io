@@ -1,0 +1,2 @@
+# wangfanstar.github.io
+blog
