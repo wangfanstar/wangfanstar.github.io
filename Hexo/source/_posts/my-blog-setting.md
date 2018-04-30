@@ -1,9 +1,8 @@
 ---
 title: Hexo的github配置
-categories: 编程
+categories:  工具
 date: 2018-04-30 12:36:32
 tags:
-category: tools
 ---
 
 ## Hexo的github配置

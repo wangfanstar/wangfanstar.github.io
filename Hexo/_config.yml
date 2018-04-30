@@ -5,8 +5,8 @@
 # Site
 title: wangfan的小屋
 subtitle:
-description:
-keywords:
+description: 记录个人的技术及思考心得
+keywords: linux code
 author: wangfanstar@163.com
 language: zh-Hans
 timezone:
@@ -78,4 +78,6 @@ theme: next # landscape
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type:
+  type: git
+  repo: git@github.com:wangfanstar/wangfanstar.github.io.git
+  branch: master
