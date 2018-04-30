@@ -287,8 +287,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/编程/" itemprop="url" rel="index">
-                    <span itemprop="name">编程</span>
+                  <a href="/categories/工具/" itemprop="url" rel="index">
+                    <span itemprop="name">工具</span>
                   </a>
                 </span>
 
@@ -471,7 +471,10 @@
       
         
           
-            <h1 id="Linux下用C语言实现监控框架"><a href="#Linux下用C语言实现监控框架" class="headerlink" title="Linux下用C语言实现监控框架"></a>Linux下用C语言实现监控框架</h1><h2 id="监控框架的设计目标"><a href="#监控框架的设计目标" class="headerlink" title="监控框架的设计目标"></a>监控框架的设计目标</h2><p>在很多地方，我们需要对一些设备状态进行监控，比如流量达到多少时我们需要发送警告，硬件发生故障时记录日志等等，在用代码实现这些设计时，有很多设计流程是可以复用的，把这些公共的流程抽象出来，不关注 具体要监控的对象，用代码实现，后续再新增和删除监控对象时，尽可能少地对代码进行修改，而后续维护的人也可以直接参考之前的代码快速地实现监控功能的添加，删除。这就是框架的意义，如下所述：库函数是代码的复用，框架是设计的复用。</p>
+            <h2 id="Linux下用C语言实现监控框架"><a href="#Linux下用C语言实现监控框架" class="headerlink" title="Linux下用C语言实现监控框架"></a>Linux下用C语言实现监控框架</h2><p>假设一个工程代码分为A,B 两个模块，未来可能加上其他C,D等模块。每个模块实现不同的功能，但会调用同一个故障日志监控模块，比如A模块中有故障标志 flagA置1时会调用故障提示函数。B模块中故障标志flagB置1时调用故障提示的。正常代码如下所示：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">moudle A:</span><br><span class="line">	<span class="keyword">if</span>（<span class="number">1</span> == flagA)</span><br><span class="line">      	notify_user(<span class="string">"A moudle state is wrong, do step A "</span>)</span><br><span class="line">moudle B:</span><br><span class="line">	<span class="keyword">if</span> (<span class="number">1</span> == flagB)</span><br><span class="line">      	notify_user(<span class="string">"B moudle state is wrong, do step B"</span>)</span><br></pre></td></tr></table></figure>
+<p>按照这种代码架构，我们需要提供一个notify_user的接口，每次出故障时都调用一个这个接口。这种架构实现简单，容易理解，但这种接口有以下几个问题：<br>1、notify_user的接口固定死了，每个模块都需要调用这个接口，如果修改一下显示日志的格式，增加一个notify_user的参数，就要每个模块查找修改，工作量非常大，每个模块都耦合比较深。<br>2、增加一个模块时，每次都得加用这个判断语句，重复度高，不简洁。<br>根据以上缺点，我们希望构建一个模块达到以下效果：<br>1、把监控模块的notify_user的检测和输出都放到moudle monitor里面实现，其他模块需要检测时只要加一行代码，比如 register_monitor(flagA), 添加后监控模块就会自动对模块A的变量flagA进行监控，当标记置1时，输出故障信息<br>2、监控模块里面实现监控相关的内容，如果有格式修改，只在监控模块修改，不需要再找其他模块的负责人修改其他模块。实现松耦合，目的是当程序代码比较大时，修改只限制在各人负责的模块上，不会影响到其他模块的人，提高工作效率。</p>
+<h2 id="监控框架的设计目标"><a href="#监控框架的设计目标" class="headerlink" title="监控框架的设计目标"></a>监控框架的设计目标</h2><p>在很多地方，我们需要对一些设备状态进行监控，比如流量达到多少时我们需要发送警告，硬件发生故障时记录日志等等，在用代码实现这些设计时，有很多设计流程是可以复用的，把这些公共的流程抽象出来，不关注 具体要监控的对象，用代码实现，后续再新增和删除监控对象时，尽可能少地对代码进行修改，而后续维护的人也可以直接参考之前的代码快速地实现监控功能的添加，删除。这就是框架的意义，如下所述：库函数是代码的复用，框架是设计的复用。</p>
 <p>在实现不同业务功能的过程中，前人设计出了多种模式，简称设计模式，设计模式并没有新发明东西，是对代码编程技巧的一种总结，方便大家用于沟通描述而已。其中常用的有观察者模式，这种模式我们会在实现这个框架的过程中详细描述是哪些编程技巧是归结于这种模式，如何在不同的业务场景中使用这些模式，以及采用这种模式有什么好处。</p>
 
           
@@ -565,7 +568,7 @@
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
