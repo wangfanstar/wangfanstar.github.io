@@ -8,6 +8,7 @@ tags:
 ## Hexo的github配置
 
 本博客托管在github上，采用Hexo生成，使用了Next主题
+github采用两个分支, master用于发布网站，hexo用于git源文件
 
 ## 参考链接
 

@@ -30,14 +30,15 @@ tags: 算法
 
    ```c
    #include <stdio.h>
-   unsigned short CheckSum((void *)Buf, size_t Size)
+   #include <stddef.h>
+   unsigned short CheckSum(void * Buf, size_t Size)
    {
      unsigned short CheckCode = 0;
      unsigned long sum = 0;
      unsigned short * p = Buf;
      while(Size > 1)
      {
-       sum += *p
+       sum += *p;
          p++;
        Size = Size - 2;
      }
@@ -49,7 +50,7 @@ tags: 算法
      }
      
      /* 进位加法 */
-     while ((sum >> 16) > 0）
+     while ((sum >> 16) > 0)
      {
         sum = (sum & 0xff) + (sum >> 16);           
      }
