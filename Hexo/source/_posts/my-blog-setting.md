@@ -2,13 +2,23 @@
 title: Hexo的github配置
 categories:  工具
 date: 2018-04-30 12:36:32
-tags:
+tags: web
 ---
 
 ## Hexo的github配置
 
 本博客托管在github上，采用Hexo生成，使用了Next主题
 github采用两个分支, master用于发布网站，hexo用于git源文件
+
+标签和分类的页面设置方法：
+
+hexo new page "tags"
+
+tags目录下的index.md 中属性的type: "tags"
+
+hexo new page "categories"
+
+categories目录下的index.md 中属性的type: "categories"
 
 ## 参考链接
 
