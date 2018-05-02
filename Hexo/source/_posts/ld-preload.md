@@ -2,7 +2,8 @@
 title: linux下不重编译替换同名函数--LD_PRELOAD
 category: 编程
 date: 2018-05-02 20:07:57
-tags: linux hack
+tags: [linux,hack]
+  
 ---
 
 ## LD_PRELOAD：利用动态链接库更改同名函数的功能
@@ -133,4 +134,5 @@ int mycompare(const char * a, const char * b)
 > libcompare.so => ./libcompare.so (0xb7f04000)
 > libc.so.6 => /lib/i386-linux-gnu/libc.so.6 (0xb7d38000)
 > /lib/ld-linux.so.2 (0xb7f0d000)
+
 
