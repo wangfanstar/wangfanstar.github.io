@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="wangfan 的小屋">
 <meta property="og:description" content="字符转换函数的使用场景我们在程序界面输入数据时，基本上都是用字符来保存的，所有操作系统之间的信息保存和传递也是基于字符（char）单位来进行，单位再大了就有字节序问题，不能兼容所有的操作系统了。为效率考虑，现在的信息全以字符为单位。计算一段数据的大小，比如一个变量Int的大小，用sizeof操作符返回的结果就是字节数，也就是char的个数。sizeof(int)  == 4 ，在程序应用中，比如在">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-03T14:15:48.395Z">
+<meta property="og:updated_time" content="2018-05-03T14:20:06.248Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="字符处理函数的使用">
 <meta name="twitter:description" content="字符转换函数的使用场景我们在程序界面输入数据时，基本上都是用字符来保存的，所有操作系统之间的信息保存和传递也是基于字符（char）单位来进行，单位再大了就有字节序问题，不能兼容所有的操作系统了。为效率考虑，现在的信息全以字符为单位。计算一段数据的大小，比如一个变量Int的大小，用sizeof操作符返回的结果就是字节数，也就是char的个数。sizeof(int)  == 4 ，在程序应用中，比如在">
@@ -364,7 +364,9 @@
       
         <h2 id="字符转换函数的使用场景"><a href="#字符转换函数的使用场景" class="headerlink" title="字符转换函数的使用场景"></a>字符转换函数的使用场景</h2><p>我们在程序界面输入数据时，基本上都是用字符来保存的，所有操作系统之间的信息保存和传递也是基于字符（char）单位来进行，单位再大了就有字节序问题，不能兼容所有的操作系统了。为效率考虑，现在的信息全以字符为单位。计算一段数据的大小，比如一个变量Int的大小，用sizeof操作符返回的结果就是字节数，也就是char的个数。sizeof(int)  == 4 ，在程序应用中，比如在计数器中我们输入一串数字和符号  123 + 456 ，内部如何计算出结果呢，123在输入时是对应3个字符char，在计算的时时候我们则必须将其转换成整型变量数据再进行加法运算。C函数提供的一个函数库API是atoi, ascii to integer 的一个函数 stdlib.h，其原型是int atoi(const char * ptr)，函数开始扫描ptr字符串，跳过空白字符(isspace检测)，从数字或正负号开始，到\0或非数字结束，返回一个整数，当无法转换成整理或ptr是空字符串时返回0</p>
 <p>同样的，也会有itoa函数，将整数转换成字符串，但奇怪的是这个函数却不是标准的C函数，在Linux下基本没有这个函数，通常windows下的非标准编译器才支持这种函数，我考虑了多方面因素，可能是以下原因，转换出的字符串一般都是一串不确定长度的空间，而这个内存空间只能通过指针的方式返回使用者，这样使用者调用后还需要手动释放这个空间，很容易造成内存泄露。linux下将数字转换成字符有以下几种方式</p>
-<h2 id="int-sprintf-char-buffer-char-fmt-…"><a href="#int-sprintf-char-buffer-char-fmt-…" class="headerlink" title="int sprintf( char buffer,  char  fmt , …);"></a>int sprintf( char <em>buffer,  char </em> fmt , …);</h2><p>sprintf最常见的应用之一莫过于把整数打印到字符串中，所以，spritnf 在大多数场合可以替代itoa。如：</p>
+<blockquote>
+<h2 id="int-sprintf-char-buffer-char-fmt-…"><a href="#int-sprintf-char-buffer-char-fmt-…" class="headerlink" title="int sprintf( char buffer,  char  fmt , …);"></a>int sprintf( char <em>buffer,  char </em> fmt , …);</h2></blockquote>
+<p>sprintf最常见的应用之一莫过于把整数打印到字符串中，所以，spritnf 在大多数场合可以替代itoa。如：</p>
 <ol>
 <li><p>将整数转成字符串</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sprintf</span>``(s, ``<span class="string">"%d"</span>``, <span class="number">123</span>); ``<span class="comment">// 产生"123"</span></span><br></pre></td></tr></table></figure>
@@ -376,8 +378,12 @@
 <p>2、如果 s 的区域不足，写入的数据超过s长度，可能会导致内存访问错误引起崩溃，</p>
 </li>
 </ol>
-<h2 id="int-snprintf-char-buf-size-t-n-char-fmt-…"><a href="#int-snprintf-char-buf-size-t-n-char-fmt-…" class="headerlink" title="int snprintf(char buf, size_t n, char fmt, …)"></a>int snprintf(char <em>buf, size_t n, char </em>fmt, …)</h2><p>为了防止引起内存访问错误，采用snprintf函数，此函数最多从源字符串中取n-1个字符，最后一个字节补\0，写入buf，推荐用法是将第2个参数n写成sizeof(buf)，与sprintf不同的时返回值 int 是源字符串的字符数，而非实际写入buf的字符串数目。在Linux内核中不推荐用snprintf，就是因为返回的值可能大于实际写入的buf中的字符数目，可能导致计算时越界，linux内存中推荐采用返回值为实际写入buf中的字符数字函数scnprintf，用法和snprintf一样，但返回值是实际写入buf的字符数，这样就避免了返回值比实际写入buf数值还大的现象。</p>
-<h2 id="int-scnprintf-char-buf-size-t-n-char-fmt-…"><a href="#int-scnprintf-char-buf-size-t-n-char-fmt-…" class="headerlink" title="int scnprintf(char buf, size_t n, char fmt, …)"></a>int scnprintf(char <em>buf, size_t n, char </em>fmt, …)</h2><p>参考文章：<a href="https://www.kernel.org/doc/htmldocs/kernel-api/API-scnprintf.html" target="_blank" rel="noopener">https://www.kernel.org/doc/htmldocs/kernel-api/API-scnprintf.html</a></p>
+<blockquote>
+<h2 id="int-snprintf-char-buf-size-t-n-char-fmt-…"><a href="#int-snprintf-char-buf-size-t-n-char-fmt-…" class="headerlink" title="int snprintf(char buf, size_t n, char fmt, …)"></a>int snprintf(char <em>buf, size_t n, char </em>fmt, …)</h2></blockquote>
+<p>为了防止引起内存访问错误，采用snprintf函数，此函数最多从源字符串中取n-1个字符，最后一个字节补\0，写入buf，推荐用法是将第2个参数n写成sizeof(buf)，与sprintf不同的时返回值 int 是源字符串的字符数，而非实际写入buf的字符串数目。在Linux内核中不推荐用snprintf，就是因为返回的值可能大于实际写入的buf中的字符数目，可能导致计算时越界，linux内存中推荐采用返回值为实际写入buf中的字符数字函数scnprintf，用法和snprintf一样，但返回值是实际写入buf的字符数，这样就避免了返回值比实际写入buf数值还大的现象。</p>
+<blockquote>
+<h2 id="int-scnprintf-char-buf-size-t-n-char-fmt-…"><a href="#int-scnprintf-char-buf-size-t-n-char-fmt-…" class="headerlink" title="int scnprintf(char buf, size_t n, char fmt, …)"></a>int scnprintf(char <em>buf, size_t n, char </em>fmt, …)</h2></blockquote>
+<p>参考文章：<a href="https://www.kernel.org/doc/htmldocs/kernel-api/API-scnprintf.html" target="_blank" rel="noopener">https://www.kernel.org/doc/htmldocs/kernel-api/API-scnprintf.html</a></p>
 
       
     </div>
