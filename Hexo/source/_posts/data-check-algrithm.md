@@ -2,7 +2,7 @@
 title: 用算法实现数据校验
 category: 编程
 date: 2018-05-01 17:47:25
-tags: 算法
+tags: [算法,tcp/ip]
 ---
 
 ## 数据校验的作用
