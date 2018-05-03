@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="linux,c,api," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Linux下用C语言实现监控框架假设一个工程代码分为A,B 两个模块，未来可能加上其他C,D等模块。每个模块实现不同的功能，但会调用同一个故障日志监控模块，比如A模块中有故障标志 flagA置1时会调用故障提示函数。B模块中故障标志flagB置1时调用故障提示的。正常代码如下所示： 123456moudle A:	if（1 == flagA)      	notify_user(&quot;A moudle">
-<meta name="keywords" content="linux code">
+<meta name="description" content="字符转换函数的使用场景我们在程序界面输入数据时，基本上都是用字符来保存的，所有操作系统之间的信息保存和传递也是基于字符（char）单位来进行，单位再大了就有字节序问题，不能兼容所有的操作系统了。为效率考虑，现在的信息全以字符为单位。计算一段数据的大小，比如一个变量Int的大小，用sizeof操作符返回的结果就是字节数，也就是char的个数。sizeof(int)  == 4 ，在程序应用中，比如在">
+<meta name="keywords" content="linux,c,api">
 <meta property="og:type" content="article">
-<meta property="og:title" content="实现一个常用的监控框架">
-<meta property="og:url" content="http://yoursite.com/2018/04/29/monitor-frame/index.html">
+<meta property="og:title" content="字符处理函数的使用">
+<meta property="og:url" content="http://yoursite.com/2018/05/03/character-api/index.html">
 <meta property="og:site_name" content="wangfan 的小屋">
-<meta property="og:description" content="Linux下用C语言实现监控框架假设一个工程代码分为A,B 两个模块，未来可能加上其他C,D等模块。每个模块实现不同的功能，但会调用同一个故障日志监控模块，比如A模块中有故障标志 flagA置1时会调用故障提示函数。B模块中故障标志flagB置1时调用故障提示的。正常代码如下所示： 123456moudle A:	if（1 == flagA)      	notify_user(&quot;A moudle">
+<meta property="og:description" content="字符转换函数的使用场景我们在程序界面输入数据时，基本上都是用字符来保存的，所有操作系统之间的信息保存和传递也是基于字符（char）单位来进行，单位再大了就有字节序问题，不能兼容所有的操作系统了。为效率考虑，现在的信息全以字符为单位。计算一段数据的大小，比如一个变量Int的大小，用sizeof操作符返回的结果就是字节数，也就是char的个数。sizeof(int)  == 4 ，在程序应用中，比如在">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-01T10:52:07.968Z">
+<meta property="og:updated_time" content="2018-05-03T14:15:48.395Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="实现一个常用的监控框架">
-<meta name="twitter:description" content="Linux下用C语言实现监控框架假设一个工程代码分为A,B 两个模块，未来可能加上其他C,D等模块。每个模块实现不同的功能，但会调用同一个故障日志监控模块，比如A模块中有故障标志 flagA置1时会调用故障提示函数。B模块中故障标志flagB置1时调用故障提示的。正常代码如下所示： 123456moudle A:	if（1 == flagA)      	notify_user(&quot;A moudle">
+<meta name="twitter:title" content="字符处理函数的使用">
+<meta name="twitter:description" content="字符转换函数的使用场景我们在程序界面输入数据时，基本上都是用字符来保存的，所有操作系统之间的信息保存和传递也是基于字符（char）单位来进行，单位再大了就有字节序问题，不能兼容所有的操作系统了。为效率考虑，现在的信息全以字符为单位。计算一段数据的大小，比如一个变量Int的大小，用sizeof操作符返回的结果就是字节数，也就是char的个数。sizeof(int)  == 4 ，在程序应用中，比如在">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/04/29/monitor-frame/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/05/03/character-api/"/>
 
 
 
 
 
-  <title>实现一个常用的监控框架 | wangfan 的小屋</title>
+  <title>字符处理函数的使用 | wangfan 的小屋</title>
   
 
 
@@ -273,7 +273,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/29/monitor-frame/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/03/character-api/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="wangfanstar@163.com">
@@ -290,7 +290,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">实现一个常用的监控框架</h1>
+          <h1 class="post-title" itemprop="name headline">字符处理函数的使用</h1>
         
 
         <div class="post-meta">
@@ -302,8 +302,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-29T12:36:32+08:00">
-                2018-04-29
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-03T21:11:13+08:00">
+                2018-05-03
               </time>
             
 
@@ -362,11 +362,22 @@
       
 
       
-        <h2 id="Linux下用C语言实现监控框架"><a href="#Linux下用C语言实现监控框架" class="headerlink" title="Linux下用C语言实现监控框架"></a>Linux下用C语言实现监控框架</h2><p>假设一个工程代码分为A,B 两个模块，未来可能加上其他C,D等模块。每个模块实现不同的功能，但会调用同一个故障日志监控模块，比如A模块中有故障标志 flagA置1时会调用故障提示函数。B模块中故障标志flagB置1时调用故障提示的。正常代码如下所示：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">moudle A:</span><br><span class="line">	<span class="keyword">if</span>（<span class="number">1</span> == flagA)</span><br><span class="line">      	notify_user(<span class="string">"A moudle state is wrong, do step A "</span>)</span><br><span class="line">moudle B:</span><br><span class="line">	<span class="keyword">if</span> (<span class="number">1</span> == flagB)</span><br><span class="line">      	notify_user(<span class="string">"B moudle state is wrong, do step B"</span>)</span><br></pre></td></tr></table></figure>
-<p>按照这种代码架构，我们需要提供一个notify_user的接口，每次出故障时都调用一个这个接口。这种架构实现简单，容易理解，但这种接口有以下几个问题：<br>1、notify_user的接口固定死了，每个模块都需要调用这个接口，如果修改一下显示日志的格式，增加一个notify_user的参数，就要每个模块查找修改，工作量非常大，每个模块都耦合比较深。<br>2、增加一个模块时，每次都得加用这个判断语句，重复度高，不简洁。<br>根据以上缺点，我们希望构建一个模块达到以下效果：<br>1、把监控模块的notify_user的检测和输出都放到moudle monitor里面实现，其他模块需要检测时只要加一行代码，比如 register_monitor(flagA), 添加后监控模块就会自动对模块A的变量flagA进行监控，当标记置1时，输出故障信息<br>2、监控模块里面实现监控相关的内容，如果有格式修改，只在监控模块修改，不需要再找其他模块的负责人修改其他模块。实现松耦合，目的是当程序代码比较大时，修改只限制在各人负责的模块上，不会影响到其他模块的人，提高工作效率。</p>
-<h2 id="监控框架的设计目标"><a href="#监控框架的设计目标" class="headerlink" title="监控框架的设计目标"></a>监控框架的设计目标</h2><p>在很多地方，我们需要对一些设备状态进行监控，比如流量达到多少时我们需要发送警告，硬件发生故障时记录日志等等，在用代码实现这些设计时，有很多设计流程是可以复用的，把这些公共的流程抽象出来，不关注 具体要监控的对象，用代码实现，后续再新增和删除监控对象时，尽可能少地对代码进行修改，而后续维护的人也可以直接参考之前的代码快速地实现监控功能的添加，删除。这就是框架的意义，如下所述：库函数是代码的复用，框架是设计的复用。</p>
-<p>在实现不同业务功能的过程中，前人设计出了多种模式，简称设计模式，设计模式并没有新发明东西，是对代码编程技巧的一种总结，方便大家用于沟通描述而已。其中常用的有观察者模式，这种模式我们会在实现这个框架的过程中详细描述是哪些编程技巧是归结于这种模式，如何在不同的业务场景中使用这些模式，以及采用这种模式有什么好处。</p>
+        <h2 id="字符转换函数的使用场景"><a href="#字符转换函数的使用场景" class="headerlink" title="字符转换函数的使用场景"></a>字符转换函数的使用场景</h2><p>我们在程序界面输入数据时，基本上都是用字符来保存的，所有操作系统之间的信息保存和传递也是基于字符（char）单位来进行，单位再大了就有字节序问题，不能兼容所有的操作系统了。为效率考虑，现在的信息全以字符为单位。计算一段数据的大小，比如一个变量Int的大小，用sizeof操作符返回的结果就是字节数，也就是char的个数。sizeof(int)  == 4 ，在程序应用中，比如在计数器中我们输入一串数字和符号  123 + 456 ，内部如何计算出结果呢，123在输入时是对应3个字符char，在计算的时时候我们则必须将其转换成整型变量数据再进行加法运算。C函数提供的一个函数库API是atoi, ascii to integer 的一个函数 stdlib.h，其原型是int atoi(const char * ptr)，函数开始扫描ptr字符串，跳过空白字符(isspace检测)，从数字或正负号开始，到\0或非数字结束，返回一个整数，当无法转换成整理或ptr是空字符串时返回0</p>
+<p>同样的，也会有itoa函数，将整数转换成字符串，但奇怪的是这个函数却不是标准的C函数，在Linux下基本没有这个函数，通常windows下的非标准编译器才支持这种函数，我考虑了多方面因素，可能是以下原因，转换出的字符串一般都是一串不确定长度的空间，而这个内存空间只能通过指针的方式返回使用者，这样使用者调用后还需要手动释放这个空间，很容易造成内存泄露。linux下将数字转换成字符有以下几种方式</p>
+<h2 id="int-sprintf-char-buffer-char-fmt-…"><a href="#int-sprintf-char-buffer-char-fmt-…" class="headerlink" title="int sprintf( char buffer,  char  fmt , …);"></a>int sprintf( char <em>buffer,  char </em> fmt , …);</h2><p>sprintf最常见的应用之一莫过于把整数打印到字符串中，所以，spritnf 在大多数场合可以替代itoa。如：</p>
+<ol>
+<li><p>将整数转成字符串</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sprintf</span>``(s, ``<span class="string">"%d"</span>``, <span class="number">123</span>); ``<span class="comment">// 产生"123"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>连接字符串</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> *who = <span class="string">"I"</span>;</span><br><span class="line"><span class="keyword">char</span> *whom = <span class="string">"52PHP"</span>; </span><br><span class="line"><span class="built_in">sprintf</span>(s, <span class="string">"%s love %s."</span>, who, whom); <span class="comment">// 产生："I love 52PHP. "</span></span><br></pre></td></tr></table></figure>
+<p><em>spintf 常见问题</em></p>
+<p>1、返回值返回的是实际写入buffer的字符长度，可以不用再用strlen计算字符长度了</p>
+<p>2、如果 s 的区域不足，写入的数据超过s长度，可能会导致内存访问错误引起崩溃，</p>
+</li>
+</ol>
+<h2 id="int-snprintf-char-buf-size-t-n-char-fmt-…"><a href="#int-snprintf-char-buf-size-t-n-char-fmt-…" class="headerlink" title="int snprintf(char buf, size_t n, char fmt, …)"></a>int snprintf(char <em>buf, size_t n, char </em>fmt, …)</h2><p>为了防止引起内存访问错误，采用snprintf函数，此函数最多从源字符串中取n-1个字符，最后一个字节补\0，写入buf，推荐用法是将第2个参数n写成sizeof(buf)，与sprintf不同的时返回值 int 是源字符串的字符数，而非实际写入buf的字符串数目。在Linux内核中不推荐用snprintf，就是因为返回的值可能大于实际写入的buf中的字符数目，可能导致计算时越界，linux内存中推荐采用返回值为实际写入buf中的字符数字函数scnprintf，用法和snprintf一样，但返回值是实际写入buf的字符数，这样就避免了返回值比实际写入buf数值还大的现象。</p>
+<h2 id="int-scnprintf-char-buf-size-t-n-char-fmt-…"><a href="#int-scnprintf-char-buf-size-t-n-char-fmt-…" class="headerlink" title="int scnprintf(char buf, size_t n, char fmt, …)"></a>int scnprintf(char <em>buf, size_t n, char </em>fmt, …)</h2><p>参考文章：<a href="https://www.kernel.org/doc/htmldocs/kernel-api/API-scnprintf.html" target="_blank" rel="noopener">https://www.kernel.org/doc/htmldocs/kernel-api/API-scnprintf.html</a></p>
 
       
     </div>
@@ -382,6 +393,16 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+            <a href="/tags/c/" rel="tag"># c</a>
+          
+            <a href="/tags/api/" rel="tag"># api</a>
+          
+        </div>
+      
 
       
       
@@ -391,15 +412,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/05/02/ld-preload/" rel="next" title="linux下不重编译替换同名函数--LD_PRELOAD">
+                <i class="fa fa-chevron-left"></i> linux下不重编译替换同名函数--LD_PRELOAD
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/04/30/my-blog-setting/" rel="prev" title="Hexo的github配置">
-                Hexo的github配置 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -531,7 +552,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux下用C语言实现监控框架"><span class="nav-number">1.</span> <span class="nav-text">Linux下用C语言实现监控框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#监控框架的设计目标"><span class="nav-number">2.</span> <span class="nav-text">监控框架的设计目标</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#字符转换函数的使用场景"><span class="nav-number">1.</span> <span class="nav-text">字符转换函数的使用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#int-sprintf-char-buffer-char-fmt-…"><span class="nav-number">2.</span> <span class="nav-text">int sprintf( char buffer,  char  fmt , …);</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#int-snprintf-char-buf-size-t-n-char-fmt-…"><span class="nav-number">3.</span> <span class="nav-text">int snprintf(char buf, size_t n, char fmt, …)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#int-scnprintf-char-buf-size-t-n-char-fmt-…"><span class="nav-number">4.</span> <span class="nav-text">int scnprintf(char buf, size_t n, char fmt, …)</span></a></li></ol></div>
             
 
           </div>
