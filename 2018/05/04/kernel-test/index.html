@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="kernel," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="记录个人的技术及思考心得">
-<meta name="keywords" content="linux code">
+<meta name="description" content="##　 linux调试 通常我们在用户态下进行程序的编写，用一个main函数，gcc进行编译后直接在bash下执行编译生成的二进制文件即可看到程序运行结果。但内核态函数不是从main函数开始的，也无法直接在用户态运行，这时候我们一般采用module的方式来进行内核态函数的调试。 module 的使用方法以调试内核态函数printk为例。为调试pirntk函数的功能">
+<meta name="keywords" content="kernel">
 <meta property="og:type" content="article">
-<meta property="og:title" content="kernel-test">
+<meta property="og:title" content="linux 内核态函数的调试方法">
 <meta property="og:url" content="http://yoursite.com/2018/05/04/kernel-test/index.html">
 <meta property="og:site_name" content="wangfan 的小屋">
-<meta property="og:description" content="记录个人的技术及思考心得">
+<meta property="og:description" content="##　 linux调试 通常我们在用户态下进行程序的编写，用一个main函数，gcc进行编译后直接在bash下执行编译生成的二进制文件即可看到程序运行结果。但内核态函数不是从main函数开始的，也无法直接在用户态运行，这时候我们一般采用module的方式来进行内核态函数的调试。 module 的使用方法以调试内核态函数printk为例。为调试pirntk函数的功能">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-04T13:06:17.667Z">
+<meta property="og:updated_time" content="2018-05-04T14:40:27.213Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="kernel-test">
-<meta name="twitter:description" content="记录个人的技术及思考心得">
+<meta name="twitter:title" content="linux 内核态函数的调试方法">
+<meta name="twitter:description" content="##　 linux调试 通常我们在用户态下进行程序的编写，用一个main函数，gcc进行编译后直接在bash下执行编译生成的二进制文件即可看到程序运行结果。但内核态函数不是从main函数开始的，也无法直接在用户态运行，这时候我们一般采用module的方式来进行内核态函数的调试。 module 的使用方法以调试内核态函数printk为例。为调试pirntk函数的功能">
 
 
 
@@ -126,7 +126,7 @@
 
 
 
-  <title>kernel-test | wangfan 的小屋</title>
+  <title>linux 内核态函数的调试方法 | wangfan 的小屋</title>
   
 
 
@@ -290,7 +290,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">kernel-test</h1>
+          <h1 class="post-title" itemprop="name headline">linux 内核态函数的调试方法</h1>
         
 
         <div class="post-meta">
@@ -362,7 +362,10 @@
       
 
       
-        
+        <p>##　 linux调试</p>
+<p>通常我们在用户态下进行程序的编写，用一个main函数，gcc进行编译后直接在bash下执行编译生成的二进制文件即可看到程序运行结果。但内核态函数不是从main函数开始的，也无法直接在用户态运行，这时候我们一般采用module的方式来进行内核态函数的调试。</p>
+<h2 id="module-的使用方法"><a href="#module-的使用方法" class="headerlink" title="module 的使用方法"></a>module 的使用方法</h2><p>以调试内核态函数printk为例。为调试pirntk函数的功能</p>
+
       
     </div>
     
@@ -376,6 +379,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/kernel/" rel="tag"># kernel</a>
+          
+        </div>
       
 
       
@@ -446,8 +455,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -484,7 +502,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -507,6 +525,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#module-的使用方法"><span class="nav-number">1.</span> <span class="nav-text">module 的使用方法</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
