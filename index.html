@@ -273,6 +273,158 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/06/X-Macro-technique/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wangfanstar@163.com">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wangfan 的小屋">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/06/X-Macro-technique/" itemprop="url">C语言中利用X Macro编程技巧简化代码架构</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-06T08:49:59+08:00">
+                2018-05-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程/" itemprop="url" rel="index">
+                    <span itemprop="name">编程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="X-Macro-编程技巧"><a href="#X-Macro-编程技巧" class="headerlink" title="X Macro 编程技巧"></a>X Macro 编程技巧</h2><p>本篇文章参考自知乎 <a href="https://www.zhihu.com/question/57089104" target="_blank" rel="noopener">你所见过的最美的C语言代码</a>，根据自己的项目经验举出应用场景。</p>
+<p>这种技巧实际利用的是编译器的功能，通过编译不同的代码来维护功能函数与功能索引的对应关系。采用此方法最有用的地方是之后再进行增，删，改索引和功能函数时，只要在对应的头文件列表一处更改即可，无需搜索多处的引用逐个修改。还是举一个我工程中常用代码设计为例，因为设备不断升级，实现同样功能的模块芯片可能来自不同的厂家，或厂家不同的版本，每个版本的功能函数接口是一样的，内部实现都不一样。比如一个芯片实现的查表功能函数A，对应的接口返回值为int，参数一个是输入表项，另一个是输出结果。三种芯片内部实现各不相同，对外提供统一的接口函数类型</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* funA 提供函数 */</span></span><br><span class="line">chipA :  <span class="function"><span class="keyword">int</span> <span class="title">funAchipA</span><span class="params">(<span class="keyword">int</span> * input, <span class="keyword">int</span> * output)</span></span>;</span><br><span class="line">chipB :  <span class="function"><span class="keyword">int</span> <span class="title">funAchipB</span><span class="params">(<span class="keyword">int</span> * input, <span class="keyword">int</span> * output)</span></span>;</span><br><span class="line">chipC :  <span class="function"><span class="keyword">int</span> <span class="title">funAchipC</span><span class="params">(<span class="keyword">int</span> * input, <span class="keyword">int</span> * output)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 芯片类型 */</span></span><br><span class="line"><span class="keyword">enum</span> CHIPTYPE&#123;</span><br><span class="line">    CHIPA,</span><br><span class="line">    CHIPB,</span><br><span class="line">    CHIPC,</span><br><span class="line">    CHIP_BUTT</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 选择跳转表 */</span></span><br><span class="line"><span class="keyword">typedef</span> (* <span class="keyword">int</span>)pf_funA(<span class="keyword">int</span> * input, <span class="keyword">int</span> * output);</span><br><span class="line">pf_funA jumptable[CHIP_BUTT] = &#123;</span><br><span class="line">    funAchipA,</span><br><span class="line">    funAchipB,</span><br><span class="line">    funAchipC,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 使用方法 */</span></span><br><span class="line">pf_funA pFunA;</span><br><span class="line"><span class="keyword">enum</span> CHIPTYPE type;</span><br><span class="line">type = getfromuser(); <span class="comment">// 从上层获取芯片类型</span></span><br><span class="line">pFunA = jumptable[type];</span><br><span class="line"></span><br><span class="line"><span class="comment">/*  pFunA 作为通用的功能函数接口提供给上层实现查表功能，从而屏蔽不同芯片的差异，上层不感知芯片变化 */</span></span><br></pre></td></tr></table></figure>
+<p>《代码大全》中推荐工程师第一篇最重要的要读的文章表驱动法即是以上代码。里面用了一个技巧是通过下标和向量的关联关系代替了if,switch的引用，否则正常的代码如下，一但芯片增加到几十种，就会非常冗长。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 正常使用调用函数的代码 */</span></span><br><span class="line"><span class="keyword">enum</span> CHIPTYPE type;</span><br><span class="line">type = getfromuser(); <span class="comment">// 从上层获取芯片类型</span></span><br><span class="line"><span class="keyword">if</span> (type == CHIPA)</span><br><span class="line">&#123;</span><br><span class="line">    pFunA = funAchipA;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span>(type == CHIPB)</span><br><span class="line">&#123;</span><br><span class="line">    pFunA = funAchipB;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span>(type == CHIPC)</span><br><span class="line">&#123;</span><br><span class="line">    pFunA = funAchipC;</span><br><span class="line">&#125;</span><br><span class="line">...</span><br><span class="line">    </span><br><span class="line"><span class="comment">/* 使用pFunA 来实现功能函数A */</span></span><br></pre></td></tr></table></figure>
+<p>使用<code>pf_funA jumptable[CHIP_BUTT]</code>规避掉if，switch的判断代码后，还是会有一些问题，因为<em>jumptable</em>下标和内容的联系是我们人工写代码时维护的，但这两个值却在两个地方维护，一个在结构体<code>enum CHIPTYPE</code>，一个在<code>pf_funA jumptable[CHIP_BUTT]</code>，我们在写代码时，必须严格地保证CHIPTYPE的芯片类型的顺序与jumptable的对应下标的顺序一致，才能保证不出错，这两个结构体在文件中相距较远时，成员数量较多时，在增加删除和修改很可能漏删，少加，或顺序不匹配错误，如下所示，增加一个类型为CHIPCC的芯片，但在修改时，如果两个结构体不在同一处，可能会出现以下情况，导致CHIPC和CHIPCC的功能失配。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 芯片类型 */</span></span><br><span class="line"><span class="keyword">enum</span> CHIPTYPE&#123;</span><br><span class="line">    CHIPA,</span><br><span class="line">    CHIPB,</span><br><span class="line">    CHIPCC,  </span><br><span class="line">    CHIPC, </span><br><span class="line">    CHIP_BUTT</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 选择跳转表 */</span></span><br><span class="line"><span class="keyword">typedef</span> (* <span class="keyword">int</span>)pf_funA(<span class="keyword">int</span> * input, <span class="keyword">int</span> * output);</span><br><span class="line">pf_funA jumptable[CHIP_BUTT] = &#123;</span><br><span class="line">    funAchipA,</span><br><span class="line">    funAchipB,</span><br><span class="line">    funAchipC,</span><br><span class="line">    funAchipCC,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>针对以上情形，究其原因，是因为进行修改时我们要改2处地方，而且修改时有顺序的要求，维护代码时就必须花费更多的精力来进行比对和修改。有没有架构能实现每次修改我只改一处地方，而且不用关心我修改代码的顺序要求呢？X Macro模式就实现了这种功能，使用这种结构后，每次修改只需改一次地方，而且不用关心修改的地方顺序，可以插入任一位置。实现架构如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 定义芯片类型和功能函数，修改时只改此表即可 */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CHIP_TABLE\</span></span><br><span class="line">	ENTRY(CHIPA, funAchipA)\</span><br><span class="line">	ENTRY(CHIPB, funAchipB)\</span><br><span class="line">	ENTRY(CHIPC, funAchipC)\</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 芯片类型 */</span></span><br><span class="line"><span class="keyword">enum</span> CHIPTYPE&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ENTRY(a,b) a,</span></span><br><span class="line">    CHIP_TABLE</span><br><span class="line"><span class="meta">#<span class="meta-keyword">undef</span> ENTRY</span></span><br><span class="line">    CHIP_BUTT</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 选择跳转表 */</span></span><br><span class="line">pf_funA jumptable[CHIP_BUTT] = &#123;</span><br><span class="line">#define ENTRY(a,b) b,</span><br><span class="line">    CHIP_TABLE</span><br><span class="line">#undef ENTRY</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 头文件声明 */</span></span><br><span class="line">#define ENTRY(a,b) <span class="keyword">static</span> <span class="keyword">int</span> b(<span class="keyword">int</span> * input, <span class="keyword">int</span> * output);</span><br><span class="line">    CHIP_TABLE</span><br><span class="line"><span class="meta">#<span class="meta-keyword">undef</span> ENTRY</span></span><br></pre></td></tr></table></figure>
+<p>采用以上结构后，我们发现，如果要增加新的芯片类型CHIPCC，我们只需在头文件中的CHIP_TABLE中加入一行即可，而且没有顺序要求。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 定义芯片类型和功能函数，修改时只改此表即可 */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CHIP_TABLE\</span></span><br><span class="line">	ENTRY(CHIPA, funAchipA)\</span><br><span class="line">	ENTRY(CHIPB, funAchipB)\</span><br><span class="line">	ENTRY(CHIPCC, funAchipCC)\</span><br><span class="line">	ENTRY(CHIPC, funAchipC)\</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/05/tcl-language/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1474,7 +1626,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1496,7 +1648,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
