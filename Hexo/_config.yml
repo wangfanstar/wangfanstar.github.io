@@ -81,3 +81,12 @@ deploy:
   type: git
   repo: git@github.com:wangfanstar/wangfanstar.github.io.git
   branch: master
+
+#flowchart 配置
+flowchart:
+  # raphael:   # optional, the source url of raphael.js
+  # flowchart: # optional, the source url of flowchart.js
+  options: # options used for `drawSVG`
+  raphael: "https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"
+  flowchart: "https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"
+
