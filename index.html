@@ -436,8 +436,18 @@
 </blockquote>
 <p><img src="http://www.json.org/number.gif" alt="img"></p>
 <p>空白可以加入到任何符号之间。 以下描述了完整的语言。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">st=&gt;start: -</span><br><span class="line">e=&gt;end: -</span><br><span class="line">op=&gt;condition: My Operation</span><br><span class="line">op2=&gt;condition: My Operation2</span><br><span class="line">op3=&gt;condition: My Operation3</span><br><span class="line"></span><br><span class="line">st(right)-&gt;op(yes)-&gt;op2(yes,right)-&gt;op3(yes,right)-&gt;e</span><br></pre></td></tr></table></figure>
+<div id="flowchart-0" class="flow-chart"></div>
+
+
+
 <h2 id="cJSON简介"><a href="#cJSON简介" class="headerlink" title="cJSON简介"></a>cJSON简介</h2><p>cJSON其实就是对Json格式的字符串进行构建和解析的一个C语言函数库。总共包括2个部分：</p>
+<p><script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script><textarea id="flowchart-0-code" style="display: none">st=>start: -
+e=>end: -
+op=>condition: My Operation
+op2=>condition: My Operation2
+op3=>condition: My Operation3
+
+st(right)->op(yes)->op2(yes,right)->op3(yes,right)->e</textarea><textarea id="flowchart-0-options" style="display: none">{"theme":"simple","scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script></p>
 
           
         
