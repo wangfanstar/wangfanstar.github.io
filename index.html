@@ -380,6 +380,9 @@
 <p>周长：$f(x)= 2\pi r $</p>
 <p>面积是从0到r所有圆的周长之和：$$\int_0^r f(x)dx = F(x)|_0^r $$</p>
 <h2>内核态和用户态数据交互</h2>
+<p>由内核态发起的通信：proc, seq_file, debugfs</p>
+<p>由用户态发起的通信：syscall, ioctl</p>
+<p>双方互相通信：socket,netlink</p>
 
           
         
@@ -2397,46 +2400,7 @@ libc.so.6 =&gt; /lib/i386-linux-gnu/libc.so.6 (0xb7d38000)
         guest_info:guest,
         pageSize:'10' || 10,
     });
-  </script>
-
-
-
-  
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-  
-
-  
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
 </script>
@@ -2454,8 +2418,25 @@ libc.so.6 =&gt; /lib/i386-linux-gnu/libc.so.6 (0xb7d38000)
 </script>
 <!-- End: Injected MathJax -->
 <!-- hexo-inject:end -->
+
+
+
   
 
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
 
   
 

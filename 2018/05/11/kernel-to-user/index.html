@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="linux内核态与用户态的划分由来 周长：$f(x)= 2\pi r $ 面积是从0到r所有圆的周长之和：$$\int_0^r f(x)dx = F(x)|_0^r $$ 内核态和用户态数据交互">
+<meta name="description" content="linux内核态与用户态的划分由来 周长：$f(x)= 2\pi r $ 面积是从0到r所有圆的周长之和：$$\int_0^r f(x)dx = F(x)|_0^r $$ 内核态和用户态数据交互 由内核态发起的通信：proc, seq_file, debugfs 由用户态发起的通信：syscall, ioctl 双方互相通信：socket,netlink">
 <meta name="keywords" content="linux,通信">
 <meta property="og:type" content="article">
 <meta property="og:title" content="linux内核态和用户态9种通信方法之一--proc">
 <meta property="og:url" content="http://yoursite.com/2018/05/11/kernel-to-user/index.html">
 <meta property="og:site_name" content="wangfan 的小屋">
-<meta property="og:description" content="linux内核态与用户态的划分由来 周长：$f(x)= 2\pi r $ 面积是从0到r所有圆的周长之和：$$\int_0^r f(x)dx = F(x)|_0^r $$ 内核态和用户态数据交互">
+<meta property="og:description" content="linux内核态与用户态的划分由来 周长：$f(x)= 2\pi r $ 面积是从0到r所有圆的周长之和：$$\int_0^r f(x)dx = F(x)|_0^r $$ 内核态和用户态数据交互 由内核态发起的通信：proc, seq_file, debugfs 由用户态发起的通信：syscall, ioctl 双方互相通信：socket,netlink">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-11T14:50:42.624Z">
+<meta property="og:updated_time" content="2018-05-11T14:57:45.593Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux内核态和用户态9种通信方法之一--proc">
-<meta name="twitter:description" content="linux内核态与用户态的划分由来 周长：$f(x)= 2\pi r $ 面积是从0到r所有圆的周长之和：$$\int_0^r f(x)dx = F(x)|_0^r $$ 内核态和用户态数据交互">
+<meta name="twitter:description" content="linux内核态与用户态的划分由来 周长：$f(x)= 2\pi r $ 面积是从0到r所有圆的周长之和：$$\int_0^r f(x)dx = F(x)|_0^r $$ 内核态和用户态数据交互 由内核态发起的通信：proc, seq_file, debugfs 由用户态发起的通信：syscall, ioctl 双方互相通信：socket,netlink">
 
 
 
@@ -376,6 +376,9 @@
 <p>周长：$f(x)= 2\pi r $</p>
 <p>面积是从0到r所有圆的周长之和：$$\int_0^r f(x)dx = F(x)|_0^r $$</p>
 <h2>内核态和用户态数据交互</h2>
+<p>由内核态发起的通信：proc, seq_file, debugfs</p>
+<p>由用户态发起的通信：syscall, ioctl</p>
+<p>双方互相通信：socket,netlink</p>
 
       
     </div>
@@ -753,46 +756,7 @@
         guest_info:guest,
         pageSize:'10' || 10,
     });
-  </script>
-
-
-
-  
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-  
-
-  
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
 </script>
@@ -810,8 +774,25 @@
 </script>
 <!-- End: Injected MathJax -->
 <!-- hexo-inject:end -->
+
+
+
   
 
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
 
   
 
