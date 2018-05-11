@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="linux内核态与用户态的划分由来 周长：$f(x)= 2\pi r $ 面积是从0到r所有圆的周长之和：$$\int_0^r f(x)dx = F(x)|_0^r $$ 内核态和用户态数据交互 由内核态发起的通信：proc, seq_file, debugfs 由用户态发起的通信：syscall, ioctl 双方互相通信：socket,netlink">
+<meta name="description" content="linux内核态与用户态的划分由来 操作系统本来是没有划分内核态和用户态的，结果是用户程序可以访问所有的计算机资源，一些写得不好的程序很容易就把计算机弄崩溃，一些病毒也很容易对计算机做破坏。为了防止用户滥用资源。划分了不同的权限，内核态是操作系统内核用的，可以访问所有的资源。用户态的权限比内核态少很多，这种限制也让用户态的程序危害不会危及到系统，用户态程序崩溃不会导致系统崩溃。 内核态和用户态数据">
 <meta name="keywords" content="linux,通信">
 <meta property="og:type" content="article">
 <meta property="og:title" content="linux内核态和用户态9种通信方法之一--proc">
 <meta property="og:url" content="http://yoursite.com/2018/05/11/kernel-to-user/index.html">
 <meta property="og:site_name" content="wangfan 的小屋">
-<meta property="og:description" content="linux内核态与用户态的划分由来 周长：$f(x)= 2\pi r $ 面积是从0到r所有圆的周长之和：$$\int_0^r f(x)dx = F(x)|_0^r $$ 内核态和用户态数据交互 由内核态发起的通信：proc, seq_file, debugfs 由用户态发起的通信：syscall, ioctl 双方互相通信：socket,netlink">
+<meta property="og:description" content="linux内核态与用户态的划分由来 操作系统本来是没有划分内核态和用户态的，结果是用户程序可以访问所有的计算机资源，一些写得不好的程序很容易就把计算机弄崩溃，一些病毒也很容易对计算机做破坏。为了防止用户滥用资源。划分了不同的权限，内核态是操作系统内核用的，可以访问所有的资源。用户态的权限比内核态少很多，这种限制也让用户态的程序危害不会危及到系统，用户态程序崩溃不会导致系统崩溃。 内核态和用户态数据">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-11T14:57:45.593Z">
+<meta property="og:updated_time" content="2018-05-11T15:10:28.347Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux内核态和用户态9种通信方法之一--proc">
-<meta name="twitter:description" content="linux内核态与用户态的划分由来 周长：$f(x)= 2\pi r $ 面积是从0到r所有圆的周长之和：$$\int_0^r f(x)dx = F(x)|_0^r $$ 内核态和用户态数据交互 由内核态发起的通信：proc, seq_file, debugfs 由用户态发起的通信：syscall, ioctl 双方互相通信：socket,netlink">
+<meta name="twitter:description" content="linux内核态与用户态的划分由来 操作系统本来是没有划分内核态和用户态的，结果是用户程序可以访问所有的计算机资源，一些写得不好的程序很容易就把计算机弄崩溃，一些病毒也很容易对计算机做破坏。为了防止用户滥用资源。划分了不同的权限，内核态是操作系统内核用的，可以访问所有的资源。用户态的权限比内核态少很多，这种限制也让用户态的程序危害不会危及到系统，用户态程序崩溃不会导致系统崩溃。 内核态和用户态数据">
 
 
 
@@ -373,8 +373,7 @@
 
       
         <h2>linux内核态与用户态的划分由来</h2>
-<p>周长：$f(x)= 2\pi r $</p>
-<p>面积是从0到r所有圆的周长之和：$$\int_0^r f(x)dx = F(x)|_0^r $$</p>
+<p>操作系统本来是没有划分内核态和用户态的，结果是用户程序可以访问所有的计算机资源，一些写得不好的程序很容易就把计算机弄崩溃，一些病毒也很容易对计算机做破坏。为了防止用户滥用资源。划分了不同的权限，内核态是操作系统内核用的，可以访问所有的资源。用户态的权限比内核态少很多，这种限制也让用户态的程序危害不会危及到系统，用户态程序崩溃不会导致系统崩溃。</p>
 <h2>内核态和用户态数据交互</h2>
 <p>由内核态发起的通信：proc, seq_file, debugfs</p>
 <p>由用户态发起的通信：syscall, ioctl</p>
