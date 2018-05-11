@@ -7,7 +7,7 @@
 
 <html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 <meta name="theme-color" content="#222">
@@ -79,13 +79,13 @@
 
 
 
-<meta name="description" content="lepd项目lepd项目是宋宝华之前推荐的一个开源项目，可用于监控linux系统的性能指标，在浏览器中可视化呈现。项目地址 lepd 项目 github地址 ，文章将从各个方面详细介绍涉及的技术知识点，以方便参考使用。 lepd使用的信息传递格式是json，便于在浏览器中使用。 json简介 介绍json格式和用法 http://www.json.org/ http://www.json.org/">
+<meta name="description" content="lepd项目 lepd项目是宋宝华之前推荐的一个开源项目，可用于监控linux系统的性能指标，在浏览器中可视化呈现。项目地址 lepd 项目 github地址 ，文章将从各个方面详细介绍涉及的技术知识点，以方便参考使用。 lepd使用的信息传递格式是json，便于在浏览器中使用。 json简介 介绍json格式和用法 http://www.json.org/ http://www.json.org">
 <meta name="keywords" content="c,json">
 <meta property="og:type" content="article">
 <meta property="og:title" content="lepd项目解析之一 -- cjson框架">
 <meta property="og:url" content="http://yoursite.com/2018/05/08/lepd-cjson/index.html">
 <meta property="og:site_name" content="wangfan 的小屋">
-<meta property="og:description" content="lepd项目lepd项目是宋宝华之前推荐的一个开源项目，可用于监控linux系统的性能指标，在浏览器中可视化呈现。项目地址 lepd 项目 github地址 ，文章将从各个方面详细介绍涉及的技术知识点，以方便参考使用。 lepd使用的信息传递格式是json，便于在浏览器中使用。 json简介 介绍json格式和用法 http://www.json.org/ http://www.json.org/">
+<meta property="og:description" content="lepd项目 lepd项目是宋宝华之前推荐的一个开源项目，可用于监控linux系统的性能指标，在浏览器中可视化呈现。项目地址 lepd 项目 github地址 ，文章将从各个方面详细介绍涉及的技术知识点，以方便参考使用。 lepd使用的信息传递格式是json，便于在浏览器中使用。 json简介 介绍json格式和用法 http://www.json.org/ http://www.json.org">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://www.json.org/object.gif">
 <meta property="og:image" content="http://www.json.org/array.gif">
@@ -95,7 +95,7 @@
 <meta property="og:updated_time" content="2018-05-10T13:57:29.493Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="lepd项目解析之一 -- cjson框架">
-<meta name="twitter:description" content="lepd项目lepd项目是宋宝华之前推荐的一个开源项目，可用于监控linux系统的性能指标，在浏览器中可视化呈现。项目地址 lepd 项目 github地址 ，文章将从各个方面详细介绍涉及的技术知识点，以方便参考使用。 lepd使用的信息传递格式是json，便于在浏览器中使用。 json简介 介绍json格式和用法 http://www.json.org/ http://www.json.org/">
+<meta name="twitter:description" content="lepd项目 lepd项目是宋宝华之前推荐的一个开源项目，可用于监控linux系统的性能指标，在浏览器中可视化呈现。项目地址 lepd 项目 github地址 ，文章将从各个方面详细介绍涉及的技术知识点，以方便参考使用。 lepd使用的信息传递格式是json，便于在浏览器中使用。 json简介 介绍json格式和用法 http://www.json.org/ http://www.json.org">
 <meta name="twitter:image" content="http://www.json.org/object.gif">
 
 
@@ -147,7 +147,7 @@
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
-  </script>
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
@@ -161,7 +161,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -378,67 +378,106 @@
       
 
       
-        <h2 id="lepd项目"><a href="#lepd项目" class="headerlink" title="lepd项目"></a>lepd项目</h2><p>lepd项目是宋宝华之前推荐的一个开源项目，可用于监控linux系统的性能指标，在浏览器中可视化呈现。项目地址 <a href="https://github.com/21cnbao/lepd" target="_blank" rel="noopener">lepd 项目 github地址</a> ，文章将从各个方面详细介绍涉及的技术知识点，以方便参考使用。</p>
+        <h2>lepd项目</h2>
+<p>lepd项目是宋宝华之前推荐的一个开源项目，可用于监控linux系统的性能指标，在浏览器中可视化呈现。项目地址 <a href="https://github.com/21cnbao/lepd" target="_blank" rel="noopener">lepd 项目 github地址</a> ，文章将从各个方面详细介绍涉及的技术知识点，以方便参考使用。</p>
 <p>lepd使用的信息传递格式是json，便于在浏览器中使用。</p>
-<h2 id="json简介"><a href="#json简介" class="headerlink" title="json简介"></a>json简介</h2><p> 介绍json格式和用法</p>
-<p><a href="http://www.json.org/" target="_blank" rel="noopener">http://www.json.org/</a></p>
-<p><a href="http://www.json.org/json-zh.html" target="_blank" rel="noopener">http://www.json.org/json-zh.html</a></p>
+<h2>json简介</h2>
+<p>介绍json格式和用法</p>
+<p>http://www.json.org/</p>
+<p>http://www.json.org/json-zh.html</p>
 <blockquote>
 <p>json基于两种数据结构：1、key/value对， 2、list有序列表（数组）</p>
 </blockquote>
 <p>JSON具有以下这些形式：</p>
-<h3 id="json对象-object"><a href="#json对象-object" class="headerlink" title="json对象: object"></a>json对象: object</h3><p>对象是一个无序的“‘名称/值’对”集合。一个对象以“{”（左括号）开始，“}”（右括号）结束。每个“名称”后跟一个“:”（冒号）；“‘名称/值’ 对”之间使用“,”（逗号）分隔。</p>
+<h3>json对象: object</h3>
+<p>对象是一个无序的“‘名称/值’对”集合。一个对象以“{”（左括号）开始，“}”（右括号）结束。每个“名称”后跟一个“:”（冒号）；“‘名称/值’ 对”之间使用“,”（逗号）分隔。</p>
 <blockquote>
 <p><em>object</em></p>
 <p><code>{}</code></p>
 <p><code>{</code> <em>members</em> <code>}</code></p>
 </blockquote>
 <p><img src="http://www.json.org/object.gif" alt="img"></p>
-<h3 id="json数组-array"><a href="#json数组-array" class="headerlink" title="json数组: array"></a>json数组: array</h3><p>数组是值（value）的有序集合。一个数组以“[”（左中括号）开始，“]”（右中括号）结束。值之间使用“,”（逗号）分隔。</p>
+<h3>json数组: array</h3>
+<p>数组是值（value）的有序集合。一个数组以“[”（左中括号）开始，“]”（右中括号）结束。值之间使用“,”（逗号）分隔。</p>
 <blockquote>
 <p><em>array</em></p>
-<p><code>[]</code> </p>
-<p><code>[</code> <em>elements</em> <code>]</code>  </p>
+<p><code>[]</code></p>
+<p><code>[</code> <em>elements</em> <code>]</code></p>
 <p><em>elements</em></p>
-<p><em>value</em><br><em>value</em> <code>,</code> <em>elements</em></p>
+<p><em>value</em>
+<em>value</em> <code>,</code> <em>elements</em></p>
 </blockquote>
 <p><img src="http://www.json.org/array.gif" alt="img"></p>
-<h3 id="json值-value"><a href="#json值-value" class="headerlink" title="json值: value"></a>json值: value</h3><p>值（<em>value</em>）可以是双引号括起来的字符串（<em>string</em>）、数值(number)、<code>true</code>、<code>false</code>、 <code>null</code>、对象（object）或者数组（array）。这些结构可以嵌套。</p>
+<h3>json值: value</h3>
+<p>值（<em>value</em>）可以是双引号括起来的字符串（<em>string</em>）、数值(number)、<code>true</code>、<code>false</code>、 <code>null</code>、对象（object）或者数组（array）。这些结构可以嵌套。</p>
 <blockquote>
 <p><em>value</em></p>
-<p><em>string</em><br><em>number</em><br><em>object</em><br><em>array</em><br><code>true</code><br><code>false</code><br><code>null</code></p>
+<p><em>string</em>
+<em>number</em>
+<em>object</em>
+<em>array</em>
+<code>true</code>
+<code>false</code>
+<code>null</code></p>
 </blockquote>
 <p><img src="http://www.json.org/value.gif" alt="img"></p>
-<h3 id="json字符串：string"><a href="#json字符串：string" class="headerlink" title="json字符串：string"></a>json字符串：string</h3><p>字符串（<em>string</em>）是由双引号包围的任意数量Unicode字符的集合，使用反斜线转义。一个字符（character）即一个单独的字符串（character string）。</p>
+<h3>json字符串：string</h3>
+<p>字符串（<em>string</em>）是由双引号包围的任意数量Unicode字符的集合，使用反斜线转义。一个字符（character）即一个单独的字符串（character string）。</p>
 <p>字符串（<em>string</em>）与C或者Java的字符串非常相似。</p>
 <blockquote>
 <p><em>string</em></p>
 <p><code>&quot;&quot;</code></p>
 <p><code>&quot;</code> <em>chars</em> <code>&quot;</code></p>
 <p><em>chars</em></p>
-<p><em>char</em><br><em>char chars</em></p>
+<p><em>char</em>
+<em>char chars</em></p>
 <p><em>char</em></p>
-<p><em>any-Unicode-character-</em><br>    <em>except-**</em>“<strong><em>-or-</em></strong>**<em>-or-</em><br>    <em>control-character</em><br><code>\&quot;</code><br><code>\\</code><br><code>\/</code><br><code>\b</code><br><code>\f</code><br><code>\n</code><br><code>\r</code><br><code>\t</code><br><code>\u</code> <em>four-hex-digits</em></p>
+<p><em>any-Unicode-character-</em>
+<em>except-</em><strong>&quot;</strong><em>-or-</em><strong>*</strong>-or-*
+<em>control-character</em>
+<code>\&quot;</code>
+<code>\\</code>
+<code>\/</code>
+<code>\b</code>
+<code>\f</code>
+<code>\n</code>
+<code>\r</code>
+<code>\t</code>
+<code>\u</code> <em>four-hex-digits</em></p>
 </blockquote>
 <p><img src="http://www.json.org/string.gif" alt="img"></p>
-<h3 id="json数值：-number"><a href="#json数值：-number" class="headerlink" title="json数值： number"></a>json数值： number</h3><p>数值（<em>number</em>）也与C或者Java的数值非常相似。除去未曾使用的八进制与十六进制格式。除去一些编码细节。</p>
+<h3>json数值： number</h3>
+<p>数值（<em>number</em>）也与C或者Java的数值非常相似。除去未曾使用的八进制与十六进制格式。除去一些编码细节。</p>
 <blockquote>
 <p><em>number</em></p>
-<p><em>int</em><br><em>int frac</em><br><em>int exp</em><br><em>int frac exp</em></p>
+<p><em>int</em>
+<em>int frac</em>
+<em>int exp</em>
+<em>int frac exp</em></p>
 <p><em>int</em></p>
-<p><em>digit</em><br><em>digit1-9 digits</em><br><code>-</code> <em>digit</em><br><code>-</code> <em>digit1-9 digits</em></p>
+<p><em>digit</em>
+<em>digit1-9 digits</em>
+<code>-</code> <em>digit</em>
+<code>-</code> <em>digit1-9 digits</em></p>
 <p><em>frac</em></p>
 <p><strong>.</strong> <em>digits</em></p>
 <p><em>exp</em></p>
 <p><em>e</em> <em>digits</em></p>
 <p><em>digits</em></p>
-<p><em>digit</em><br><em>digit</em> <em>digits</em></p>
+<p><em>digit</em>
+<em>digit</em> <em>digits</em></p>
 <p><em>e</em></p>
-<p><strong>e</strong><br><strong>e+</strong><br><strong>e-</strong><br><strong>E</strong><br><strong>E+</strong><br><strong>E-</strong></p>
+<p><strong>e</strong>
+<strong>e+</strong>
+<strong>e-</strong>
+<strong>E</strong>
+<strong>E+</strong>
+<strong>E-</strong></p>
 </blockquote>
 <p><img src="http://www.json.org/number.gif" alt="img"></p>
 <p>空白可以加入到任何符号之间。 以下描述了完整的语言。</p>
-<h2 id="cJSON简介"><a href="#cJSON简介" class="headerlink" title="cJSON简介"></a>cJSON简介</h2><p>cJSON其实就是对Json格式的字符串进行构建和解析的一个C语言函数库。总共包括2个部分：</p>
+<h2>cJSON简介</h2>
+<p>cJSON其实就是对Json格式的字符串进行构建和解析的一个C语言函数库。总共包括2个部分：</p>
 
       
     </div>
@@ -618,7 +657,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#lepd项目"><span class="nav-number">1.</span> <span class="nav-text">lepd项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#json简介"><span class="nav-number">2.</span> <span class="nav-text">json简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#json对象-object"><span class="nav-number">2.1.</span> <span class="nav-text">json对象: object</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#json数组-array"><span class="nav-number">2.2.</span> <span class="nav-text">json数组: array</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#json值-value"><span class="nav-number">2.3.</span> <span class="nav-text">json值: value</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#json字符串：string"><span class="nav-number">2.4.</span> <span class="nav-text">json字符串：string</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#json数值：-number"><span class="nav-number">2.5.</span> <span class="nav-text">json数值： number</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cJSON简介"><span class="nav-number">3.</span> <span class="nav-text">cJSON简介</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">lepd项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">json简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.1.</span> <span class="nav-text">json对象: object</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.2.</span> <span class="nav-text">json数组: array</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.3.</span> <span class="nav-text">json值: value</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.4.</span> <span class="nav-text">json字符串：string</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.5.</span> <span class="nav-text">json数值： number</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">cJSON简介</span></a></li></ol></div>
             
 
           </div>
@@ -820,7 +859,24 @@
         guest_info:guest,
         pageSize:'10' || 10,
     });
-  </script>
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 
 

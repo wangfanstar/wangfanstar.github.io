@@ -7,7 +7,7 @@
 
 <html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 <meta name="theme-color" content="#222">
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="LD_PRELOAD：利用动态链接库更改同名函数的功能linux 的程序在运行时调用的函数是以符号的形式存储在静态链接库.a文件或动态链接库.so文件中的，Linux优先查找动态链接库中的符号，如果没有再去查找静态链接库。LD_PRELOAD是linux下的一个环境变量，设置了之后，linux会优先查找LD_PRELOAD路径中的动态链接库，然后再查找默认的动态链接库，再查找静态链接库。知道了这个">
+<meta name="description" content="LD_PRELOAD：利用动态链接库更改同名函数的功能 linux 的程序在运行时调用的函数是以符号的形式存储在静态链接库.a文件或动态链接库.so文件中的，Linux优先查找动态链接库中的符号，如果没有再去查找静态链接库。LD_PRELOAD是linux下的一个环境变量，设置了之后，linux会优先查找LD_PRELOAD路径中的动态链接库，然后再查找默认的动态链接库，再查找静态链接库。知道了这">
 <meta name="keywords" content="linux,hack">
 <meta property="og:type" content="article">
 <meta property="og:title" content="linux下不重编译替换同名函数--LD_PRELOAD">
 <meta property="og:url" content="http://yoursite.com/2018/05/02/ld-preload/index.html">
 <meta property="og:site_name" content="wangfan 的小屋">
-<meta property="og:description" content="LD_PRELOAD：利用动态链接库更改同名函数的功能linux 的程序在运行时调用的函数是以符号的形式存储在静态链接库.a文件或动态链接库.so文件中的，Linux优先查找动态链接库中的符号，如果没有再去查找静态链接库。LD_PRELOAD是linux下的一个环境变量，设置了之后，linux会优先查找LD_PRELOAD路径中的动态链接库，然后再查找默认的动态链接库，再查找静态链接库。知道了这个">
+<meta property="og:description" content="LD_PRELOAD：利用动态链接库更改同名函数的功能 linux 的程序在运行时调用的函数是以符号的形式存储在静态链接库.a文件或动态链接库.so文件中的，Linux优先查找动态链接库中的符号，如果没有再去查找静态链接库。LD_PRELOAD是linux下的一个环境变量，设置了之后，linux会优先查找LD_PRELOAD路径中的动态链接库，然后再查找默认的动态链接库，再查找静态链接库。知道了这">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2018-05-02T14:43:29.445Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux下不重编译替换同名函数--LD_PRELOAD">
-<meta name="twitter:description" content="LD_PRELOAD：利用动态链接库更改同名函数的功能linux 的程序在运行时调用的函数是以符号的形式存储在静态链接库.a文件或动态链接库.so文件中的，Linux优先查找动态链接库中的符号，如果没有再去查找静态链接库。LD_PRELOAD是linux下的一个环境变量，设置了之后，linux会优先查找LD_PRELOAD路径中的动态链接库，然后再查找默认的动态链接库，再查找静态链接库。知道了这个">
+<meta name="twitter:description" content="LD_PRELOAD：利用动态链接库更改同名函数的功能 linux 的程序在运行时调用的函数是以符号的形式存储在静态链接库.a文件或动态链接库.so文件中的，Linux优先查找动态链接库中的符号，如果没有再去查找静态链接库。LD_PRELOAD是linux下的一个环境变量，设置了之后，linux会优先查找LD_PRELOAD路径中的动态链接库，然后再查找默认的动态链接库，再查找静态链接库。知道了这">
 
 
 
@@ -141,7 +141,7 @@
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
-  </script>
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
@@ -155,7 +155,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -372,11 +372,13 @@
       
 
       
-        <h2 id="LD-PRELOAD：利用动态链接库更改同名函数的功能"><a href="#LD-PRELOAD：利用动态链接库更改同名函数的功能" class="headerlink" title="LD_PRELOAD：利用动态链接库更改同名函数的功能"></a>LD_PRELOAD：利用动态链接库更改同名函数的功能</h2><p>linux 的程序在运行时调用的函数是以符号的形式存储在静态链接库.a文件或动态链接库.so文件中的，Linux优先查找动态链接库中的符号，如果没有再去查找静态链接库。LD_PRELOAD是linux下的一个环境变量，设置了之后，linux会优先查找LD_PRELOAD路径中的动态链接库，然后再查找默认的动态链接库，再查找静态链接库。知道了这个特性，我们就可以在不修改程序代码的情况下，通过LD_PRELOAD设置，实现程序优先调用我们自己编译的动态链接库，从而更改原有的程序代码功能。</p>
-<h2 id="LD-PRELOAD-实现样例"><a href="#LD-PRELOAD-实现样例" class="headerlink" title="LD_PRELOAD 实现样例"></a>LD_PRELOAD 实现样例</h2><p>举个栗子：一个登录函数，输入密码正确后正常登录，错误返回登录失败。输入的密码与存储的密码比较函数假设原型为<em>int mycompare(const char <em> input, const char </em> origin)</em>, 当input 等于origin时返回登录成功，返回值为0，否则返回失败。如果知道了这个函数的原型，我们即可以利用LD_PRELOAD功能，自己构造一个mycompare函数，构造的这个函数比较任何数据都返回成功，这样我们就实现了破解的功能。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* ld_preload.c 主函数 */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">extern</span> <span class="keyword">int</span> <span class="title">mycompare</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *a, <span class="keyword">const</span> <span class="keyword">char</span> *b)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> * passwd = <span class="string">"pass"</span>;</span><br><span class="line">    <span class="keyword">if</span> (argc != <span class="number">2</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"wrong arg num, must be 2! \n"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="number">0</span> == mycompare(passwd, argv[<span class="number">1</span>]))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"correct, it is 'pass'\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"wrong, you input : %s, the right is %s\n"</span>,argv[<span class="number">1</span>], passwd);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h2>LD_PRELOAD：利用动态链接库更改同名函数的功能</h2>
+<p>linux 的程序在运行时调用的函数是以符号的形式存储在静态链接库.a文件或动态链接库.so文件中的，Linux优先查找动态链接库中的符号，如果没有再去查找静态链接库。LD_PRELOAD是linux下的一个环境变量，设置了之后，linux会优先查找LD_PRELOAD路径中的动态链接库，然后再查找默认的动态链接库，再查找静态链接库。知道了这个特性，我们就可以在不修改程序代码的情况下，通过LD_PRELOAD设置，实现程序优先调用我们自己编译的动态链接库，从而更改原有的程序代码功能。</p>
+<h2>LD_PRELOAD 实现样例</h2>
+<p>举个栗子：一个登录函数，输入密码正确后正常登录，错误返回登录失败。输入的密码与存储的密码比较函数假设原型为_int mycompare(const char * input, const char * origin)_, 当input 等于origin时返回登录成功，返回值为0，否则返回失败。如果知道了这个函数的原型，我们即可以利用LD_PRELOAD功能，自己构造一个mycompare函数，构造的这个函数比较任何数据都返回成功，这样我们就实现了破解的功能。</p>
+<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* ld_preload.c 主函数 */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">extern</span> <span class="keyword">int</span> <span class="title">mycompare</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *a, <span class="keyword">const</span> <span class="keyword">char</span> *b)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> * passwd = <span class="string">"pass"</span>;</span><br><span class="line">    <span class="keyword">if</span> (argc != <span class="number">2</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"wrong arg num, must be 2! \n"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="number">0</span> == mycompare(passwd, argv[<span class="number">1</span>]))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"correct, it is 'pass'\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"wrong, you input : %s, the right is %s\n"</span>,argv[<span class="number">1</span>], passwd);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>比较函数代码如下，此函数编译成动态链接库供主函数调用。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* compare.c 生成.so文件 */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">mycompare</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *a, <span class="keyword">const</span> <span class="keyword">char</span> *b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">strcmp</span>(a,b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* compare.c 生成.so文件 */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">mycompare</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *a, <span class="keyword">const</span> <span class="keyword">char</span> *b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">strcmp</span>(a,b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>编译步骤如下：</p>
 <blockquote>
 <p>gcc compare.c -fPIC -shared -o libcompare.so</p>
@@ -385,23 +387,24 @@
 <p>测试结果如下：</p>
 <blockquote>
 <p>$ ./ld_preload pass</p>
-<p>correct, it is ‘pass’</p>
+<p>correct, it is 'pass'</p>
 <p>$ ./ld_preload a</p>
 <p>wrong, you input : a, the right is pass</p>
 </blockquote>
 <p>现在我们新建一个myhack.c，重新实现mycompare函数</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* myhack.c */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">mycompare</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> * a, <span class="keyword">const</span> <span class="keyword">char</span> * b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>; <span class="comment">// hack, any passwd is right.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* myhack.c */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">mycompare</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> * a, <span class="keyword">const</span> <span class="keyword">char</span> * b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>; <span class="comment">// hack, any passwd is right.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>编译处理步骤如下，处理过后任意输入字符都会匹配输出相等，达到了替换原功能函数的目的，用unset LD_PRELOAD可以恢复原先设置：</p>
 <blockquote>
 <p>$ gcc myhack.c -fPIC -shared -o libmyhack.so</p>
-<p>$ export LD_PRELOAD=”./libmyhack.so”</p>
-<p>$ ./ld_preload a </p>
-<p>correct, it is ‘pass’</p>
+<p>$ export LD_PRELOAD=&quot;./libmyhack.so&quot;</p>
+<p>$ ./ld_preload a</p>
+<p>correct, it is 'pass'</p>
 <p>$ unset LD_PRELOAD</p>
 <p>$ ./ld_preload a</p>
 <p>wrong, you input : a, the right is pass</p>
 </blockquote>
-<h2 id="参考知识点"><a href="#参考知识点" class="headerlink" title="参考知识点"></a>参考知识点</h2><table>
+<h2>参考知识点</h2>
+<table>
 <thead>
 <tr>
 <th>gcc 编译选项</th>
@@ -411,7 +414,7 @@
 <tbody>
 <tr>
 <td>-c</td>
-<td>只编译不链接，生成目标文件“.o”</td>
+<td>只编译不链接，生成目标文件“.o&quot;</td>
 </tr>
 <tr>
 <td>-S</td>
@@ -443,7 +446,7 @@
 </tr>
 <tr>
 <td>-shared</td>
-<td>1、生成动态库文件 <br>2、优先链接动态库，无动态库才链接表态库</td>
+<td>1、生成动态库文件 &lt;br /&gt;2、优先链接动态库，无动态库才链接表态库</td>
 </tr>
 <tr>
 <td>-L dir</td>
@@ -451,22 +454,33 @@
 </tr>
 <tr>
 <td>-lname</td>
-<td>链接名称为libname.a或libname.so的库文件，<br>如果都有时根据选项-static或-shared来选择</td>
+<td>链接名称为libname.a或libname.so的库文件，&lt;br /&gt;如果都有时根据选项-static或-shared来选择</td>
 </tr>
 <tr>
 <td>-fPic (或-fpic)</td>
-<td>生成使用相对地址（position indepedent code），<br>生成位置无关的目标代码，通常生成动态链接库时使用</td>
+<td>生成使用相对地址（position indepedent code），&lt;br /&gt;生成位置无关的目标代码，通常生成动态链接库时使用</td>
 </tr>
 </tbody>
 </table>
-<h2 id="一些编译问题"><a href="#一些编译问题" class="headerlink" title="一些编译问题"></a>一些编译问题</h2><p><strong>1、如何查看一个程序中链接用到的库</strong></p>
+<h2>一些编译问题</h2>
+<p><strong>1、如何查看一个程序中链接用到的库</strong></p>
 <blockquote>
 <p>用ldd 命令</p>
-<p>$ ldd ld_preload<br>linux-gate.so.1 =&gt;  (0xb7f01000)<br>libcompare.so =&gt; not found<br>libc.so.6 =&gt; /lib/i386-linux-gnu/libc.so.6 (0xb7d31000)<br>/lib/ld-linux.so.2 (0xb7f03000)</p>
+<p>$ ldd ld_preload
+linux-gate.so.1 =&gt;  (0xb7f01000)
+libcompare.so =&gt; not found
+libc.so.6 =&gt; /lib/i386-linux-gnu/libc.so.6 (0xb7d31000)
+/lib/ld-linux.so.2 (0xb7f03000)</p>
 </blockquote>
 <p><strong>2、gcc -L 指定路径后还是找不到.so文件</strong></p>
 <blockquote>
-<p>ubuntu有的是有这个问题，当时我这边是用这个命令设置了一下链接库路径就好了，故障时如上一问题所示<br>$ export LD_LIBRARY_PATH=.<br>$ ldd ld_preload<br>linux-gate.so.1 =&gt;  (0xb7f0b000)<br>libcompare.so =&gt; ./libcompare.so (0xb7f04000)<br>libc.so.6 =&gt; /lib/i386-linux-gnu/libc.so.6 (0xb7d38000)<br>/lib/ld-linux.so.2 (0xb7f0d000)</p>
+<p>ubuntu有的是有这个问题，当时我这边是用这个命令设置了一下链接库路径就好了，故障时如上一问题所示
+$ export LD_LIBRARY_PATH=.
+$ ldd ld_preload
+linux-gate.so.1 =&gt;  (0xb7f0b000)
+libcompare.so =&gt; ./libcompare.so (0xb7f04000)
+libc.so.6 =&gt; /lib/i386-linux-gnu/libc.so.6 (0xb7d38000)
+/lib/ld-linux.so.2 (0xb7f0d000)</p>
 </blockquote>
 
       
@@ -647,7 +661,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#LD-PRELOAD：利用动态链接库更改同名函数的功能"><span class="nav-number">1.</span> <span class="nav-text">LD_PRELOAD：利用动态链接库更改同名函数的功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LD-PRELOAD-实现样例"><span class="nav-number">2.</span> <span class="nav-text">LD_PRELOAD 实现样例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考知识点"><span class="nav-number">3.</span> <span class="nav-text">参考知识点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些编译问题"><span class="nav-number">4.</span> <span class="nav-text">一些编译问题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">LD_PRELOAD：利用动态链接库更改同名函数的功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">LD_PRELOAD 实现样例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">参考知识点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">一些编译问题</span></a></li></ol></div>
             
 
           </div>
@@ -849,7 +863,24 @@
         guest_info:guest,
         pageSize:'10' || 10,
     });
-  </script>
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 
 

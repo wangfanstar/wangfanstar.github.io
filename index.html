@@ -7,7 +7,7 @@
 
 <html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 <meta name="theme-color" content="#222">
@@ -140,7 +140,7 @@
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
-  </script>
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
@@ -154,7 +154,7 @@
     
   
 
-  <div class="container sidebar-position-left 
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left 
   page-home">
     <div class="headband"></div>
 
@@ -376,19 +376,25 @@
       
         
           
-            <h2 id="标准求圆面积的方法"><a href="#标准求圆面积的方法" class="headerlink" title="标准求圆面积的方法"></a>标准求圆面积的方法</h2><p>割圆法求圆的面积，参见网红人大附中李永乐老师的视频 <a href="http://k.sina.com.cn/article_2141853335_m7faa1697033005r07.html" target="_blank" rel="noopener">http://k.sina.com.cn/article_2141853335_m7faa1697033005r07.html</a></p>
+            <h2>标准求圆面积的方法</h2>
+<p>割圆法求圆的面积，参见网红人大附中李永乐老师的视频 http://k.sina.com.cn/article_2141853335_m7faa1697033005r07.html</p>
 <p><img src="/img/circle.jpg" alt="circle"></p>
-<h2 id="强迫症的问题"><a href="#强迫症的问题" class="headerlink" title="强迫症的问题"></a>强迫症的问题</h2><ul>
-<li><p>扇形和长方形还是有差距的</p>
+<h2>强迫症的问题</h2>
+<ul>
+<li>
+<p>扇形和长方形还是有差距的</p>
 </li>
-<li><p>如果无限小微分，扇形就等于长方形了，怎么想到还要拼成一个类长方形</p>
+<li>
+<p>如果无限小微分，扇形就等于长方形了，怎么想到还要拼成一个类长方形</p>
 </li>
 </ul>
-<h2 id="强迫症的解决方法"><a href="#强迫症的解决方法" class="headerlink" title="强迫症的解决方法"></a>强迫症的解决方法</h2><p>  把圆看成从0到半径所有的圆的周长加起来即是面积，在图像上完全没有差距，从视觉上看就像是用圆规从小到大不断画圆，最终所有的圆的周长填成了圆的面积。</p>
-<p>周长：$$f(x)= 2\pi r $$</p>
+<h2>强迫症的解决方法</h2>
+<p>把圆看成从0到半径所有的圆的周长加起来即是面积，在图像上完全没有差距，从视觉上看就像是用圆规从小到大不断画圆，最终所有的圆的周长填成了圆的面积。</p>
+<p>周长：$f(x)= 2\pi r $</p>
 <p>面积是从0到r所有圆的周长之和：$$\int_0^r f(x)dx = F(x)|_0^r $$</p>
-<p>$$F’(x) = 2\pi x ：$$<br>$$F(x) = \pi x^2 $$ 积分后得到<br>$$F(x)|_0^r  = F(r) - F(0) = \pi r^2$$<br>$$</p>
-<p>$$</p>
+<p>$$F'(x) = 2\pi x ：$$
+$$F(x) = \pi x^2 $$ 积分后得到
+$$F(x)|_0^r  = F(r) - F(0) = \pi r^2$$</p>
 
           
         
@@ -540,9 +546,10 @@
       
         
           
-            <h2 id="xor加密原理"><a href="#xor加密原理" class="headerlink" title="xor加密原理"></a>xor加密原理</h2><p>本文源于阮一峰的博客。</p>
+            <h2>xor加密原理</h2>
+<p>本文源于阮一峰的博客。</p>
 <p>异或原先的性质如下所示，相同的位返回0，不同的位返回1。按位异或的运算有个特殊的性质，即对同一个数据异或两遍后，会得到原来的数据。因为相同的数据异或后会变成0，而0不管和什么数据异或都返回原来的数据。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> ^ <span class="number">1</span> <span class="comment">// 0</span></span><br><span class="line"><span class="number">0</span> ^ <span class="number">0</span> <span class="comment">// 0</span></span><br><span class="line"><span class="number">1</span> ^ <span class="number">0</span> <span class="comment">// 1</span></span><br><span class="line"><span class="number">0</span> ^ <span class="number">1</span> <span class="comment">// 1</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">// 第一次 XOR</span></span><br><span class="line"><span class="number">1010</span> ^ <span class="number">1111</span> <span class="comment">// 0101</span></span><br><span class="line"><span class="comment">// 第二次 XOR</span></span><br><span class="line"><span class="number">0101</span> ^ <span class="number">1111</span> <span class="comment">// 1010</span></span><br></pre></td></tr></table></figure>
+<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> ^ <span class="number">1</span> <span class="comment">// 0</span></span><br><span class="line"><span class="number">0</span> ^ <span class="number">0</span> <span class="comment">// 0</span></span><br><span class="line"><span class="number">1</span> ^ <span class="number">0</span> <span class="comment">// 1</span></span><br><span class="line"><span class="number">0</span> ^ <span class="number">1</span> <span class="comment">// 1</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">// 第一次 XOR</span></span><br><span class="line"><span class="number">1010</span> ^ <span class="number">1111</span> <span class="comment">// 0101</span></span><br><span class="line"><span class="comment">// 第二次 XOR</span></span><br><span class="line"><span class="number">0101</span> ^ <span class="number">1111</span> <span class="comment">// 1010</span></span><br></pre></td></tr></table></figure></p>
 <p>根据这个性质，我们可以设计一个key，在数据发送前，把数据和key异或一下再发送出去，接收端只要再重新将收到的数据用同一个key异或一次就可以还原出原来的数据了。二战期间，各国为了电报加密，对密码学进行了大量的研究和实践，其中就包括 XOR 加密。战后，英国计算机学家香农（Claude Shannon）将他的<a href="https://en.wikipedia.org/wiki/One-time_pad#Perfect_secrecy" target="_blank" rel="noopener">研究成果</a>公开发表，证明了只要满足两个条件，XOR 加密是无法破解的。</p>
 <blockquote>
 <ul>
@@ -550,8 +557,9 @@
 <li>key必须是一次性的，且每次都要随机产生</li>
 </ul>
 </blockquote>
-<p>因为如果每次的key都是随机的，那么产生出来的加密文本也随机分布的，具有最大的信息熵，称为XOR的完美保密性，满足上面两个条件的key，叫做 <a href="https://en.wikipedia.org/wiki/One-time_pad" target="_blank" rel="noopener">one-time pad</a>（缩写为OTP），意思是”一次性密码本”，因为以前这样的key都是印刷成密码本，每次使用的时候，必须从其中挑选key。</p>
-<h2 id="xor-加密登录密码实例"><a href="#xor-加密登录密码实例" class="headerlink" title="xor 加密登录密码实例"></a>xor 加密登录密码实例</h2><p>先用MD5算法得到一个随机的key，再通过xor加密文本。</p>
+<p>因为如果每次的key都是随机的，那么产生出来的加密文本也随机分布的，具有最大的信息熵，称为XOR的完美保密性，满足上面两个条件的key，叫做 <a href="https://en.wikipedia.org/wiki/One-time_pad" target="_blank" rel="noopener">one-time pad</a>（缩写为OTP），意思是&quot;一次性密码本&quot;，因为以前这样的key都是印刷成密码本，每次使用的时候，必须从其中挑选key。</p>
+<h2>xor 加密登录密码实例</h2>
+<p>先用MD5算法得到一个随机的key，再通过xor加密文本。</p>
 
           
         
@@ -703,67 +711,106 @@
       
         
           
-            <h2 id="lepd项目"><a href="#lepd项目" class="headerlink" title="lepd项目"></a>lepd项目</h2><p>lepd项目是宋宝华之前推荐的一个开源项目，可用于监控linux系统的性能指标，在浏览器中可视化呈现。项目地址 <a href="https://github.com/21cnbao/lepd" target="_blank" rel="noopener">lepd 项目 github地址</a> ，文章将从各个方面详细介绍涉及的技术知识点，以方便参考使用。</p>
+            <h2>lepd项目</h2>
+<p>lepd项目是宋宝华之前推荐的一个开源项目，可用于监控linux系统的性能指标，在浏览器中可视化呈现。项目地址 <a href="https://github.com/21cnbao/lepd" target="_blank" rel="noopener">lepd 项目 github地址</a> ，文章将从各个方面详细介绍涉及的技术知识点，以方便参考使用。</p>
 <p>lepd使用的信息传递格式是json，便于在浏览器中使用。</p>
-<h2 id="json简介"><a href="#json简介" class="headerlink" title="json简介"></a>json简介</h2><p> 介绍json格式和用法</p>
-<p><a href="http://www.json.org/" target="_blank" rel="noopener">http://www.json.org/</a></p>
-<p><a href="http://www.json.org/json-zh.html" target="_blank" rel="noopener">http://www.json.org/json-zh.html</a></p>
+<h2>json简介</h2>
+<p>介绍json格式和用法</p>
+<p>http://www.json.org/</p>
+<p>http://www.json.org/json-zh.html</p>
 <blockquote>
 <p>json基于两种数据结构：1、key/value对， 2、list有序列表（数组）</p>
 </blockquote>
 <p>JSON具有以下这些形式：</p>
-<h3 id="json对象-object"><a href="#json对象-object" class="headerlink" title="json对象: object"></a>json对象: object</h3><p>对象是一个无序的“‘名称/值’对”集合。一个对象以“{”（左括号）开始，“}”（右括号）结束。每个“名称”后跟一个“:”（冒号）；“‘名称/值’ 对”之间使用“,”（逗号）分隔。</p>
+<h3>json对象: object</h3>
+<p>对象是一个无序的“‘名称/值’对”集合。一个对象以“{”（左括号）开始，“}”（右括号）结束。每个“名称”后跟一个“:”（冒号）；“‘名称/值’ 对”之间使用“,”（逗号）分隔。</p>
 <blockquote>
 <p><em>object</em></p>
 <p><code>{}</code></p>
 <p><code>{</code> <em>members</em> <code>}</code></p>
 </blockquote>
 <p><img src="http://www.json.org/object.gif" alt="img"></p>
-<h3 id="json数组-array"><a href="#json数组-array" class="headerlink" title="json数组: array"></a>json数组: array</h3><p>数组是值（value）的有序集合。一个数组以“[”（左中括号）开始，“]”（右中括号）结束。值之间使用“,”（逗号）分隔。</p>
+<h3>json数组: array</h3>
+<p>数组是值（value）的有序集合。一个数组以“[”（左中括号）开始，“]”（右中括号）结束。值之间使用“,”（逗号）分隔。</p>
 <blockquote>
 <p><em>array</em></p>
-<p><code>[]</code> </p>
-<p><code>[</code> <em>elements</em> <code>]</code>  </p>
+<p><code>[]</code></p>
+<p><code>[</code> <em>elements</em> <code>]</code></p>
 <p><em>elements</em></p>
-<p><em>value</em><br><em>value</em> <code>,</code> <em>elements</em></p>
+<p><em>value</em>
+<em>value</em> <code>,</code> <em>elements</em></p>
 </blockquote>
 <p><img src="http://www.json.org/array.gif" alt="img"></p>
-<h3 id="json值-value"><a href="#json值-value" class="headerlink" title="json值: value"></a>json值: value</h3><p>值（<em>value</em>）可以是双引号括起来的字符串（<em>string</em>）、数值(number)、<code>true</code>、<code>false</code>、 <code>null</code>、对象（object）或者数组（array）。这些结构可以嵌套。</p>
+<h3>json值: value</h3>
+<p>值（<em>value</em>）可以是双引号括起来的字符串（<em>string</em>）、数值(number)、<code>true</code>、<code>false</code>、 <code>null</code>、对象（object）或者数组（array）。这些结构可以嵌套。</p>
 <blockquote>
 <p><em>value</em></p>
-<p><em>string</em><br><em>number</em><br><em>object</em><br><em>array</em><br><code>true</code><br><code>false</code><br><code>null</code></p>
+<p><em>string</em>
+<em>number</em>
+<em>object</em>
+<em>array</em>
+<code>true</code>
+<code>false</code>
+<code>null</code></p>
 </blockquote>
 <p><img src="http://www.json.org/value.gif" alt="img"></p>
-<h3 id="json字符串：string"><a href="#json字符串：string" class="headerlink" title="json字符串：string"></a>json字符串：string</h3><p>字符串（<em>string</em>）是由双引号包围的任意数量Unicode字符的集合，使用反斜线转义。一个字符（character）即一个单独的字符串（character string）。</p>
+<h3>json字符串：string</h3>
+<p>字符串（<em>string</em>）是由双引号包围的任意数量Unicode字符的集合，使用反斜线转义。一个字符（character）即一个单独的字符串（character string）。</p>
 <p>字符串（<em>string</em>）与C或者Java的字符串非常相似。</p>
 <blockquote>
 <p><em>string</em></p>
 <p><code>&quot;&quot;</code></p>
 <p><code>&quot;</code> <em>chars</em> <code>&quot;</code></p>
 <p><em>chars</em></p>
-<p><em>char</em><br><em>char chars</em></p>
+<p><em>char</em>
+<em>char chars</em></p>
 <p><em>char</em></p>
-<p><em>any-Unicode-character-</em><br>    <em>except-**</em>“<strong><em>-or-</em></strong>**<em>-or-</em><br>    <em>control-character</em><br><code>\&quot;</code><br><code>\\</code><br><code>\/</code><br><code>\b</code><br><code>\f</code><br><code>\n</code><br><code>\r</code><br><code>\t</code><br><code>\u</code> <em>four-hex-digits</em></p>
+<p><em>any-Unicode-character-</em>
+<em>except-</em><strong>&quot;</strong><em>-or-</em><strong>*</strong>-or-*
+<em>control-character</em>
+<code>\&quot;</code>
+<code>\\</code>
+<code>\/</code>
+<code>\b</code>
+<code>\f</code>
+<code>\n</code>
+<code>\r</code>
+<code>\t</code>
+<code>\u</code> <em>four-hex-digits</em></p>
 </blockquote>
 <p><img src="http://www.json.org/string.gif" alt="img"></p>
-<h3 id="json数值：-number"><a href="#json数值：-number" class="headerlink" title="json数值： number"></a>json数值： number</h3><p>数值（<em>number</em>）也与C或者Java的数值非常相似。除去未曾使用的八进制与十六进制格式。除去一些编码细节。</p>
+<h3>json数值： number</h3>
+<p>数值（<em>number</em>）也与C或者Java的数值非常相似。除去未曾使用的八进制与十六进制格式。除去一些编码细节。</p>
 <blockquote>
 <p><em>number</em></p>
-<p><em>int</em><br><em>int frac</em><br><em>int exp</em><br><em>int frac exp</em></p>
+<p><em>int</em>
+<em>int frac</em>
+<em>int exp</em>
+<em>int frac exp</em></p>
 <p><em>int</em></p>
-<p><em>digit</em><br><em>digit1-9 digits</em><br><code>-</code> <em>digit</em><br><code>-</code> <em>digit1-9 digits</em></p>
+<p><em>digit</em>
+<em>digit1-9 digits</em>
+<code>-</code> <em>digit</em>
+<code>-</code> <em>digit1-9 digits</em></p>
 <p><em>frac</em></p>
 <p><strong>.</strong> <em>digits</em></p>
 <p><em>exp</em></p>
 <p><em>e</em> <em>digits</em></p>
 <p><em>digits</em></p>
-<p><em>digit</em><br><em>digit</em> <em>digits</em></p>
+<p><em>digit</em>
+<em>digit</em> <em>digits</em></p>
 <p><em>e</em></p>
-<p><strong>e</strong><br><strong>e+</strong><br><strong>e-</strong><br><strong>E</strong><br><strong>E+</strong><br><strong>E-</strong></p>
+<p><strong>e</strong>
+<strong>e+</strong>
+<strong>e-</strong>
+<strong>E</strong>
+<strong>E+</strong>
+<strong>E-</strong></p>
 </blockquote>
 <p><img src="http://www.json.org/number.gif" alt="img"></p>
 <p>空白可以加入到任何符号之间。 以下描述了完整的语言。</p>
-<h2 id="cJSON简介"><a href="#cJSON简介" class="headerlink" title="cJSON简介"></a>cJSON简介</h2><p>cJSON其实就是对Json格式的字符串进行构建和解析的一个C语言函数库。总共包括2个部分：</p>
+<h2>cJSON简介</h2>
+<p>cJSON其实就是对Json格式的字符串进行构建和解析的一个C语言函数库。总共包括2个部分：</p>
 
           
         
@@ -917,9 +964,10 @@
           
             <p>##　linux时间设计之获取当前时间</p>
 <p>买电脑主板的时候，会发现主板有个BIOS电池，里面保存着电脑的配置，还有一项就是时间，你设置好了之后就是电脑显示的当前时间。在Linux启动时，会有一个从CMOS中读取时间作为当前时间的操作，然后就再根据自己的时钟频率更新当前的时间。我们设置的时候会设置年月日时分秒，为了简化处理，linux把这些变量转换成一个变量jiffies，即从1970年到当前时间的所有毫秒数，之后硬件芯片每毫秒产生一次中断，在中断处理程序中jiffies就会加1，达到更新时间的效果。研究完Linux几个版本的将当前时间转换成秒数的时间设计后，分享一下其中的程序设计技巧和bug。</p>
-<h2 id="linux-0-11版时间设计"><a href="#linux-0-11版时间设计" class="headerlink" title="linux 0.11版时间设计"></a>linux 0.11版时间设计</h2><p>linux 0.11版的时间设计很精炼，代码不到几十行，在<code>/kernel/mktime.c</code>里面实现了一个内核态计算当前开机距1970年1月1日0时的秒数，但估计闰年没考虑周全，闰年的定义网上看李永乐的视频讲得很生动。总结归纳起来就是能被4整除，不能被100整除或能被400整除的数。代码中只考虑了4年，100整数的2000年没有考虑进去，后面的几百年也没有考虑。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;time.h&gt;</span></span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * This isn't the library routine, it is only used in the kernel.</span></span><br><span class="line"><span class="comment"> * as such, we don't care about years&lt;1970 etc, but assume everything</span></span><br><span class="line"><span class="comment"> * is ok. Similarly, TZ etc is happily ignored. We just do everything</span></span><br><span class="line"><span class="comment"> * as easily as possible. Let's find something public for the library</span></span><br><span class="line"><span class="comment"> * routines (although I think minix times is public).</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * PS. I hate whoever though up the year 1970 - couldn't they have gotten</span></span><br><span class="line"><span class="comment"> * a leap-year instead? I also hate Gregorius, pope or no. I'm grumpy.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MINUTE 60</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> HOUR (60*MINUTE)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DAY (24*HOUR)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> YEAR (365*DAY)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* interestingly, we assume leap-years */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> month[<span class="number">12</span>] = &#123;</span><br><span class="line">	<span class="number">0</span>,</span><br><span class="line">	DAY*(<span class="number">31</span>),</span><br><span class="line">	DAY*(<span class="number">31</span>+<span class="number">29</span>),</span><br><span class="line">	DAY*(<span class="number">31</span>+<span class="number">29</span>+<span class="number">31</span>),</span><br><span class="line">	DAY*(<span class="number">31</span>+<span class="number">29</span>+<span class="number">31</span>+<span class="number">30</span>),</span><br><span class="line">	DAY*(<span class="number">31</span>+<span class="number">29</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>),</span><br><span class="line">	DAY*(<span class="number">31</span>+<span class="number">29</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>+<span class="number">30</span>),</span><br><span class="line">	DAY*(<span class="number">31</span>+<span class="number">29</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>),</span><br><span class="line">	DAY*(<span class="number">31</span>+<span class="number">29</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>+<span class="number">31</span>),</span><br><span class="line">	DAY*(<span class="number">31</span>+<span class="number">29</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>+<span class="number">31</span>+<span class="number">30</span>),</span><br><span class="line">	DAY*(<span class="number">31</span>+<span class="number">29</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>),</span><br><span class="line">	DAY*(<span class="number">31</span>+<span class="number">29</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>+<span class="number">30</span>)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="title">kernel_mktime</span><span class="params">(struct tm * tm)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">long</span> res;</span><br><span class="line">	<span class="keyword">int</span> year;</span><br><span class="line"></span><br><span class="line">	year = tm-&gt;tm_year - <span class="number">70</span>;</span><br><span class="line"><span class="comment">/* magic offsets (y+1) needed to get leapyears right.*/</span></span><br><span class="line">	res = YEAR*year + DAY*((year+<span class="number">1</span>)/<span class="number">4</span>);</span><br><span class="line">	res += month[tm-&gt;tm_mon];</span><br><span class="line"><span class="comment">/* and (y+2) here. If it wasn't a leap-year, we have to adjust */</span></span><br><span class="line">	<span class="keyword">if</span> (tm-&gt;tm_mon&gt;<span class="number">1</span> &amp;&amp; ((year+<span class="number">2</span>)%<span class="number">4</span>))</span><br><span class="line">		res -= DAY;</span><br><span class="line">	res += DAY*(tm-&gt;tm_mday<span class="number">-1</span>);</span><br><span class="line">	res += HOUR*tm-&gt;tm_hour;</span><br><span class="line">	res += MINUTE*tm-&gt;tm_min;</span><br><span class="line">	res += tm-&gt;tm_sec;</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>##　linu2.6.11版 时间设计 </p>
+<h2>linux 0.11版时间设计</h2>
+<p>linux 0.11版的时间设计很精炼，代码不到几十行，在<code>/kernel/mktime.c</code>里面实现了一个内核态计算当前开机距1970年1月1日0时的秒数，但估计闰年没考虑周全，闰年的定义网上看李永乐的视频讲得很生动。总结归纳起来就是能被4整除，不能被100整除或能被400整除的数。代码中只考虑了4年，100整数的2000年没有考虑进去，后面的几百年也没有考虑。</p>
+<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;time.h&gt;</span></span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * This isn't the library routine, it is only used in the kernel.</span></span><br><span class="line"><span class="comment"> * as such, we don't care about years&lt;1970 etc, but assume everything</span></span><br><span class="line"><span class="comment"> * is ok. Similarly, TZ etc is happily ignored. We just do everything</span></span><br><span class="line"><span class="comment"> * as easily as possible. Let's find something public for the library</span></span><br><span class="line"><span class="comment"> * routines (although I think minix times is public).</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * PS. I hate whoever though up the year 1970 - couldn't they have gotten</span></span><br><span class="line"><span class="comment"> * a leap-year instead? I also hate Gregorius, pope or no. I'm grumpy.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MINUTE 60</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> HOUR (60*MINUTE)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DAY (24*HOUR)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> YEAR (365*DAY)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* interestingly, we assume leap-years */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> month[<span class="number">12</span>] = &#123;</span><br><span class="line">	<span class="number">0</span>,</span><br><span class="line">	DAY*(<span class="number">31</span>),</span><br><span class="line">	DAY*(<span class="number">31</span>+<span class="number">29</span>),</span><br><span class="line">	DAY*(<span class="number">31</span>+<span class="number">29</span>+<span class="number">31</span>),</span><br><span class="line">	DAY*(<span class="number">31</span>+<span class="number">29</span>+<span class="number">31</span>+<span class="number">30</span>),</span><br><span class="line">	DAY*(<span class="number">31</span>+<span class="number">29</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>),</span><br><span class="line">	DAY*(<span class="number">31</span>+<span class="number">29</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>+<span class="number">30</span>),</span><br><span class="line">	DAY*(<span class="number">31</span>+<span class="number">29</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>),</span><br><span class="line">	DAY*(<span class="number">31</span>+<span class="number">29</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>+<span class="number">31</span>),</span><br><span class="line">	DAY*(<span class="number">31</span>+<span class="number">29</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>+<span class="number">31</span>+<span class="number">30</span>),</span><br><span class="line">	DAY*(<span class="number">31</span>+<span class="number">29</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>),</span><br><span class="line">	DAY*(<span class="number">31</span>+<span class="number">29</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>+<span class="number">30</span>)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="title">kernel_mktime</span><span class="params">(struct tm * tm)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">long</span> res;</span><br><span class="line">	<span class="keyword">int</span> year;</span><br><span class="line"></span><br><span class="line">	year = tm-&gt;tm_year - <span class="number">70</span>;</span><br><span class="line"><span class="comment">/* magic offsets (y+1) needed to get leapyears right.*/</span></span><br><span class="line">	res = YEAR*year + DAY*((year+<span class="number">1</span>)/<span class="number">4</span>);</span><br><span class="line">	res += month[tm-&gt;tm_mon];</span><br><span class="line"><span class="comment">/* and (y+2) here. If it wasn't a leap-year, we have to adjust */</span></span><br><span class="line">	<span class="keyword">if</span> (tm-&gt;tm_mon&gt;<span class="number">1</span> &amp;&amp; ((year+<span class="number">2</span>)%<span class="number">4</span>))</span><br><span class="line">		res -= DAY;</span><br><span class="line">	res += DAY*(tm-&gt;tm_mday<span class="number">-1</span>);</span><br><span class="line">	res += HOUR*tm-&gt;tm_hour;</span><br><span class="line">	res += MINUTE*tm-&gt;tm_min;</span><br><span class="line">	res += tm-&gt;tm_sec;</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>##　linu2.6.11版 时间设计</p>
 
           
         
@@ -1071,18 +1119,23 @@
       
         
           
-            <h2 id="X-Macro-编程技巧"><a href="#X-Macro-编程技巧" class="headerlink" title="X Macro 编程技巧"></a>X Macro 编程技巧</h2><p>本篇文章参考自知乎 <a href="https://www.zhihu.com/question/57089104" target="_blank" rel="noopener">你所见过的最美的C语言代码</a>，根据自己的项目经验举出应用场景。</p>
+            <h2>X Macro 编程技巧</h2>
+<p>本篇文章参考自知乎 <a href="https://www.zhihu.com/question/57089104" target="_blank" rel="noopener">你所见过的最美的C语言代码</a>，根据自己的项目经验举出应用场景。</p>
 <p><a href="https://link.zhihu.com/?target=https%3A//en.wikipedia.org/wiki/X_Macro" target="_blank" rel="noopener">X Macro - Wikipedia</a></p>
 <p>这种技巧实际利用的是编译器的功能，通过编译不同的代码来维护功能函数与功能索引的对应关系。采用此方法最有用的地方是之后再进行增，删，改索引和功能函数时，只要在对应的头文件列表一处更改即可，无需搜索多处的引用逐个修改。还是举一个我工程中常用代码设计为例，因为设备不断升级，实现同样功能的模块芯片可能来自不同的厂家，或厂家不同的版本，每个版本的功能函数接口是一样的，内部实现都不一样。比如一个芯片实现的查表功能函数A，对应的接口返回值为int，参数一个是输入表项，另一个是输出结果。三种芯片内部实现各不相同，对外提供统一的接口函数类型。</p>
-<h2 id="表驱动法实现"><a href="#表驱动法实现" class="headerlink" title="表驱动法实现"></a>表驱动法实现</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* funA 提供函数 */</span></span><br><span class="line">chipA :  <span class="function"><span class="keyword">int</span> <span class="title">funAchipA</span><span class="params">(<span class="keyword">int</span> * input, <span class="keyword">int</span> * output)</span></span>;</span><br><span class="line">chipB :  <span class="function"><span class="keyword">int</span> <span class="title">funAchipB</span><span class="params">(<span class="keyword">int</span> * input, <span class="keyword">int</span> * output)</span></span>;</span><br><span class="line">chipC :  <span class="function"><span class="keyword">int</span> <span class="title">funAchipC</span><span class="params">(<span class="keyword">int</span> * input, <span class="keyword">int</span> * output)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 芯片类型 */</span></span><br><span class="line"><span class="keyword">enum</span> CHIPTYPE&#123;</span><br><span class="line">    CHIPA,</span><br><span class="line">    CHIPB,</span><br><span class="line">    CHIPC,</span><br><span class="line">    CHIP_BUTT</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 选择跳转表 */</span></span><br><span class="line"><span class="keyword">typedef</span> (* <span class="keyword">int</span>)pf_funA(<span class="keyword">int</span> * input, <span class="keyword">int</span> * output);</span><br><span class="line">pf_funA jumptable[CHIP_BUTT] = &#123;</span><br><span class="line">    funAchipA,</span><br><span class="line">    funAchipB,</span><br><span class="line">    funAchipC,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 使用方法 */</span></span><br><span class="line">pf_funA pFunA;</span><br><span class="line"><span class="keyword">enum</span> CHIPTYPE type;</span><br><span class="line">type = getfromuser(); <span class="comment">// 从上层获取芯片类型</span></span><br><span class="line">pFunA = jumptable[type];</span><br><span class="line"></span><br><span class="line"><span class="comment">/*  pFunA 作为通用的功能函数接口提供给上层实现查表功能，从而屏蔽不同芯片的差异，上层不感知芯片变化 */</span></span><br></pre></td></tr></table></figure>
-<h2 id="正常顺序代码实现"><a href="#正常顺序代码实现" class="headerlink" title="正常顺序代码实现"></a>正常顺序代码实现</h2><p>《代码大全》中推荐工程师第一篇最重要的要读的文章表驱动法即是以上代码。里面用了一个技巧是通过下标和向量的关联关系代替了if,switch的引用，否则正常的代码如下，一但芯片增加到几十种，就会非常冗长。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 正常使用调用函数的代码 */</span></span><br><span class="line"><span class="keyword">enum</span> CHIPTYPE type;</span><br><span class="line">type = getfromuser(); <span class="comment">// 从上层获取芯片类型</span></span><br><span class="line"><span class="keyword">if</span> (type == CHIPA)</span><br><span class="line">&#123;</span><br><span class="line">    pFunA = funAchipA;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span>(type == CHIPB)</span><br><span class="line">&#123;</span><br><span class="line">    pFunA = funAchipB;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span>(type == CHIPC)</span><br><span class="line">&#123;</span><br><span class="line">    pFunA = funAchipC;</span><br><span class="line">&#125;</span><br><span class="line">...</span><br><span class="line">    </span><br><span class="line"><span class="comment">/* 使用pFunA 来实现功能函数A */</span></span><br></pre></td></tr></table></figure>
-<h2 id="表驱动法的限制"><a href="#表驱动法的限制" class="headerlink" title="表驱动法的限制"></a>表驱动法的限制</h2><p>使用<code>pf_funA jumptable[CHIP_BUTT]</code>规避掉if，switch的判断代码后，还是会有一些问题，因为<em>jumptable</em>下标和内容的联系是我们人工写代码时维护的，但这两个值却在两个地方维护，一个在结构体<code>enum CHIPTYPE</code>，一个在<code>pf_funA jumptable[CHIP_BUTT]</code>，我们在写代码时，必须严格地保证CHIPTYPE的芯片类型的顺序与jumptable的对应下标的顺序一致，才能保证不出错，这两个结构体在文件中相距较远时，成员数量较多时，在增加删除和修改很可能漏删，少加，或顺序不匹配错误，如下所示，增加一个类型为CHIPCC的芯片，但在修改时，如果两个结构体不在同一处，可能会出现以下情况，导致CHIPC和CHIPCC的功能失配。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 芯片类型 */</span></span><br><span class="line"><span class="keyword">enum</span> CHIPTYPE&#123;</span><br><span class="line">    CHIPA,</span><br><span class="line">    CHIPB,</span><br><span class="line">    CHIPCC,  </span><br><span class="line">    CHIPC, </span><br><span class="line">    CHIP_BUTT</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 选择跳转表 */</span></span><br><span class="line"><span class="keyword">typedef</span> (* <span class="keyword">int</span>)pf_funA(<span class="keyword">int</span> * input, <span class="keyword">int</span> * output);</span><br><span class="line">pf_funA jumptable[CHIP_BUTT] = &#123;</span><br><span class="line">    funAchipA,</span><br><span class="line">    funAchipB,</span><br><span class="line">    funAchipC,</span><br><span class="line">    funAchipCC,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="利用X-Macro改进的表驱动法"><a href="#利用X-Macro改进的表驱动法" class="headerlink" title="利用X Macro改进的表驱动法"></a>利用X Macro改进的表驱动法</h2><p>针对以上情形，究其原因，是因为进行修改时我们要改2处地方，而且修改时有顺序的要求，维护代码时就必须花费更多的精力来进行比对和修改。有没有架构能实现每次修改我只改一处地方，而且不用关心我修改代码的顺序要求呢？X Macro模式就实现了这种功能，使用这种结构后，每次修改只需改一次地方，而且不用关心修改的地方顺序，可以插入任一位置。实现架构如下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 定义芯片类型和功能函数，修改时只改此表即可 */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CHIP_TABLE\</span></span><br><span class="line">	ENTRY(CHIPA, funAchipA)\</span><br><span class="line">	ENTRY(CHIPB, funAchipB)\</span><br><span class="line">	ENTRY(CHIPC, funAchipC)\</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 芯片类型 */</span></span><br><span class="line"><span class="keyword">enum</span> CHIPTYPE&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ENTRY(a,b) a,</span></span><br><span class="line">    CHIP_TABLE</span><br><span class="line"><span class="meta">#<span class="meta-keyword">undef</span> ENTRY</span></span><br><span class="line">    CHIP_BUTT</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 选择跳转表 */</span></span><br><span class="line">pf_funA jumptable[CHIP_BUTT] = &#123;</span><br><span class="line">#define ENTRY(a,b) b,</span><br><span class="line">    CHIP_TABLE</span><br><span class="line">#undef ENTRY</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 头文件声明 */</span></span><br><span class="line">#define ENTRY(a,b) <span class="keyword">static</span> <span class="keyword">int</span> b(<span class="keyword">int</span> * input, <span class="keyword">int</span> * output);</span><br><span class="line">    CHIP_TABLE</span><br><span class="line"><span class="meta">#<span class="meta-keyword">undef</span> ENTRY</span></span><br></pre></td></tr></table></figure>
+<h2>表驱动法实现</h2>
+<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* funA 提供函数 */</span></span><br><span class="line">chipA :  <span class="function"><span class="keyword">int</span> <span class="title">funAchipA</span><span class="params">(<span class="keyword">int</span> * input, <span class="keyword">int</span> * output)</span></span>;</span><br><span class="line">chipB :  <span class="function"><span class="keyword">int</span> <span class="title">funAchipB</span><span class="params">(<span class="keyword">int</span> * input, <span class="keyword">int</span> * output)</span></span>;</span><br><span class="line">chipC :  <span class="function"><span class="keyword">int</span> <span class="title">funAchipC</span><span class="params">(<span class="keyword">int</span> * input, <span class="keyword">int</span> * output)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 芯片类型 */</span></span><br><span class="line"><span class="keyword">enum</span> CHIPTYPE&#123;</span><br><span class="line">    CHIPA,</span><br><span class="line">    CHIPB,</span><br><span class="line">    CHIPC,</span><br><span class="line">    CHIP_BUTT</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 选择跳转表 */</span></span><br><span class="line"><span class="keyword">typedef</span> (* <span class="keyword">int</span>)pf_funA(<span class="keyword">int</span> * input, <span class="keyword">int</span> * output);</span><br><span class="line">pf_funA jumptable[CHIP_BUTT] = &#123;</span><br><span class="line">    funAchipA,</span><br><span class="line">    funAchipB,</span><br><span class="line">    funAchipC,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 使用方法 */</span></span><br><span class="line">pf_funA pFunA;</span><br><span class="line"><span class="keyword">enum</span> CHIPTYPE type;</span><br><span class="line">type = getfromuser(); <span class="comment">// 从上层获取芯片类型</span></span><br><span class="line">pFunA = jumptable[type];</span><br><span class="line"></span><br><span class="line"><span class="comment">/*  pFunA 作为通用的功能函数接口提供给上层实现查表功能，从而屏蔽不同芯片的差异，上层不感知芯片变化 */</span></span><br></pre></td></tr></table></figure></p>
+<h2>正常顺序代码实现</h2>
+<p>《代码大全》中推荐工程师第一篇最重要的要读的文章表驱动法即是以上代码。里面用了一个技巧是通过下标和向量的关联关系代替了if,switch的引用，否则正常的代码如下，一但芯片增加到几十种，就会非常冗长。</p>
+<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 正常使用调用函数的代码 */</span></span><br><span class="line"><span class="keyword">enum</span> CHIPTYPE type;</span><br><span class="line">type = getfromuser(); <span class="comment">// 从上层获取芯片类型</span></span><br><span class="line"><span class="keyword">if</span> (type == CHIPA)</span><br><span class="line">&#123;</span><br><span class="line">    pFunA = funAchipA;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span>(type == CHIPB)</span><br><span class="line">&#123;</span><br><span class="line">    pFunA = funAchipB;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span>(type == CHIPC)</span><br><span class="line">&#123;</span><br><span class="line">    pFunA = funAchipC;</span><br><span class="line">&#125;</span><br><span class="line">...</span><br><span class="line">    </span><br><span class="line"><span class="comment">/* 使用pFunA 来实现功能函数A */</span></span><br></pre></td></tr></table></figure></p>
+<h2>表驱动法的限制</h2>
+<p>使用<code>pf_funA jumptable[CHIP_BUTT]</code>规避掉if，switch的判断代码后，还是会有一些问题，因为_jumptable_下标和内容的联系是我们人工写代码时维护的，但这两个值却在两个地方维护，一个在结构体<code>enum CHIPTYPE</code>，一个在<code>pf_funA jumptable[CHIP_BUTT]</code>，我们在写代码时，必须严格地保证CHIPTYPE的芯片类型的顺序与jumptable的对应下标的顺序一致，才能保证不出错，这两个结构体在文件中相距较远时，成员数量较多时，在增加删除和修改很可能漏删，少加，或顺序不匹配错误，如下所示，增加一个类型为CHIPCC的芯片，但在修改时，如果两个结构体不在同一处，可能会出现以下情况，导致CHIPC和CHIPCC的功能失配。</p>
+<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 芯片类型 */</span></span><br><span class="line"><span class="keyword">enum</span> CHIPTYPE&#123;</span><br><span class="line">    CHIPA,</span><br><span class="line">    CHIPB,</span><br><span class="line">    CHIPCC,  </span><br><span class="line">    CHIPC, </span><br><span class="line">    CHIP_BUTT</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 选择跳转表 */</span></span><br><span class="line"><span class="keyword">typedef</span> (* <span class="keyword">int</span>)pf_funA(<span class="keyword">int</span> * input, <span class="keyword">int</span> * output);</span><br><span class="line">pf_funA jumptable[CHIP_BUTT] = &#123;</span><br><span class="line">    funAchipA,</span><br><span class="line">    funAchipB,</span><br><span class="line">    funAchipC,</span><br><span class="line">    funAchipCC,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2>利用X Macro改进的表驱动法</h2>
+<p>针对以上情形，究其原因，是因为进行修改时我们要改2处地方，而且修改时有顺序的要求，维护代码时就必须花费更多的精力来进行比对和修改。有没有架构能实现每次修改我只改一处地方，而且不用关心我修改代码的顺序要求呢？X Macro模式就实现了这种功能，使用这种结构后，每次修改只需改一次地方，而且不用关心修改的地方顺序，可以插入任一位置。实现架构如下：</p>
+<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 定义芯片类型和功能函数，修改时只改此表即可 */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CHIP_TABLE\</span></span><br><span class="line">	ENTRY(CHIPA, funAchipA)\</span><br><span class="line">	ENTRY(CHIPB, funAchipB)\</span><br><span class="line">	ENTRY(CHIPC, funAchipC)\</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 芯片类型 */</span></span><br><span class="line"><span class="keyword">enum</span> CHIPTYPE&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ENTRY(a,b) a,</span></span><br><span class="line">    CHIP_TABLE</span><br><span class="line"><span class="meta">#<span class="meta-keyword">undef</span> ENTRY</span></span><br><span class="line">    CHIP_BUTT</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 选择跳转表 */</span></span><br><span class="line">pf_funA jumptable[CHIP_BUTT] = &#123;</span><br><span class="line">#define ENTRY(a,b) b,</span><br><span class="line">    CHIP_TABLE</span><br><span class="line">#undef ENTRY</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 头文件声明 */</span></span><br><span class="line">#define ENTRY(a,b) <span class="keyword">static</span> <span class="keyword">int</span> b(<span class="keyword">int</span> * input, <span class="keyword">int</span> * output);</span><br><span class="line">    CHIP_TABLE</span><br><span class="line"><span class="meta">#<span class="meta-keyword">undef</span> ENTRY</span></span><br></pre></td></tr></table></figure></p>
 <p>采用以上结构后，我们发现，如果要增加新的芯片类型CHIPCC，我们只需在头文件中的CHIP_TABLE中加入一行即可，而且没有顺序要求。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 定义芯片类型和功能函数，修改时只改此表即可 */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CHIP_TABLE\</span></span><br><span class="line">	ENTRY(CHIPA, funAchipA)\</span><br><span class="line">	ENTRY(CHIPB, funAchipB)\</span><br><span class="line">	ENTRY(CHIPCC, funAchipCC)\</span><br><span class="line">	ENTRY(CHIPC, funAchipC)\</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 定义芯片类型和功能函数，修改时只改此表即可 */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CHIP_TABLE\</span></span><br><span class="line">	ENTRY(CHIPA, funAchipA)\</span><br><span class="line">	ENTRY(CHIPB, funAchipB)\</span><br><span class="line">	ENTRY(CHIPCC, funAchipCC)\</span><br><span class="line">	ENTRY(CHIPC, funAchipC)\</span><br></pre></td></tr></table></figure></p>
 
           
         
@@ -1234,23 +1287,29 @@
       
         
           
-            <h2 id="研究了一下tcl-tk语言"><a href="#研究了一下tcl-tk语言" class="headerlink" title="研究了一下tcl/tk语言"></a>研究了一下tcl/tk语言</h2><p>作为一名在网络公司的研发工程师，每次测试都要敲一大堆命令，之前测试的同事一直用tcl脚本来实现自动化，自己因为测试较少没有深入地了解这门语言。有一次因要测试大量的重复命令。用了tcl写完脚本后，节省了自己80%的测试时间，感觉心里痛快不少。对tcl有了进一步了解的兴趣。</p>
-<h2 id="tcl发明人"><a href="#tcl发明人" class="headerlink" title="tcl发明人"></a>tcl发明人</h2><p>Tcl是伯克利作品，在SUN生存过一段时间，现在则是很小规模的社区委员会在维护，主要的优化是性能和兼容性，缓慢和保守的加入新特性。</p>
+            <h2>研究了一下tcl/tk语言</h2>
+<p>作为一名在网络公司的研发工程师，每次测试都要敲一大堆命令，之前测试的同事一直用tcl脚本来实现自动化，自己因为测试较少没有深入地了解这门语言。有一次因要测试大量的重复命令。用了tcl写完脚本后，节省了自己80%的测试时间，感觉心里痛快不少。对tcl有了进一步了解的兴趣。</p>
+<h2>tcl发明人</h2>
+<p>Tcl是伯克利作品，在SUN生存过一段时间，现在则是很小规模的社区委员会在维护，主要的优化是性能和兼容性，缓慢和保守的加入新特性。</p>
 <p>Tcl出现的年代，GUI刚起步；在各种当时还是非常封闭的平台上写高效的GUI程序并不容易，Tk图形库一出现就受到了极大欢迎，它让程序员可以非常快速的创建简单GUI应用；时至今日，包括Python在内的很多语言，最早和缺省支持的GUI Toolkit仍然是Tk，虽然界面看起来实在土不堪言；SUN选择了Java放弃了Tcl是对Tcl的最大打击；之后Tcl的创始人Ousterhout将Tcl和他创办的公司一起卖给了其他公司并离开了核心开发团队，这门语言开始停滞发展并迅速被其他活跃的商业语言或社区语言超越；到现在你已经基本上听不到它的名字了；目前Tcl还在使用的一些地方包括EDA软件的内嵌语言，某些型号的Cisco的路由器脚本，自动化测试框架，等等；</p>
-<h2 id="tcl-的评价"><a href="#tcl-的评价" class="headerlink" title="tcl 的评价"></a>tcl 的评价</h2><p>Richard Stallman明确表示Tcl是Toy language，因为，没数据结构可用，于是完全无法展示CS背景人士的专业性所在；但反过来说，构筑在数学上的CS，并非每个人都能理解，反之，我们的自然语言也不像数学那样抽象，它是不严谨，但是这不妨碍使用者经过训练之后将他用于诸如法律文书、药物说明或者科学论文等非常严谨精确的地方，看你怎么使用。这就是Tcl，易学，也不难精，简洁，一种抽象规则，变化无穷。</p>
-<h2 id="tcl-的应用范围"><a href="#tcl-的应用范围" class="headerlink" title="tcl 的应用范围"></a>tcl 的应用范围</h2><p>Tcl是跨平台的，但是很明显在习惯上它是unix哲学体系的。一个是前面说的类shell和类c语法，另外，在unix上，命令加参数几乎是一切非ui程序的工作方式，如果你用C写程序，最简单的也是这类，而Tcl的基本执行单元就是命令加参数，这不但意味着你可以直接调用外部程序，你还可以在脚本函数出现性能瓶颈的时候直接打开文本编辑器写一段C代码然后编译一下，就在Tcl里把脚本函数改成外部调用就可以了，既不用写库，也不用写界面定义文件。unix上另一类命令行程序是程序自身也类似shell，比如gdb，ssh，ftp，telnet等等，它们不能简化成一个命令加一组参数工作。没问题，Tcl有个非常流行的库叫expect，就是对付这种情况的利器，把Tcl脚本伪装成一个交互shell用户，填输入进去，取输出结果回来。所以你看到了，Tcl是命令和Interactive Shell自动化的超级利器，这也就难怪它在自动测试领域那么流行了。象Sqlite测试，给它测试数据库文件，命令行SQL操作，对比结果；象GCC/GDB，提交测试文件，自动执行，对比输出或者返回信息；象一个modem模块，可以AT Command发过去，检查返回信息，solicited，unsolicited；等等，诸如此类。Tk是Tcl另一个引以为豪的地方。一句脚本就能创建对话框。我不清楚它对复杂窗口程序的控制力如何，实际用Tcl/Tk交付的UI商业程序是有的，但不多，</p>
-<h2 id="tcl的设计理念"><a href="#tcl的设计理念" class="headerlink" title="tcl的设计理念"></a>tcl的设计理念</h2><p>Tcl则处在一个奇怪的位置；它现在在TIOBE的排名是100左右，基本上排在大多数程序员听说过的所有编程语言之后，但它曾经很流行，在Java出现之前；在它流行的年代，计算设备的性能很低；Unix Shell是主要的竞争对手，LISP是一个美丽的泡泡；所以Tcl从一出生开始在形式上就带有这两种语言的特点：Shell的字符串展开，LISP的表达式优先和空格分隔符；这两点可能让熟悉类C语法的大多数现代程序员都不适应；</p>
+<h2>tcl 的评价</h2>
+<p>Richard Stallman明确表示Tcl是Toy language，因为，没数据结构可用，于是完全无法展示CS背景人士的专业性所在；但反过来说，构筑在数学上的CS，并非每个人都能理解，反之，我们的自然语言也不像数学那样抽象，它是不严谨，但是这不妨碍使用者经过训练之后将他用于诸如法律文书、药物说明或者科学论文等非常严谨精确的地方，看你怎么使用。这就是Tcl，易学，也不难精，简洁，一种抽象规则，变化无穷。</p>
+<h2>tcl 的应用范围</h2>
+<p>Tcl是跨平台的，但是很明显在习惯上它是unix哲学体系的。一个是前面说的类shell和类c语法，另外，在unix上，命令加参数几乎是一切非ui程序的工作方式，如果你用C写程序，最简单的也是这类，而Tcl的基本执行单元就是命令加参数，这不但意味着你可以直接调用外部程序，你还可以在脚本函数出现性能瓶颈的时候直接打开文本编辑器写一段C代码然后编译一下，就在Tcl里把脚本函数改成外部调用就可以了，既不用写库，也不用写界面定义文件。unix上另一类命令行程序是程序自身也类似shell，比如gdb，ssh，ftp，telnet等等，它们不能简化成一个命令加一组参数工作。没问题，Tcl有个非常流行的库叫expect，就是对付这种情况的利器，把Tcl脚本伪装成一个交互shell用户，填输入进去，取输出结果回来。所以你看到了，Tcl是命令和Interactive Shell自动化的超级利器，这也就难怪它在自动测试领域那么流行了。象Sqlite测试，给它测试数据库文件，命令行SQL操作，对比结果；象GCC/GDB，提交测试文件，自动执行，对比输出或者返回信息；象一个modem模块，可以AT Command发过去，检查返回信息，solicited，unsolicited；等等，诸如此类。Tk是Tcl另一个引以为豪的地方。一句脚本就能创建对话框。我不清楚它对复杂窗口程序的控制力如何，实际用Tcl/Tk交付的UI商业程序是有的，但不多，</p>
+<h2>tcl的设计理念</h2>
+<p>Tcl则处在一个奇怪的位置；它现在在TIOBE的排名是100左右，基本上排在大多数程序员听说过的所有编程语言之后，但它曾经很流行，在Java出现之前；在它流行的年代，计算设备的性能很低；Unix Shell是主要的竞争对手，LISP是一个美丽的泡泡；所以Tcl从一出生开始在形式上就带有这两种语言的特点：Shell的字符串展开，LISP的表达式优先和空格分隔符；这两点可能让熟悉类C语法的大多数现代程序员都不适应；</p>
 <p>应用程序使用Tcl作为它的命令语言有三个好处：</p>
 <p>1 Tcl提供了标准语法，一旦用户掌握了Tcl就可以很容易的发布命令给基于Tcl的程序。</p>
 <p>2 Tcl实现了很多的功能，使你的工作变得很方便。</p>
 <p>3 TCl可作为程序间通信的接口。</p>
-<p>Tcl 代表 “tool command language” 发音为 “tickle.” 。它实际上包含了两个部分：一个语言和一个库。</p>
+<p>Tcl 代表 &quot;tool command language&quot; 发音为 &quot;tickle.&quot; 。它实际上包含了两个部分：一个语言和一个库。</p>
 <p>首先，Tcl是一种简单的脚本语言，主要使用于发布命令给一些互交程序如文本编辑器、调试器和shell。它有一个简单的语法和很强可扩充性，Tcl可以创建新的过程以增强其内建命令的能力。</p>
 <p>其次，Tcl是一个库包，可以被嵌入应用程序，Tcl的库包含了一个分析器、用于执行内建命令的例程和可以使你扩充（定义新的过程）的库函数。应用程序可以产生Tcl命令并执行，命令可以由用户产生，也可以从用户接口的一个输入中读取（按钮或菜单等）。但Tcl库收到命令后将它分解并执行内建的命令，经常会产生递归的调用。</p>
 <p>Tcl Interpreters 解释器在Tcl的数据结构中的核心是Tcl_Interp.一个解释器包含了一套命令，一组变量和一些用于描述状态的东西。每一个 Tcl命令是在特定的Tcl_Interp中运行的,基于Tcl的应用程序可以同时拥有几个Tcl_Interp。Tcl_Interp是一个轻量级的结构，可以快速的新建和删除。</p>
 <p>Tcl Data Types 数据类型Tcl只支持一种数据结构：字符串（string）。所有的命令，命令的所有的参数，命令的结果，所有的变量都是字符串。请牢记这一点，所有的东西都是字符串。然而字符串的实际解释是依赖于上下文或命令的。它有三种形式：命令(command), 表达式(expresion)和表(list)。下面会讨论细节。</p>
 <p>Basic Command Syntax 基本语法Tcl有类似于shell和lisp的语法，当然也有许多的不同。一条Tcl的命令串包含了一条或多条命令用换行符或分号来隔开，而每一条命令包含了一个域(field)的集合，域使用空白分开的，第一个域是一个命令的名字，其它的是作为参数来传给它。例如：set a 22 //相当于C中的 a=22 a是一个变量这条命令分为三个域：<code>1： set 2： a 3： 22</code>   set使用于设置变量的值的命令，a、20 作为参数来传给它，a使它要操作的变量名，22是要付给的a值。Tcl的命令名可以使内建的命令也可以是用户建的新命令，在应用程序中用函数Tcl_CreateCommand 来创建。所有的参数作为字符串来传递，命令自己会按其所需来解释的参数的。命令的名字必须被打全，但 Tcl解释器找不到一同名的命令时会用 unknown命令来代替。</p>
-<h2 id="tcl-的语法简介"><a href="#tcl-的语法简介" class="headerlink" title="tcl 的语法简介"></a>tcl 的语法简介</h2><p>Command summary 命令综述</p>
+<h2>tcl 的语法简介</h2>
+<p>Command summary 命令综述</p>
 <blockquote>
 <p>1.一个命令就是一个字符串（string）。</p>
 <p>2.命令是用换行符或分号来分隔的。</p>
@@ -1259,7 +1318,7 @@
 <p>5.双引号可以使一个参数包括换行符或分号。三种子替换仍然发生。</p>
 <p>6.花括号类似于双引号，只是不进行三总体换。</p>
 <p>7.系统只进行一层子替换，机制替换的结果不会再去做子替换。而且子替换可以在任何一个域进行。</p>
-<p>8.如果第一个非控字符是`#’, 这一行的所有东西都是注释。</p>
+<p>8.如果第一个非控字符是`#', 这一行的所有东西都是注释。</p>
 </blockquote>
 
           
@@ -1412,13 +1471,15 @@
       
         
           
-            <h2 id="linux调试"><a href="#linux调试" class="headerlink" title="linux调试"></a>linux调试</h2><p>通常我们在用户态下进行程序的编写，用一个main函数，gcc进行编译后直接在bash下执行编译生成的二进制文件即可看到程序运行结果。但内核态函数不是从main函数开始的，也无法直接在用户态运行，这时候我们一般采用module的方式来进行内核态函数的调试。</p>
-<h2 id="module-的使用方法"><a href="#module-的使用方法" class="headerlink" title="module 的使用方法"></a>module 的使用方法</h2><p>以调试内核态函数printk为例。为调试pirntk函数的功能</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*注意不能命名为Printk.c，因为Linux内部有这个文件，再添加同名的.ko文件会报错。*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/module.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/init.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">MODULE_LICENSE(<span class="string">"Dual BSD/GPL"</span>);</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">hello_init</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    printk(<span class="string">"hello world\n"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">hello_exit</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    printk(<span class="string">"hello bye\n"</span>);</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">module_init(hello_init);</span><br><span class="line">module_exit(hello_exit);</span><br></pre></td></tr></table></figure>
-<p>makefile文件设置如下 </p>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">obj-m = wf_printk.o</span><br><span class="line">PWD := <span class="variable">$(<span class="built_in">shell</span> pwd)</span></span><br><span class="line"><span class="section">all:</span></span><br><span class="line">	make -C /lib/modules/<span class="variable">$(<span class="built_in">shell</span> uname -r)</span>/build M=<span class="variable">$(PWD)</span> modules</span><br><span class="line"><span class="section">clean:</span></span><br><span class="line">	rm *.o *.ko  *.mod.c *.order *.symvers</span><br></pre></td></tr></table></figure>
+            <h2>linux调试</h2>
+<p>通常我们在用户态下进行程序的编写，用一个main函数，gcc进行编译后直接在bash下执行编译生成的二进制文件即可看到程序运行结果。但内核态函数不是从main函数开始的，也无法直接在用户态运行，这时候我们一般采用module的方式来进行内核态函数的调试。</p>
+<h2>module 的使用方法</h2>
+<p>以调试内核态函数printk为例。为调试pirntk函数的功能</p>
+<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*注意不能命名为Printk.c，因为Linux内部有这个文件，再添加同名的.ko文件会报错。*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/module.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/init.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">MODULE_LICENSE(<span class="string">"Dual BSD/GPL"</span>);</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">hello_init</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    printk(<span class="string">"hello world\n"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">hello_exit</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    printk(<span class="string">"hello bye\n"</span>);</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">module_init(hello_init);</span><br><span class="line">module_exit(hello_exit);</span><br></pre></td></tr></table></figure></p>
+<p>makefile文件设置如下</p>
+<p><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">obj-m = wf_printk.o</span><br><span class="line">PWD := <span class="variable">$(<span class="built_in">shell</span> pwd)</span></span><br><span class="line"><span class="section">all:</span></span><br><span class="line">	make -C /lib/modules/<span class="variable">$(<span class="built_in">shell</span> uname -r)</span>/build M=<span class="variable">$(PWD)</span> modules</span><br><span class="line"><span class="section">clean:</span></span><br><span class="line">	rm *.o *.ko  *.mod.c *.order *.symvers</span><br></pre></td></tr></table></figure></p>
 <p>测试命令如下</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$ sudo chmod 777 wf_printk.c</span><br><span class="line">$ sudo make</span><br><span class="line">$ sudo insmod wf_printk.ko  <span class="comment">#安装模块</span></span><br><span class="line">$ dmesg -c  <span class="comment">#查看效果</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 安装模块后现象如下</span></span><br><span class="line">[ 8520.317794] 02:21:54.819662 timesync vgsvcTimeSyncWorker: Radical guest time change: 77 388 852 170 000ns (GuestNow=1 525 693 894 041 566 000 ns GuestLast=1 525 616 505 189 396 000 ns fSetTimeLastLoop=<span class="literal">true</span> )</span><br><span class="line">[ 8845.422739] hello world</span><br><span class="line"></span><br><span class="line">$ sudo rmmod wf_printk.ko  <span class="comment">#卸载模块</span></span><br><span class="line">$ dmesg -c  <span class="comment">#查看效果</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 卸载模块后现象如下</span></span><br><span class="line">[ 8520.317794] 02:21:54.819662 timesync vgsvcTimeSyncWorker: Radical guest time change: 77 388 852 170 000ns (GuestNow=1 525 693 894 041 566 000 ns GuestLast=1 525 616 505 189 396 000 ns fSetTimeLastLoop=<span class="literal">true</span> )</span><br><span class="line">[ 8845.422739] hello world</span><br><span class="line">[ 8925.981566] hello <span class="built_in">bye</span></span><br></pre></td></tr></table></figure>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$ sudo chmod 777 wf_printk.c</span><br><span class="line">$ sudo make</span><br><span class="line">$ sudo insmod wf_printk.ko  <span class="comment">#安装模块</span></span><br><span class="line">$ dmesg -c  <span class="comment">#查看效果</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 安装模块后现象如下</span></span><br><span class="line">[ 8520.317794] 02:21:54.819662 timesync vgsvcTimeSyncWorker: Radical guest time change: 77 388 852 170 000ns (GuestNow=1 525 693 894 041 566 000 ns GuestLast=1 525 616 505 189 396 000 ns fSetTimeLastLoop=<span class="literal">true</span> )</span><br><span class="line">[ 8845.422739] hello world</span><br><span class="line"></span><br><span class="line">$ sudo rmmod wf_printk.ko  <span class="comment">#卸载模块</span></span><br><span class="line">$ dmesg -c  <span class="comment">#查看效果</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 卸载模块后现象如下</span></span><br><span class="line">[ 8520.317794] 02:21:54.819662 timesync vgsvcTimeSyncWorker: Radical guest time change: 77 388 852 170 000ns (GuestNow=1 525 693 894 041 566 000 ns GuestLast=1 525 616 505 189 396 000 ns fSetTimeLastLoop=<span class="literal">true</span> )</span><br><span class="line">[ 8845.422739] hello world</span><br><span class="line">[ 8925.981566] hello <span class="built_in">bye</span></span><br></pre></td></tr></table></figure></p>
 
           
         
@@ -1570,28 +1631,34 @@
       
         
           
-            <h2 id="字符转换函数的使用场景"><a href="#字符转换函数的使用场景" class="headerlink" title="字符转换函数的使用场景"></a>字符转换函数的使用场景</h2><p>我们在程序界面输入数据时，基本上都是用字符来保存的，所有操作系统之间的信息保存和传递也是基于字符（char）单位来进行，单位再大了就有字节序问题，不能兼容所有的操作系统了。为效率考虑，现在的信息全以字符为单位。计算一段数据的大小，比如一个变量Int的大小，用sizeof操作符返回的结果就是字节数，也就是char的个数。sizeof(int)  == 4 ，在程序应用中，比如在计数器中我们输入一串数字和符号  123 + 456 ，内部如何计算出结果呢，123在输入时是对应3个字符char，在计算的时时候我们则必须将其转换成整型变量数据再进行加法运算。C函数提供的一个函数库API是atoi, ascii to integer 的一个函数 stdlib.h，其原型是int atoi(const char * ptr)，函数开始扫描ptr字符串，跳过空白字符(isspace检测)，从数字或正负号开始，到\0或非数字结束，返回一个整数，当无法转换成整理或ptr是空字符串时返回0</p>
+            <h2>字符转换函数的使用场景</h2>
+<p>我们在程序界面输入数据时，基本上都是用字符来保存的，所有操作系统之间的信息保存和传递也是基于字符（char）单位来进行，单位再大了就有字节序问题，不能兼容所有的操作系统了。为效率考虑，现在的信息全以字符为单位。计算一段数据的大小，比如一个变量Int的大小，用sizeof操作符返回的结果就是字节数，也就是char的个数。sizeof(int)  == 4 ，在程序应用中，比如在计数器中我们输入一串数字和符号  123 + 456 ，内部如何计算出结果呢，123在输入时是对应3个字符char，在计算的时时候我们则必须将其转换成整型变量数据再进行加法运算。C函数提供的一个函数库API是atoi, ascii to integer 的一个函数 stdlib.h，其原型是int atoi(const char * ptr)，函数开始扫描ptr字符串，跳过空白字符(isspace检测)，从数字或正负号开始，到\0或非数字结束，返回一个整数，当无法转换成整理或ptr是空字符串时返回0</p>
 <p>同样的，也会有itoa函数，将整数转换成字符串，但奇怪的是这个函数却不是标准的C函数，在Linux下基本没有这个函数，通常windows下的非标准编译器才支持这种函数，我考虑了多方面因素，可能是以下原因，转换出的字符串一般都是一串不确定长度的空间，而这个内存空间只能通过指针的方式返回使用者，这样使用者调用后还需要手动释放这个空间，很容易造成内存泄露。linux下将数字转换成字符有以下几种方式</p>
 <blockquote>
-<h2 id="int-sprintf-char-buffer-char-fmt-…"><a href="#int-sprintf-char-buffer-char-fmt-…" class="headerlink" title="int sprintf( char * buffer,  char * fmt , …);"></a>int sprintf( char * buffer,  char * fmt , …);</h2></blockquote>
+<h2>int sprintf( char * buffer,  char * fmt , ...);</h2>
+</blockquote>
 <p>sprintf最常见的应用之一莫过于把整数打印到字符串中，所以，spritnf 在大多数场合可以替代itoa。如：</p>
 <ol>
-<li><p>将整数转成字符串</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sprintf</span> (s, <span class="string">"%d"</span>, <span class="number">123</span>); <span class="comment">// 产生"123"</span></span><br></pre></td></tr></table></figure>
+<li>
+<p>将整数转成字符串</p>
+<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sprintf</span> (s, <span class="string">"%d"</span>, <span class="number">123</span>); <span class="comment">// 产生"123"</span></span><br></pre></td></tr></table></figure></p>
 </li>
-<li><p>连接字符串</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> *who = <span class="string">"I"</span>;</span><br><span class="line"><span class="keyword">char</span> *whom = <span class="string">"52PHP"</span>; </span><br><span class="line"><span class="built_in">sprintf</span>(s, <span class="string">"%s love %s."</span>, who, whom); <span class="comment">// 产生："I love 52PHP. "</span></span><br></pre></td></tr></table></figure>
+<li>
+<p>连接字符串</p>
+<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> *who = <span class="string">"I"</span>;</span><br><span class="line"><span class="keyword">char</span> *whom = <span class="string">"52PHP"</span>; </span><br><span class="line"><span class="built_in">sprintf</span>(s, <span class="string">"%s love %s."</span>, who, whom); <span class="comment">// 产生："I love 52PHP. "</span></span><br></pre></td></tr></table></figure></p>
 <p><em>spintf 常见问题</em></p>
 <p>1、返回值返回的是实际写入buffer的字符长度，可以不用再用strlen计算字符长度了</p>
 <p>2、如果 s 的区域不足，写入的数据超过s长度，可能会导致内存访问错误引起崩溃，</p>
 </li>
 </ol>
 <blockquote>
-<h2 id="int-snprintf-char-buf-size-t-n-char-fmt-…"><a href="#int-snprintf-char-buf-size-t-n-char-fmt-…" class="headerlink" title="int snprintf(char *buf, size_t n, char * fmt, …)"></a>int snprintf(char *buf, size_t n, char * fmt, …)</h2></blockquote>
+<h2>int snprintf(char *buf, size_t n, char * fmt, ...)</h2>
+</blockquote>
 <p>为了防止引起内存访问错误，采用snprintf函数，此函数最多从源字符串中取n-1个字符，最后一个字节补\0，写入buf，推荐用法是将第2个参数n写成sizeof(buf)，与sprintf不同的时返回值 int 是源字符串的字符数，而非实际写入buf的字符串数目。在Linux内核中不推荐用snprintf，就是因为返回的值可能大于实际写入的buf中的字符数目，可能导致计算时越界，linux内存中推荐采用返回值为实际写入buf中的字符数字函数scnprintf，用法和snprintf一样，但返回值是实际写入buf的字符数，这样就避免了返回值比实际写入buf数值还大的现象。</p>
 <blockquote>
-<h2 id="int-scnprintf-char-buf-size-t-n-char-fmt-…"><a href="#int-scnprintf-char-buf-size-t-n-char-fmt-…" class="headerlink" title="int scnprintf(char *buf, size_t n, char *fmt, …)"></a>int scnprintf(char *buf, size_t n, char *fmt, …)</h2></blockquote>
-<p>参考文章：<a href="https://www.kernel.org/doc/htmldocs/kernel-api/API-scnprintf.html" target="_blank" rel="noopener">https://www.kernel.org/doc/htmldocs/kernel-api/API-scnprintf.html</a></p>
+<h2>int scnprintf(char *buf, size_t n, char *fmt, ...)</h2>
+</blockquote>
+<p>参考文章：https://www.kernel.org/doc/htmldocs/kernel-api/API-scnprintf.html</p>
 
           
         
@@ -1743,11 +1810,13 @@
       
         
           
-            <h2 id="LD-PRELOAD：利用动态链接库更改同名函数的功能"><a href="#LD-PRELOAD：利用动态链接库更改同名函数的功能" class="headerlink" title="LD_PRELOAD：利用动态链接库更改同名函数的功能"></a>LD_PRELOAD：利用动态链接库更改同名函数的功能</h2><p>linux 的程序在运行时调用的函数是以符号的形式存储在静态链接库.a文件或动态链接库.so文件中的，Linux优先查找动态链接库中的符号，如果没有再去查找静态链接库。LD_PRELOAD是linux下的一个环境变量，设置了之后，linux会优先查找LD_PRELOAD路径中的动态链接库，然后再查找默认的动态链接库，再查找静态链接库。知道了这个特性，我们就可以在不修改程序代码的情况下，通过LD_PRELOAD设置，实现程序优先调用我们自己编译的动态链接库，从而更改原有的程序代码功能。</p>
-<h2 id="LD-PRELOAD-实现样例"><a href="#LD-PRELOAD-实现样例" class="headerlink" title="LD_PRELOAD 实现样例"></a>LD_PRELOAD 实现样例</h2><p>举个栗子：一个登录函数，输入密码正确后正常登录，错误返回登录失败。输入的密码与存储的密码比较函数假设原型为<em>int mycompare(const char <em> input, const char </em> origin)</em>, 当input 等于origin时返回登录成功，返回值为0，否则返回失败。如果知道了这个函数的原型，我们即可以利用LD_PRELOAD功能，自己构造一个mycompare函数，构造的这个函数比较任何数据都返回成功，这样我们就实现了破解的功能。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* ld_preload.c 主函数 */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">extern</span> <span class="keyword">int</span> <span class="title">mycompare</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *a, <span class="keyword">const</span> <span class="keyword">char</span> *b)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> * passwd = <span class="string">"pass"</span>;</span><br><span class="line">    <span class="keyword">if</span> (argc != <span class="number">2</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"wrong arg num, must be 2! \n"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="number">0</span> == mycompare(passwd, argv[<span class="number">1</span>]))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"correct, it is 'pass'\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"wrong, you input : %s, the right is %s\n"</span>,argv[<span class="number">1</span>], passwd);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            <h2>LD_PRELOAD：利用动态链接库更改同名函数的功能</h2>
+<p>linux 的程序在运行时调用的函数是以符号的形式存储在静态链接库.a文件或动态链接库.so文件中的，Linux优先查找动态链接库中的符号，如果没有再去查找静态链接库。LD_PRELOAD是linux下的一个环境变量，设置了之后，linux会优先查找LD_PRELOAD路径中的动态链接库，然后再查找默认的动态链接库，再查找静态链接库。知道了这个特性，我们就可以在不修改程序代码的情况下，通过LD_PRELOAD设置，实现程序优先调用我们自己编译的动态链接库，从而更改原有的程序代码功能。</p>
+<h2>LD_PRELOAD 实现样例</h2>
+<p>举个栗子：一个登录函数，输入密码正确后正常登录，错误返回登录失败。输入的密码与存储的密码比较函数假设原型为_int mycompare(const char * input, const char * origin)_, 当input 等于origin时返回登录成功，返回值为0，否则返回失败。如果知道了这个函数的原型，我们即可以利用LD_PRELOAD功能，自己构造一个mycompare函数，构造的这个函数比较任何数据都返回成功，这样我们就实现了破解的功能。</p>
+<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* ld_preload.c 主函数 */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">extern</span> <span class="keyword">int</span> <span class="title">mycompare</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *a, <span class="keyword">const</span> <span class="keyword">char</span> *b)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> * passwd = <span class="string">"pass"</span>;</span><br><span class="line">    <span class="keyword">if</span> (argc != <span class="number">2</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"wrong arg num, must be 2! \n"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="number">0</span> == mycompare(passwd, argv[<span class="number">1</span>]))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"correct, it is 'pass'\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"wrong, you input : %s, the right is %s\n"</span>,argv[<span class="number">1</span>], passwd);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>比较函数代码如下，此函数编译成动态链接库供主函数调用。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* compare.c 生成.so文件 */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">mycompare</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *a, <span class="keyword">const</span> <span class="keyword">char</span> *b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">strcmp</span>(a,b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* compare.c 生成.so文件 */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">mycompare</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *a, <span class="keyword">const</span> <span class="keyword">char</span> *b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">strcmp</span>(a,b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>编译步骤如下：</p>
 <blockquote>
 <p>gcc compare.c -fPIC -shared -o libcompare.so</p>
@@ -1756,23 +1825,24 @@
 <p>测试结果如下：</p>
 <blockquote>
 <p>$ ./ld_preload pass</p>
-<p>correct, it is ‘pass’</p>
+<p>correct, it is 'pass'</p>
 <p>$ ./ld_preload a</p>
 <p>wrong, you input : a, the right is pass</p>
 </blockquote>
 <p>现在我们新建一个myhack.c，重新实现mycompare函数</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* myhack.c */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">mycompare</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> * a, <span class="keyword">const</span> <span class="keyword">char</span> * b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>; <span class="comment">// hack, any passwd is right.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* myhack.c */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">mycompare</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> * a, <span class="keyword">const</span> <span class="keyword">char</span> * b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>; <span class="comment">// hack, any passwd is right.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>编译处理步骤如下，处理过后任意输入字符都会匹配输出相等，达到了替换原功能函数的目的，用unset LD_PRELOAD可以恢复原先设置：</p>
 <blockquote>
 <p>$ gcc myhack.c -fPIC -shared -o libmyhack.so</p>
-<p>$ export LD_PRELOAD=”./libmyhack.so”</p>
-<p>$ ./ld_preload a </p>
-<p>correct, it is ‘pass’</p>
+<p>$ export LD_PRELOAD=&quot;./libmyhack.so&quot;</p>
+<p>$ ./ld_preload a</p>
+<p>correct, it is 'pass'</p>
 <p>$ unset LD_PRELOAD</p>
 <p>$ ./ld_preload a</p>
 <p>wrong, you input : a, the right is pass</p>
 </blockquote>
-<h2 id="参考知识点"><a href="#参考知识点" class="headerlink" title="参考知识点"></a>参考知识点</h2><table>
+<h2>参考知识点</h2>
+<table>
 <thead>
 <tr>
 <th>gcc 编译选项</th>
@@ -1782,7 +1852,7 @@
 <tbody>
 <tr>
 <td>-c</td>
-<td>只编译不链接，生成目标文件“.o”</td>
+<td>只编译不链接，生成目标文件“.o&quot;</td>
 </tr>
 <tr>
 <td>-S</td>
@@ -1814,7 +1884,7 @@
 </tr>
 <tr>
 <td>-shared</td>
-<td>1、生成动态库文件 <br>2、优先链接动态库，无动态库才链接表态库</td>
+<td>1、生成动态库文件 &lt;br /&gt;2、优先链接动态库，无动态库才链接表态库</td>
 </tr>
 <tr>
 <td>-L dir</td>
@@ -1822,22 +1892,33 @@
 </tr>
 <tr>
 <td>-lname</td>
-<td>链接名称为libname.a或libname.so的库文件，<br>如果都有时根据选项-static或-shared来选择</td>
+<td>链接名称为libname.a或libname.so的库文件，&lt;br /&gt;如果都有时根据选项-static或-shared来选择</td>
 </tr>
 <tr>
 <td>-fPic (或-fpic)</td>
-<td>生成使用相对地址（position indepedent code），<br>生成位置无关的目标代码，通常生成动态链接库时使用</td>
+<td>生成使用相对地址（position indepedent code），&lt;br /&gt;生成位置无关的目标代码，通常生成动态链接库时使用</td>
 </tr>
 </tbody>
 </table>
-<h2 id="一些编译问题"><a href="#一些编译问题" class="headerlink" title="一些编译问题"></a>一些编译问题</h2><p><strong>1、如何查看一个程序中链接用到的库</strong></p>
+<h2>一些编译问题</h2>
+<p><strong>1、如何查看一个程序中链接用到的库</strong></p>
 <blockquote>
 <p>用ldd 命令</p>
-<p>$ ldd ld_preload<br>linux-gate.so.1 =&gt;  (0xb7f01000)<br>libcompare.so =&gt; not found<br>libc.so.6 =&gt; /lib/i386-linux-gnu/libc.so.6 (0xb7d31000)<br>/lib/ld-linux.so.2 (0xb7f03000)</p>
+<p>$ ldd ld_preload
+linux-gate.so.1 =&gt;  (0xb7f01000)
+libcompare.so =&gt; not found
+libc.so.6 =&gt; /lib/i386-linux-gnu/libc.so.6 (0xb7d31000)
+/lib/ld-linux.so.2 (0xb7f03000)</p>
 </blockquote>
 <p><strong>2、gcc -L 指定路径后还是找不到.so文件</strong></p>
 <blockquote>
-<p>ubuntu有的是有这个问题，当时我这边是用这个命令设置了一下链接库路径就好了，故障时如上一问题所示<br>$ export LD_LIBRARY_PATH=.<br>$ ldd ld_preload<br>linux-gate.so.1 =&gt;  (0xb7f0b000)<br>libcompare.so =&gt; ./libcompare.so (0xb7f04000)<br>libc.so.6 =&gt; /lib/i386-linux-gnu/libc.so.6 (0xb7d38000)<br>/lib/ld-linux.so.2 (0xb7f0d000)</p>
+<p>ubuntu有的是有这个问题，当时我这边是用这个命令设置了一下链接库路径就好了，故障时如上一问题所示
+$ export LD_LIBRARY_PATH=.
+$ ldd ld_preload
+linux-gate.so.1 =&gt;  (0xb7f0b000)
+libcompare.so =&gt; ./libcompare.so (0xb7f04000)
+libc.so.6 =&gt; /lib/i386-linux-gnu/libc.so.6 (0xb7d38000)
+/lib/ld-linux.so.2 (0xb7f0d000)</p>
 </blockquote>
 
           
@@ -1990,20 +2071,25 @@
       
         
           
-            <h2 id="数据校验的作用"><a href="#数据校验的作用" class="headerlink" title="数据校验的作用"></a>数据校验的作用</h2><p>在数据传输的过程中，很多时候会有干扰，导致接收方的数据与发送方的数据不一致。这样就得进行数据重传或纠错等处理，例如TCP/IP协议中就有发现数据接收错误就会要求重传数据包等机制。接收方如何判断数据是否被破坏呢，这就需要数据校验算法来实现了。</p>
-<h2 id="数据校验算法的需求"><a href="#数据校验算法的需求" class="headerlink" title="数据校验算法的需求"></a>数据校验算法的需求</h2><ul>
+            <h2>数据校验的作用</h2>
+<p>在数据传输的过程中，很多时候会有干扰，导致接收方的数据与发送方的数据不一致。这样就得进行数据重传或纠错等处理，例如TCP/IP协议中就有发现数据接收错误就会要求重传数据包等机制。接收方如何判断数据是否被破坏呢，这就需要数据校验算法来实现了。</p>
+<h2>数据校验算法的需求</h2>
+<ul>
 <li>尽可能少的时间复杂度和空间复杂度，让接收方能尽快完成校验以免影响正常数据传输速率</li>
 <li>准确率必须达到一定值，如果校验出错肯定是有错，校验不出错可能有错。</li>
 </ul>
-<h2 id="数据校验位的实现"><a href="#数据校验位的实现" class="headerlink" title="数据校验位的实现"></a>数据校验位的实现</h2><p>下面介绍一种简单的数据校验算法，此算法广泛地应用在TCP/IP协议中，在TCP/IP的数据包中，一般有一个16b的数据校验位，利用这个16b的空间和一个简单的校验算法，可以很快地求出接收方数据是否有误，具体实现如下：</p>
+<h2>数据校验位的实现</h2>
+<p>下面介绍一种简单的数据校验算法，此算法广泛地应用在TCP/IP协议中，在TCP/IP的数据包中，一般有一个16b的数据校验位，利用这个16b的空间和一个简单的校验算法，可以很快地求出接收方数据是否有误，具体实现如下：</p>
 <p>假设一个数据包的大小是20Byte,即160b(包括16b的校验位)，其数据的位数为160b-16b =144b，此算法的原理如下，在发送方构造 一个16b的校验位，使得所有160b数据在按16b相加后得到的数据为全F(或全0），接收方在收到数据后也按16b一组进行相加，如果收到的数据是全F，则说明数据正常，否则校验失败，判断数据有误，让发送方进行重发处理。</p>
 <p>构造此算法考虑到以下几点：</p>
 <ol>
-<li><p>考虑到加法有进位，当有进位时采取进位重新加到最低位的处理方法</p>
+<li>
+<p>考虑到加法有进位，当有进位时采取进位重新加到最低位的处理方法</p>
 </li>
-<li><p>发送方将144b先进行16b一组的加法处理后，得到一个16b的数据，根据正码+反码=全F的特性，可以将此16b的校验大小设置成得到数据后的反码。</p>
+<li>
+<p>发送方将144b先进行16b一组的加法处理后，得到一个16b的数据，根据正码+反码=全F的特性，可以将此16b的校验大小设置成得到数据后的反码。</p>
 <p>下面用C语言进行实现，（初始校验码全为0）数据假设为BUF, 大小为SIZE，计算出的校验位为16b 的 校验码</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stddef.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">short</span> <span class="title">CheckSum</span><span class="params">(<span class="keyword">void</span> * Buf, <span class="keyword">size_t</span> Size)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">short</span> CheckCode = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">long</span> sum = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">short</span> * p = Buf;</span><br><span class="line">  <span class="keyword">while</span>(Size &gt; <span class="number">1</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    sum += *p;</span><br><span class="line">      p++;</span><br><span class="line">    Size = Size - <span class="number">2</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">/* 如果数据大小非偶数 */</span></span><br><span class="line">  <span class="keyword">if</span> (Size == <span class="number">1</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    sum += *(<span class="keyword">unsigned</span> <span class="keyword">char</span> *)p;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">/* 进位加法 */</span></span><br><span class="line">  <span class="keyword">while</span> ((sum &gt;&gt; <span class="number">16</span>) &gt; <span class="number">0</span>)</span><br><span class="line">  &#123;</span><br><span class="line">     sum = (sum &amp; <span class="number">0xff</span>) + (sum &gt;&gt; <span class="number">16</span>);           </span><br><span class="line">  &#125;</span><br><span class="line">         </span><br><span class="line">  <span class="keyword">return</span> ~(<span class="keyword">unsigned</span> <span class="keyword">short</span>)sum;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stddef.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">short</span> <span class="title">CheckSum</span><span class="params">(<span class="keyword">void</span> * Buf, <span class="keyword">size_t</span> Size)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">short</span> CheckCode = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">long</span> sum = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">short</span> * p = Buf;</span><br><span class="line">  <span class="keyword">while</span>(Size &gt; <span class="number">1</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    sum += *p;</span><br><span class="line">      p++;</span><br><span class="line">    Size = Size - <span class="number">2</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">/* 如果数据大小非偶数 */</span></span><br><span class="line">  <span class="keyword">if</span> (Size == <span class="number">1</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    sum += *(<span class="keyword">unsigned</span> <span class="keyword">char</span> *)p;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">/* 进位加法 */</span></span><br><span class="line">  <span class="keyword">while</span> ((sum &gt;&gt; <span class="number">16</span>) &gt; <span class="number">0</span>)</span><br><span class="line">  &#123;</span><br><span class="line">     sum = (sum &amp; <span class="number">0xff</span>) + (sum &gt;&gt; <span class="number">16</span>);           </span><br><span class="line">  &#125;</span><br><span class="line">         </span><br><span class="line">  <span class="keyword">return</span> ~(<span class="keyword">unsigned</span> <span class="keyword">short</span>)sum;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>​</p>
 </li>
 </ol>
@@ -2329,7 +2415,24 @@
         guest_info:guest,
         pageSize:'10' || 10,
     });
-  </script>
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 
 

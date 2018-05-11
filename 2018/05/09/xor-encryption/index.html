@@ -7,7 +7,7 @@
 
 <html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 <meta name="theme-color" content="#222">
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="xor加密原理本文源于阮一峰的博客。 异或原先的性质如下所示，相同的位返回0，不同的位返回1。按位异或的运算有个特殊的性质，即对同一个数据异或两遍后，会得到原来的数据。因为相同的数据异或后会变成0，而0不管和什么数据异或都返回原来的数据。 1234567891 ^ 1 // 00 ^ 0 // 01 ^ 0 // 10 ^ 1 // 1    // 第一次 XOR1010 ^ 1111 // 01">
+<meta name="description" content="xor加密原理 本文源于阮一峰的博客。 异或原先的性质如下所示，相同的位返回0，不同的位返回1。按位异或的运算有个特殊的性质，即对同一个数据异或两遍后，会得到原来的数据。因为相同的数据异或后会变成0，而0不管和什么数据异或都返回原来的数据。 1234567891 ^ 1 // 00 ^ 0 // 01 ^ 0 // 10 ^ 1 // 1    // 第一次 XOR1010 ^ 1111 // 0">
 <meta name="keywords" content="算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="异或加密算法的实现">
 <meta property="og:url" content="http://yoursite.com/2018/05/09/xor-encryption/index.html">
 <meta property="og:site_name" content="wangfan 的小屋">
-<meta property="og:description" content="xor加密原理本文源于阮一峰的博客。 异或原先的性质如下所示，相同的位返回0，不同的位返回1。按位异或的运算有个特殊的性质，即对同一个数据异或两遍后，会得到原来的数据。因为相同的数据异或后会变成0，而0不管和什么数据异或都返回原来的数据。 1234567891 ^ 1 // 00 ^ 0 // 01 ^ 0 // 10 ^ 1 // 1    // 第一次 XOR1010 ^ 1111 // 01">
+<meta property="og:description" content="xor加密原理 本文源于阮一峰的博客。 异或原先的性质如下所示，相同的位返回0，不同的位返回1。按位异或的运算有个特殊的性质，即对同一个数据异或两遍后，会得到原来的数据。因为相同的数据异或后会变成0，而0不管和什么数据异或都返回原来的数据。 1234567891 ^ 1 // 00 ^ 0 // 01 ^ 0 // 10 ^ 1 // 1    // 第一次 XOR1010 ^ 1111 // 0">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2018-05-09T14:36:39.415Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="异或加密算法的实现">
-<meta name="twitter:description" content="xor加密原理本文源于阮一峰的博客。 异或原先的性质如下所示，相同的位返回0，不同的位返回1。按位异或的运算有个特殊的性质，即对同一个数据异或两遍后，会得到原来的数据。因为相同的数据异或后会变成0，而0不管和什么数据异或都返回原来的数据。 1234567891 ^ 1 // 00 ^ 0 // 01 ^ 0 // 10 ^ 1 // 1    // 第一次 XOR1010 ^ 1111 // 01">
+<meta name="twitter:description" content="xor加密原理 本文源于阮一峰的博客。 异或原先的性质如下所示，相同的位返回0，不同的位返回1。按位异或的运算有个特殊的性质，即对同一个数据异或两遍后，会得到原来的数据。因为相同的数据异或后会变成0，而0不管和什么数据异或都返回原来的数据。 1234567891 ^ 1 // 00 ^ 0 // 01 ^ 0 // 10 ^ 1 // 1    // 第一次 XOR1010 ^ 1111 // 0">
 
 
 
@@ -141,7 +141,7 @@
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
-  </script>
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
@@ -155,7 +155,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -372,9 +372,10 @@
       
 
       
-        <h2 id="xor加密原理"><a href="#xor加密原理" class="headerlink" title="xor加密原理"></a>xor加密原理</h2><p>本文源于阮一峰的博客。</p>
+        <h2>xor加密原理</h2>
+<p>本文源于阮一峰的博客。</p>
 <p>异或原先的性质如下所示，相同的位返回0，不同的位返回1。按位异或的运算有个特殊的性质，即对同一个数据异或两遍后，会得到原来的数据。因为相同的数据异或后会变成0，而0不管和什么数据异或都返回原来的数据。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> ^ <span class="number">1</span> <span class="comment">// 0</span></span><br><span class="line"><span class="number">0</span> ^ <span class="number">0</span> <span class="comment">// 0</span></span><br><span class="line"><span class="number">1</span> ^ <span class="number">0</span> <span class="comment">// 1</span></span><br><span class="line"><span class="number">0</span> ^ <span class="number">1</span> <span class="comment">// 1</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">// 第一次 XOR</span></span><br><span class="line"><span class="number">1010</span> ^ <span class="number">1111</span> <span class="comment">// 0101</span></span><br><span class="line"><span class="comment">// 第二次 XOR</span></span><br><span class="line"><span class="number">0101</span> ^ <span class="number">1111</span> <span class="comment">// 1010</span></span><br></pre></td></tr></table></figure>
+<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> ^ <span class="number">1</span> <span class="comment">// 0</span></span><br><span class="line"><span class="number">0</span> ^ <span class="number">0</span> <span class="comment">// 0</span></span><br><span class="line"><span class="number">1</span> ^ <span class="number">0</span> <span class="comment">// 1</span></span><br><span class="line"><span class="number">0</span> ^ <span class="number">1</span> <span class="comment">// 1</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">// 第一次 XOR</span></span><br><span class="line"><span class="number">1010</span> ^ <span class="number">1111</span> <span class="comment">// 0101</span></span><br><span class="line"><span class="comment">// 第二次 XOR</span></span><br><span class="line"><span class="number">0101</span> ^ <span class="number">1111</span> <span class="comment">// 1010</span></span><br></pre></td></tr></table></figure></p>
 <p>根据这个性质，我们可以设计一个key，在数据发送前，把数据和key异或一下再发送出去，接收端只要再重新将收到的数据用同一个key异或一次就可以还原出原来的数据了。二战期间，各国为了电报加密，对密码学进行了大量的研究和实践，其中就包括 XOR 加密。战后，英国计算机学家香农（Claude Shannon）将他的<a href="https://en.wikipedia.org/wiki/One-time_pad#Perfect_secrecy" target="_blank" rel="noopener">研究成果</a>公开发表，证明了只要满足两个条件，XOR 加密是无法破解的。</p>
 <blockquote>
 <ul>
@@ -382,8 +383,9 @@
 <li>key必须是一次性的，且每次都要随机产生</li>
 </ul>
 </blockquote>
-<p>因为如果每次的key都是随机的，那么产生出来的加密文本也随机分布的，具有最大的信息熵，称为XOR的完美保密性，满足上面两个条件的key，叫做 <a href="https://en.wikipedia.org/wiki/One-time_pad" target="_blank" rel="noopener">one-time pad</a>（缩写为OTP），意思是”一次性密码本”，因为以前这样的key都是印刷成密码本，每次使用的时候，必须从其中挑选key。</p>
-<h2 id="xor-加密登录密码实例"><a href="#xor-加密登录密码实例" class="headerlink" title="xor 加密登录密码实例"></a>xor 加密登录密码实例</h2><p>先用MD5算法得到一个随机的key，再通过xor加密文本。</p>
+<p>因为如果每次的key都是随机的，那么产生出来的加密文本也随机分布的，具有最大的信息熵，称为XOR的完美保密性，满足上面两个条件的key，叫做 <a href="https://en.wikipedia.org/wiki/One-time_pad" target="_blank" rel="noopener">one-time pad</a>（缩写为OTP），意思是&quot;一次性密码本&quot;，因为以前这样的key都是印刷成密码本，每次使用的时候，必须从其中挑选key。</p>
+<h2>xor 加密登录密码实例</h2>
+<p>先用MD5算法得到一个随机的key，再通过xor加密文本。</p>
 
       
     </div>
@@ -561,7 +563,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#xor加密原理"><span class="nav-number">1.</span> <span class="nav-text">xor加密原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#xor-加密登录密码实例"><span class="nav-number">2.</span> <span class="nav-text">xor 加密登录密码实例</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">xor加密原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">xor 加密登录密码实例</span></a></li></ol></div>
             
 
           </div>
@@ -763,7 +765,24 @@
         guest_info:guest,
         pageSize:'10' || 10,
     });
-  </script>
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 
 
