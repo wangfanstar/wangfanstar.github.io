@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="linux,通信," />
+  <meta name="keywords" content="linux," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="linux内核态与用户态的划分由来 操作系统本来是没有划分内核态和用户态的，结果是用户程序可以访问所有的计算机资源，一些写得不好的程序很容易就把计算机弄崩溃，一些病毒也很容易对计算机做破坏。为了防止用户滥用资源。划分了不同的权限，内核态是操作系统内核用的，可以访问所有的资源。用户态的权限比内核态少很多，这种限制也让用户态的程序危害不会危及到系统，用户态程序崩溃不会导致系统崩溃。 内核态和用户态数据">
-<meta name="keywords" content="linux,通信">
+<meta name="description" content="多进程设计 linux下调度程序对应的都task_struct，进程和线和没有区别，用户态中使用方法是fork，exec，wait三种流程。内核态中用的是kthread_create, kthread_run, wake_up_process的流程。查看进程pid及其状态的命令是top，根据进程，线程的不同显示的pid号含义也不一样，下面进行具体分析。 进程用户态父子进程设计 用户态进程调度是可抢">
+<meta name="keywords" content="linux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="linux内核态和用户态9种通信方法之一--proc">
-<meta property="og:url" content="http://yoursite.com/2018/05/11/kernel-to-user/index.html">
+<meta property="og:title" content="linux下多线程，多进程程序设计">
+<meta property="og:url" content="http://yoursite.com/2018/05/13/multi-thread/index.html">
 <meta property="og:site_name" content="wangfan 的小屋">
-<meta property="og:description" content="linux内核态与用户态的划分由来 操作系统本来是没有划分内核态和用户态的，结果是用户程序可以访问所有的计算机资源，一些写得不好的程序很容易就把计算机弄崩溃，一些病毒也很容易对计算机做破坏。为了防止用户滥用资源。划分了不同的权限，内核态是操作系统内核用的，可以访问所有的资源。用户态的权限比内核态少很多，这种限制也让用户态的程序危害不会危及到系统，用户态程序崩溃不会导致系统崩溃。 内核态和用户态数据">
+<meta property="og:description" content="多进程设计 linux下调度程序对应的都task_struct，进程和线和没有区别，用户态中使用方法是fork，exec，wait三种流程。内核态中用的是kthread_create, kthread_run, wake_up_process的流程。查看进程pid及其状态的命令是top，根据进程，线程的不同显示的pid号含义也不一样，下面进行具体分析。 进程用户态父子进程设计 用户态进程调度是可抢">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-11T15:10:28.347Z">
+<meta property="og:updated_time" content="2018-05-13T02:10:11.932Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="linux内核态和用户态9种通信方法之一--proc">
-<meta name="twitter:description" content="linux内核态与用户态的划分由来 操作系统本来是没有划分内核态和用户态的，结果是用户程序可以访问所有的计算机资源，一些写得不好的程序很容易就把计算机弄崩溃，一些病毒也很容易对计算机做破坏。为了防止用户滥用资源。划分了不同的权限，内核态是操作系统内核用的，可以访问所有的资源。用户态的权限比内核态少很多，这种限制也让用户态的程序危害不会危及到系统，用户态程序崩溃不会导致系统崩溃。 内核态和用户态数据">
+<meta name="twitter:title" content="linux下多线程，多进程程序设计">
+<meta name="twitter:description" content="多进程设计 linux下调度程序对应的都task_struct，进程和线和没有区别，用户态中使用方法是fork，exec，wait三种流程。内核态中用的是kthread_create, kthread_run, wake_up_process的流程。查看进程pid及其状态的命令是top，根据进程，线程的不同显示的pid号含义也不一样，下面进行具体分析。 进程用户态父子进程设计 用户态进程调度是可抢">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/05/11/kernel-to-user/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/05/13/multi-thread/"/>
 
 
 
 
 
-  <title>linux内核态和用户态9种通信方法之一--proc | wangfan 的小屋</title>
+  <title>linux下多线程，多进程程序设计 | wangfan 的小屋</title>
   
 
 
@@ -273,7 +273,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/11/kernel-to-user/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/13/multi-thread/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="wangfanstar@163.com">
@@ -290,7 +290,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">linux内核态和用户态9种通信方法之一--proc</h1>
+          <h1 class="post-title" itemprop="name headline">linux下多线程，多进程程序设计</h1>
         
 
         <div class="post-meta">
@@ -302,8 +302,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-11T22:48:22+08:00">
-                2018-05-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-13T09:30:37+08:00">
+                2018-05-13
               </time>
             
 
@@ -343,8 +343,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/05/11/kernel-to-user/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/05/11/kernel-to-user/" itemprop="commentCount"></span>
+                <a href="/2018/05/13/multi-thread/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/05/13/multi-thread/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -372,12 +372,25 @@
       
 
       
-        <h2>linux内核态与用户态的划分由来</h2>
-<p>操作系统本来是没有划分内核态和用户态的，结果是用户程序可以访问所有的计算机资源，一些写得不好的程序很容易就把计算机弄崩溃，一些病毒也很容易对计算机做破坏。为了防止用户滥用资源。划分了不同的权限，内核态是操作系统内核用的，可以访问所有的资源。用户态的权限比内核态少很多，这种限制也让用户态的程序危害不会危及到系统，用户态程序崩溃不会导致系统崩溃。</p>
-<h2>内核态和用户态数据交互</h2>
-<p>由内核态发起的通信：proc, seq_file, debugfs</p>
-<p>由用户态发起的通信：syscall, ioctl</p>
-<p>双方互相通信：socket,netlink</p>
+        <h2>多进程设计</h2>
+<p>linux下调度程序对应的都task_struct，进程和线和没有区别，用户态中使用方法是fork，exec，wait三种流程。内核态中用的是kthread_create, kthread_run, wake_up_process的流程。查看进程pid及其状态的命令是top，根据进程，线程的不同显示的pid号含义也不一样，下面进行具体分析。</p>
+<h2>进程用户态父子进程设计</h2>
+<p>用户态进程调度是可抢占的，调度的对象是task_struct，要新建一个进程，可以调用fork函数来实现task_struct相关信息的复制，新进的进程称为子进程，在代码中和父进程是同一段代码。fork函数会返回两交，在代码区分父子进程部分的判定是通过fork的返回值，子进程在对应fork返回值等于0，在代码中可以通过判断if(0 == fork())后面添加子进程的代码处理。父进程的fork返回非0或错误码。父进程的代码在一般在子进程判断是否为0后的else中继续进行。</p>
+<h2>多进程样例</h2>
+<p>下面这段代码实现父子进程各自打印各自的Pid功能。</p>
+<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/wait.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">pid_t</span> stPid;</span><br><span class="line">    <span class="keyword">if</span> (<span class="number">0</span> == fork())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"this is child process pid: %d\n"</span>,getpid());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"this is parent process pid: %d\n"</span>,getpid());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>显示结果如下：</p>
+<blockquote>
+<p>this is parent process pid: 3607</p>
+<p>this is child process pid: 3608</p>
+</blockquote>
+<h2>设置进程执行顺序</h2>
+<p>在之前的代码中我们看到是父进程先打印出来的，linux在设计时不强制哪个进程先，两个是随机的，如果我们想让父进程在子进程之后执行，可以在父进程中使用等待函数wait，wait会等待子进程执行完成返回后再继续下一步，如下代码父进程会等等子进程后再执行，结果就可以按我们想要的顺序执行。</p>
+<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/wait.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">pid_t</span> stPid;</span><br><span class="line">    <span class="keyword">if</span> (<span class="number">0</span> == fork())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"this is child process pid: %d\n"</span>,getpid());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        wait(<span class="literal">NULL</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"this is parent process pid: %d\n"</span>,getpid());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>this is child process pid: 3683</p>
+<p>this is parent process pid: 3682</p>
+</blockquote>
 
       
     </div>
@@ -397,8 +410,6 @@
           
             <a href="/tags/linux/" rel="tag"># linux</a>
           
-            <a href="/tags/通信/" rel="tag"># 通信</a>
-          
         </div>
       
 
@@ -410,8 +421,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/10/calculus-of-circle-area/" rel="next" title="用微积分求圆面积引发的强迫症">
-                <i class="fa fa-chevron-left"></i> 用微积分求圆面积引发的强迫症
+              <a href="/2018/05/12/kernel-to-user2-ioctl/" rel="next" title="linux内核态和用户态9种通信方法之二--ioctl">
+                <i class="fa fa-chevron-left"></i> linux内核态和用户态9种通信方法之二--ioctl
               </a>
             
           </div>
@@ -419,10 +430,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/12/kernel-to-user2-ioctl/" rel="prev" title="linux内核态和用户态9种通信方法之二--ioctl">
-                linux内核态和用户态9种通信方法之二--ioctl <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -557,7 +564,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">linux内核态与用户态的划分由来</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">内核态和用户态数据交互</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">多进程设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">进程用户态父子进程设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">多进程样例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">设置进程执行顺序</span></a></li></ol></div>
             
 
           </div>

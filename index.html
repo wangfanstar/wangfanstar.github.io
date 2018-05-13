@@ -273,6 +273,176 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/13/multi-thread/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wangfanstar@163.com">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wangfan 的小屋">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/13/multi-thread/" itemprop="url">linux下多线程，多进程程序设计</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-13T09:30:37+08:00">
+                2018-05-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程/" itemprop="url" rel="index">
+                    <span itemprop="name">编程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/05/13/multi-thread/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/05/13/multi-thread/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2>多进程设计</h2>
+<p>linux下调度程序对应的都task_struct，进程和线和没有区别，用户态中使用方法是fork，exec，wait三种流程。内核态中用的是kthread_create, kthread_run, wake_up_process的流程。查看进程pid及其状态的命令是top，根据进程，线程的不同显示的pid号含义也不一样，下面进行具体分析。</p>
+<h2>进程用户态父子进程设计</h2>
+<p>用户态进程调度是可抢占的，调度的对象是task_struct，要新建一个进程，可以调用fork函数来实现task_struct相关信息的复制，新进的进程称为子进程，在代码中和父进程是同一段代码。fork函数会返回两交，在代码区分父子进程部分的判定是通过fork的返回值，子进程在对应fork返回值等于0，在代码中可以通过判断if(0 == fork())后面添加子进程的代码处理。父进程的fork返回非0或错误码。父进程的代码在一般在子进程判断是否为0后的else中继续进行。</p>
+<h2>多进程样例</h2>
+<p>下面这段代码实现父子进程各自打印各自的Pid功能。</p>
+<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/wait.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">pid_t</span> stPid;</span><br><span class="line">    <span class="keyword">if</span> (<span class="number">0</span> == fork())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"this is child process pid: %d\n"</span>,getpid());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"this is parent process pid: %d\n"</span>,getpid());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>显示结果如下：</p>
+<blockquote>
+<p>this is parent process pid: 3607</p>
+<p>this is child process pid: 3608</p>
+</blockquote>
+<h2>设置进程执行顺序</h2>
+<p>在之前的代码中我们看到是父进程先打印出来的，linux在设计时不强制哪个进程先，两个是随机的，如果我们想让父进程在子进程之后执行，可以在父进程中使用等待函数wait，wait会等待子进程执行完成返回后再继续下一步，如下代码父进程会等等子进程后再执行，结果就可以按我们想要的顺序执行。</p>
+<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/wait.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">pid_t</span> stPid;</span><br><span class="line">    <span class="keyword">if</span> (<span class="number">0</span> == fork())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"this is child process pid: %d\n"</span>,getpid());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        wait(<span class="literal">NULL</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"this is parent process pid: %d\n"</span>,getpid());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>this is child process pid: 3683</p>
+<p>this is parent process pid: 3682</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/12/kernel-to-user2-ioctl/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1825,185 +1995,6 @@ $$F(x)|_0^r  = F(r) - F(0) = \pi r^2$$</p>
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/03/character-api/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="wangfanstar@163.com">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="wangfan 的小屋">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/03/character-api/" itemprop="url">字符处理函数的使用</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-03T21:11:13+08:00">
-                2018-05-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/编程/" itemprop="url" rel="index">
-                    <span itemprop="name">编程</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/05/03/character-api/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/05/03/character-api/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2>字符转换函数的使用场景</h2>
-<p>我们在程序界面输入数据时，基本上都是用字符来保存的，所有操作系统之间的信息保存和传递也是基于字符（char）单位来进行，单位再大了就有字节序问题，不能兼容所有的操作系统了。为效率考虑，现在的信息全以字符为单位。计算一段数据的大小，比如一个变量Int的大小，用sizeof操作符返回的结果就是字节数，也就是char的个数。sizeof(int)  == 4 ，在程序应用中，比如在计数器中我们输入一串数字和符号  123 + 456 ，内部如何计算出结果呢，123在输入时是对应3个字符char，在计算的时时候我们则必须将其转换成整型变量数据再进行加法运算。C函数提供的一个函数库API是atoi, ascii to integer 的一个函数 stdlib.h，其原型是int atoi(const char * ptr)，函数开始扫描ptr字符串，跳过空白字符(isspace检测)，从数字或正负号开始，到\0或非数字结束，返回一个整数，当无法转换成整理或ptr是空字符串时返回0</p>
-<p>同样的，也会有itoa函数，将整数转换成字符串，但奇怪的是这个函数却不是标准的C函数，在Linux下基本没有这个函数，通常windows下的非标准编译器才支持这种函数，我考虑了多方面因素，可能是以下原因，转换出的字符串一般都是一串不确定长度的空间，而这个内存空间只能通过指针的方式返回使用者，这样使用者调用后还需要手动释放这个空间，很容易造成内存泄露。linux下将数字转换成字符有以下几种方式</p>
-<blockquote>
-<h2>int sprintf( char * buffer,  char * fmt , ...);</h2>
-</blockquote>
-<p>sprintf最常见的应用之一莫过于把整数打印到字符串中，所以，spritnf 在大多数场合可以替代itoa。如：</p>
-<ol>
-<li>
-<p>将整数转成字符串</p>
-<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sprintf</span> (s, <span class="string">"%d"</span>, <span class="number">123</span>); <span class="comment">// 产生"123"</span></span><br></pre></td></tr></table></figure></p>
-</li>
-<li>
-<p>连接字符串</p>
-<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> *who = <span class="string">"I"</span>;</span><br><span class="line"><span class="keyword">char</span> *whom = <span class="string">"52PHP"</span>; </span><br><span class="line"><span class="built_in">sprintf</span>(s, <span class="string">"%s love %s."</span>, who, whom); <span class="comment">// 产生："I love 52PHP. "</span></span><br></pre></td></tr></table></figure></p>
-<p><em>spintf 常见问题</em></p>
-<p>1、返回值返回的是实际写入buffer的字符长度，可以不用再用strlen计算字符长度了</p>
-<p>2、如果 s 的区域不足，写入的数据超过s长度，可能会导致内存访问错误引起崩溃，</p>
-</li>
-</ol>
-<blockquote>
-<h2>int snprintf(char *buf, size_t n, char * fmt, ...)</h2>
-</blockquote>
-<p>为了防止引起内存访问错误，采用snprintf函数，此函数最多从源字符串中取n-1个字符，最后一个字节补\0，写入buf，推荐用法是将第2个参数n写成sizeof(buf)，与sprintf不同的时返回值 int 是源字符串的字符数，而非实际写入buf的字符串数目。在Linux内核中不推荐用snprintf，就是因为返回的值可能大于实际写入的buf中的字符数目，可能导致计算时越界，linux内存中推荐采用返回值为实际写入buf中的字符数字函数scnprintf，用法和snprintf一样，但返回值是实际写入buf的字符数，这样就避免了返回值比实际写入buf数值还大的现象。</p>
-<blockquote>
-<h2>int scnprintf(char *buf, size_t n, char *fmt, ...)</h2>
-</blockquote>
-<p>参考文章：https://www.kernel.org/doc/htmldocs/kernel-api/API-scnprintf.html</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2054,7 +2045,7 @@ $$F(x)|_0^r  = F(r) - F(0) = \pi r^2$$</p>
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
