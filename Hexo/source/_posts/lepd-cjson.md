@@ -148,19 +148,7 @@ JSON具有以下这些形式：
 
 空白可以加入到任何符号之间。 以下描述了完整的语言。
 
-```flow
-st=>start: -
-e=>end: -
-op=>condition: My Operation
-op2=>condition: My Operation2
-op3=>condition: My Operation3
 
-st(right)->op(yes)->op2(yes,right)->op3(yes,right)->e
-
-
-
-
-```
 
 
 
