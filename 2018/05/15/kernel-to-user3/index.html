@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="linux,time," />
+  <meta name="keywords" content="linux," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="##　linux时间设计之获取当前时间 买电脑主板的时候，会发现主板有个BIOS电池，里面保存着电脑的配置，还有一项就是时间，你设置好了之后就是电脑显示的当前时间。在Linux启动时，会有一个从CMOS中读取时间作为当前时间的操作，然后就再根据自己的时钟频率更新当前的时间。我们设置的时候会设置年月日时分秒，为了简化处理，linux把这些变量转换成一个变量jiffies，即从1970年到当前时间的所">
-<meta name="keywords" content="linux,time">
+<meta name="description" content="##500多个系统调用 目前linux大概有500多个系统调用，用于用户态到内核态的通信。但很多系统调用的粒度太小，于是libc封装了很多库函数供用户使用。其实最终通信还是通过系统调用。比如malloc最终还是调用的brk系统调用来实现，printf最终还是调用read,write来实现。 系统调用的一般特点  一般带sys_前缀为系统调用 类型一般在sys/types.h头文件中 ​">
+<meta name="keywords" content="linux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="linux时间设计之一 -- 获取当前时间">
-<meta property="og:url" content="http://yoursite.com/2018/05/07/linux-time-design1/index.html">
+<meta property="og:title" content="linux内核态和用户态9种通信方法之三--系统调用">
+<meta property="og:url" content="http://yoursite.com/2018/05/15/kernel-to-user3/index.html">
 <meta property="og:site_name" content="wangfan 的小屋">
-<meta property="og:description" content="##　linux时间设计之获取当前时间 买电脑主板的时候，会发现主板有个BIOS电池，里面保存着电脑的配置，还有一项就是时间，你设置好了之后就是电脑显示的当前时间。在Linux启动时，会有一个从CMOS中读取时间作为当前时间的操作，然后就再根据自己的时钟频率更新当前的时间。我们设置的时候会设置年月日时分秒，为了简化处理，linux把这些变量转换成一个变量jiffies，即从1970年到当前时间的所">
+<meta property="og:description" content="##500多个系统调用 目前linux大概有500多个系统调用，用于用户态到内核态的通信。但很多系统调用的粒度太小，于是libc封装了很多库函数供用户使用。其实最终通信还是通过系统调用。比如malloc最终还是调用的brk系统调用来实现，printf最终还是调用read,write来实现。 系统调用的一般特点  一般带sys_前缀为系统调用 类型一般在sys/types.h头文件中 ​">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-07T12:48:22.197Z">
+<meta property="og:updated_time" content="2018-05-15T14:13:58.937Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="linux时间设计之一 -- 获取当前时间">
-<meta name="twitter:description" content="##　linux时间设计之获取当前时间 买电脑主板的时候，会发现主板有个BIOS电池，里面保存着电脑的配置，还有一项就是时间，你设置好了之后就是电脑显示的当前时间。在Linux启动时，会有一个从CMOS中读取时间作为当前时间的操作，然后就再根据自己的时钟频率更新当前的时间。我们设置的时候会设置年月日时分秒，为了简化处理，linux把这些变量转换成一个变量jiffies，即从1970年到当前时间的所">
+<meta name="twitter:title" content="linux内核态和用户态9种通信方法之三--系统调用">
+<meta name="twitter:description" content="##500多个系统调用 目前linux大概有500多个系统调用，用于用户态到内核态的通信。但很多系统调用的粒度太小，于是libc封装了很多库函数供用户使用。其实最终通信还是通过系统调用。比如malloc最终还是调用的brk系统调用来实现，printf最终还是调用read,write来实现。 系统调用的一般特点  一般带sys_前缀为系统调用 类型一般在sys/types.h头文件中 ​">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/05/07/linux-time-design1/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/05/15/kernel-to-user3/"/>
 
 
 
 
 
-  <title>linux时间设计之一 -- 获取当前时间 | wangfan 的小屋</title>
+  <title>linux内核态和用户态9种通信方法之三--系统调用 | wangfan 的小屋</title>
   
 
 
@@ -273,7 +273,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/07/linux-time-design1/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/kernel-to-user3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="wangfanstar@163.com">
@@ -290,7 +290,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">linux时间设计之一 -- 获取当前时间</h1>
+          <h1 class="post-title" itemprop="name headline">linux内核态和用户态9种通信方法之三--系统调用</h1>
         
 
         <div class="post-meta">
@@ -302,8 +302,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-07T20:19:03+08:00">
-                2018-05-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-15T22:07:09+08:00">
+                2018-05-15
               </time>
             
 
@@ -343,8 +343,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/05/07/linux-time-design1/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/05/07/linux-time-design1/" itemprop="commentCount"></span>
+                <a href="/2018/05/15/kernel-to-user3/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/05/15/kernel-to-user3/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -372,12 +372,14 @@
       
 
       
-        <p>##　linux时间设计之获取当前时间</p>
-<p>买电脑主板的时候，会发现主板有个BIOS电池，里面保存着电脑的配置，还有一项就是时间，你设置好了之后就是电脑显示的当前时间。在Linux启动时，会有一个从CMOS中读取时间作为当前时间的操作，然后就再根据自己的时钟频率更新当前的时间。我们设置的时候会设置年月日时分秒，为了简化处理，linux把这些变量转换成一个变量jiffies，即从1970年到当前时间的所有毫秒数，之后硬件芯片每毫秒产生一次中断，在中断处理程序中jiffies就会加1，达到更新时间的效果。研究完Linux几个版本的将当前时间转换成秒数的时间设计后，分享一下其中的程序设计技巧和bug。</p>
-<h2>linux 0.11版时间设计</h2>
-<p>linux 0.11版的时间设计很精炼，代码不到几十行，在<code>/kernel/mktime.c</code>里面实现了一个内核态计算当前开机距1970年1月1日0时的秒数，但估计闰年没考虑周全，闰年的定义网上看李永乐的视频讲得很生动。总结归纳起来就是能被4整除，不能被100整除或能被400整除的数。代码中只考虑了4年，100整数的2000年没有考虑进去，后面的几百年也没有考虑。</p>
-<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;time.h&gt;</span></span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * This isn't the library routine, it is only used in the kernel.</span></span><br><span class="line"><span class="comment"> * as such, we don't care about years&lt;1970 etc, but assume everything</span></span><br><span class="line"><span class="comment"> * is ok. Similarly, TZ etc is happily ignored. We just do everything</span></span><br><span class="line"><span class="comment"> * as easily as possible. Let's find something public for the library</span></span><br><span class="line"><span class="comment"> * routines (although I think minix times is public).</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * PS. I hate whoever though up the year 1970 - couldn't they have gotten</span></span><br><span class="line"><span class="comment"> * a leap-year instead? I also hate Gregorius, pope or no. I'm grumpy.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MINUTE 60</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> HOUR (60*MINUTE)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DAY (24*HOUR)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> YEAR (365*DAY)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* interestingly, we assume leap-years */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> month[<span class="number">12</span>] = &#123;</span><br><span class="line">	<span class="number">0</span>,</span><br><span class="line">	DAY*(<span class="number">31</span>),</span><br><span class="line">	DAY*(<span class="number">31</span>+<span class="number">29</span>),</span><br><span class="line">	DAY*(<span class="number">31</span>+<span class="number">29</span>+<span class="number">31</span>),</span><br><span class="line">	DAY*(<span class="number">31</span>+<span class="number">29</span>+<span class="number">31</span>+<span class="number">30</span>),</span><br><span class="line">	DAY*(<span class="number">31</span>+<span class="number">29</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>),</span><br><span class="line">	DAY*(<span class="number">31</span>+<span class="number">29</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>+<span class="number">30</span>),</span><br><span class="line">	DAY*(<span class="number">31</span>+<span class="number">29</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>),</span><br><span class="line">	DAY*(<span class="number">31</span>+<span class="number">29</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>+<span class="number">31</span>),</span><br><span class="line">	DAY*(<span class="number">31</span>+<span class="number">29</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>+<span class="number">31</span>+<span class="number">30</span>),</span><br><span class="line">	DAY*(<span class="number">31</span>+<span class="number">29</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>),</span><br><span class="line">	DAY*(<span class="number">31</span>+<span class="number">29</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>+<span class="number">31</span>+<span class="number">30</span>+<span class="number">31</span>+<span class="number">30</span>)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="title">kernel_mktime</span><span class="params">(struct tm * tm)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">long</span> res;</span><br><span class="line">	<span class="keyword">int</span> year;</span><br><span class="line"></span><br><span class="line">	year = tm-&gt;tm_year - <span class="number">70</span>;</span><br><span class="line"><span class="comment">/* magic offsets (y+1) needed to get leapyears right.*/</span></span><br><span class="line">	res = YEAR*year + DAY*((year+<span class="number">1</span>)/<span class="number">4</span>);</span><br><span class="line">	res += month[tm-&gt;tm_mon];</span><br><span class="line"><span class="comment">/* and (y+2) here. If it wasn't a leap-year, we have to adjust */</span></span><br><span class="line">	<span class="keyword">if</span> (tm-&gt;tm_mon&gt;<span class="number">1</span> &amp;&amp; ((year+<span class="number">2</span>)%<span class="number">4</span>))</span><br><span class="line">		res -= DAY;</span><br><span class="line">	res += DAY*(tm-&gt;tm_mday<span class="number">-1</span>);</span><br><span class="line">	res += HOUR*tm-&gt;tm_hour;</span><br><span class="line">	res += MINUTE*tm-&gt;tm_min;</span><br><span class="line">	res += tm-&gt;tm_sec;</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>##　linu2.6.11版 时间设计</p>
+        <p>##500多个系统调用</p>
+<p>目前linux大概有500多个系统调用，用于用户态到内核态的通信。但很多系统调用的粒度太小，于是libc封装了很多库函数供用户使用。其实最终通信还是通过系统调用。比如malloc最终还是调用的brk系统调用来实现，printf最终还是调用read,write来实现。</p>
+<h2>系统调用的一般特点</h2>
+<ul>
+<li>一般带sys_前缀为系统调用</li>
+<li>类型一般在sys/types.h头文件中</li>
+<li>​</li>
+</ul>
 
       
     </div>
@@ -397,8 +399,6 @@
           
             <a href="/tags/linux/" rel="tag"># linux</a>
           
-            <a href="/tags/time/" rel="tag"># time</a>
-          
         </div>
       
 
@@ -410,8 +410,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/06/X-Macro-technique/" rel="next" title="C语言中利用X Macro编程技巧简化代码架构">
-                <i class="fa fa-chevron-left"></i> C语言中利用X Macro编程技巧简化代码架构
+              <a href="/2018/05/14/5g-lenovo/" rel="next" title="5g标准联想投票问题">
+                <i class="fa fa-chevron-left"></i> 5g标准联想投票问题
               </a>
             
           </div>
@@ -419,10 +419,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/08/lepd-cjson/" rel="prev" title="lepd项目解析之一 -- cjson框架">
-                lepd项目解析之一 -- cjson框架 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -557,7 +553,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">linux 0.11版时间设计</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">系统调用的一般特点</span></a></li></ol></div>
             
 
           </div>
