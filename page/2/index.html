@@ -273,6 +273,257 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/08/lepd-cjson/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wangfanstar@163.com">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wangfan 的小屋">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/08/lepd-cjson/" itemprop="url">lepd项目解析之一 -- cjson框架</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-08T20:57:28+08:00">
+                2018-05-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程/" itemprop="url" rel="index">
+                    <span itemprop="name">编程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/05/08/lepd-cjson/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/05/08/lepd-cjson/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2>lepd项目</h2>
+<p>lepd项目是宋宝华之前推荐的一个开源项目，可用于监控linux系统的性能指标，在浏览器中可视化呈现。项目地址 <a href="https://github.com/21cnbao/lepd" target="_blank" rel="noopener">lepd 项目 github地址</a> ，文章将从各个方面详细介绍涉及的技术知识点，以方便参考使用。</p>
+<p>lepd使用的信息传递格式是json，便于在浏览器中使用。</p>
+<h2>json简介</h2>
+<p>介绍json格式和用法</p>
+<p>http://www.json.org/</p>
+<p>http://www.json.org/json-zh.html</p>
+<blockquote>
+<p>json基于两种数据结构：1、key/value对， 2、list有序列表（数组）</p>
+</blockquote>
+<p>JSON具有以下这些形式：</p>
+<h3>json对象: object</h3>
+<p>对象是一个无序的“‘名称/值’对”集合。一个对象以“{”（左括号）开始，“}”（右括号）结束。每个“名称”后跟一个“:”（冒号）；“‘名称/值’ 对”之间使用“,”（逗号）分隔。</p>
+<blockquote>
+<p><em>object</em></p>
+<p><code>{}</code></p>
+<p><code>{</code> <em>members</em> <code>}</code></p>
+</blockquote>
+<p><img src="http://www.json.org/object.gif" alt="img"></p>
+<h3>json数组: array</h3>
+<p>数组是值（value）的有序集合。一个数组以“[”（左中括号）开始，“]”（右中括号）结束。值之间使用“,”（逗号）分隔。</p>
+<blockquote>
+<p><em>array</em></p>
+<p><code>[]</code></p>
+<p><code>[</code> <em>elements</em> <code>]</code></p>
+<p><em>elements</em></p>
+<p><em>value</em>
+<em>value</em> <code>,</code> <em>elements</em></p>
+</blockquote>
+<p><img src="http://www.json.org/array.gif" alt="img"></p>
+<h3>json值: value</h3>
+<p>值（<em>value</em>）可以是双引号括起来的字符串（<em>string</em>）、数值(number)、<code>true</code>、<code>false</code>、 <code>null</code>、对象（object）或者数组（array）。这些结构可以嵌套。</p>
+<blockquote>
+<p><em>value</em></p>
+<p><em>string</em>
+<em>number</em>
+<em>object</em>
+<em>array</em>
+<code>true</code>
+<code>false</code>
+<code>null</code></p>
+</blockquote>
+<p><img src="http://www.json.org/value.gif" alt="img"></p>
+<h3>json字符串：string</h3>
+<p>字符串（<em>string</em>）是由双引号包围的任意数量Unicode字符的集合，使用反斜线转义。一个字符（character）即一个单独的字符串（character string）。</p>
+<p>字符串（<em>string</em>）与C或者Java的字符串非常相似。</p>
+<blockquote>
+<p><em>string</em></p>
+<p><code>&quot;&quot;</code></p>
+<p><code>&quot;</code> <em>chars</em> <code>&quot;</code></p>
+<p><em>chars</em></p>
+<p><em>char</em>
+<em>char chars</em></p>
+<p><em>char</em></p>
+<p><em>any-Unicode-character-</em>
+<em>except-</em><strong>&quot;</strong><em>-or-</em><strong>*</strong>-or-*
+<em>control-character</em>
+<code>\&quot;</code>
+<code>\\</code>
+<code>\/</code>
+<code>\b</code>
+<code>\f</code>
+<code>\n</code>
+<code>\r</code>
+<code>\t</code>
+<code>\u</code> <em>four-hex-digits</em></p>
+</blockquote>
+<p><img src="http://www.json.org/string.gif" alt="img"></p>
+<h3>json数值： number</h3>
+<p>数值（<em>number</em>）也与C或者Java的数值非常相似。除去未曾使用的八进制与十六进制格式。除去一些编码细节。</p>
+<blockquote>
+<p><em>number</em></p>
+<p><em>int</em>
+<em>int frac</em>
+<em>int exp</em>
+<em>int frac exp</em></p>
+<p><em>int</em></p>
+<p><em>digit</em>
+<em>digit1-9 digits</em>
+<code>-</code> <em>digit</em>
+<code>-</code> <em>digit1-9 digits</em></p>
+<p><em>frac</em></p>
+<p><strong>.</strong> <em>digits</em></p>
+<p><em>exp</em></p>
+<p><em>e</em> <em>digits</em></p>
+<p><em>digits</em></p>
+<p><em>digit</em>
+<em>digit</em> <em>digits</em></p>
+<p><em>e</em></p>
+<p><strong>e</strong>
+<strong>e+</strong>
+<strong>e-</strong>
+<strong>E</strong>
+<strong>E+</strong>
+<strong>E-</strong></p>
+</blockquote>
+<p><img src="http://www.json.org/number.gif" alt="img"></p>
+<p>空白可以加入到任何符号之间。 以下描述了完整的语言。</p>
+<h2>cJSON简介</h2>
+<p>cJSON其实就是对Json格式的字符串进行构建和解析的一个C语言函数库。总共包括2个部分：</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/07/linux-time-design1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1924,7 +2175,7 @@ github采用两个分支, master用于发布网站，hexo用于git源文件。</
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
