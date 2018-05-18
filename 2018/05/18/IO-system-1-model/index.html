@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="算法,tcp/ip," />
+  <meta name="keywords" content="linux," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="数据校验的作用 在数据传输的过程中，很多时候会有干扰，导致接收方的数据与发送方的数据不一致。这样就得进行数据重传或纠错等处理，例如TCP/IP协议中就有发现数据接收错误就会要求重传数据包等机制。接收方如何判断数据是否被破坏呢，这就需要数据校验算法来实现了。 数据校验算法的需求  尽可能少的时间复杂度和空间复杂度，让接收方能尽快完成校验以免影响正常数据传输速率 准确率必须达到一定值，如果校验出错肯定">
-<meta name="keywords" content="算法,tcp&#x2F;ip">
+<meta name="description" content="I/O模型 linux对应的IO一般分为三种类型，字符型，块设备，网络型。这三种的典型代表是串口，硬盘，socket网络。linux本着一切皆文件的思想，对这三种IO设备都当成文件处理。对三种IO有读写（收发）处理。而读写处理中，就有速度的不同。根据处理类型的不同，程序运行有CPU消耗型和IO消耗型。IO消耗型操作占用CPU较少，但往往花费时间较多，比如硬盘读写文件的操作，很多地方是用DMA来进行">
+<meta name="keywords" content="linux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="用算法实现数据校验">
-<meta property="og:url" content="http://yoursite.com/2018/05/01/data-check-algrithm/index.html">
+<meta property="og:title" content="Linux I&#x2F;O系统之一--I&#x2F;O模型">
+<meta property="og:url" content="http://yoursite.com/2018/05/18/IO-system-1-model/index.html">
 <meta property="og:site_name" content="wangfan 的小屋">
-<meta property="og:description" content="数据校验的作用 在数据传输的过程中，很多时候会有干扰，导致接收方的数据与发送方的数据不一致。这样就得进行数据重传或纠错等处理，例如TCP/IP协议中就有发现数据接收错误就会要求重传数据包等机制。接收方如何判断数据是否被破坏呢，这就需要数据校验算法来实现了。 数据校验算法的需求  尽可能少的时间复杂度和空间复杂度，让接收方能尽快完成校验以免影响正常数据传输速率 准确率必须达到一定值，如果校验出错肯定">
+<meta property="og:description" content="I/O模型 linux对应的IO一般分为三种类型，字符型，块设备，网络型。这三种的典型代表是串口，硬盘，socket网络。linux本着一切皆文件的思想，对这三种IO设备都当成文件处理。对三种IO有读写（收发）处理。而读写处理中，就有速度的不同。根据处理类型的不同，程序运行有CPU消耗型和IO消耗型。IO消耗型操作占用CPU较少，但往往花费时间较多，比如硬盘读写文件的操作，很多地方是用DMA来进行">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-02T14:51:51.142Z">
+<meta property="og:updated_time" content="2018-05-18T13:39:36.368Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="用算法实现数据校验">
-<meta name="twitter:description" content="数据校验的作用 在数据传输的过程中，很多时候会有干扰，导致接收方的数据与发送方的数据不一致。这样就得进行数据重传或纠错等处理，例如TCP/IP协议中就有发现数据接收错误就会要求重传数据包等机制。接收方如何判断数据是否被破坏呢，这就需要数据校验算法来实现了。 数据校验算法的需求  尽可能少的时间复杂度和空间复杂度，让接收方能尽快完成校验以免影响正常数据传输速率 准确率必须达到一定值，如果校验出错肯定">
+<meta name="twitter:title" content="Linux I&#x2F;O系统之一--I&#x2F;O模型">
+<meta name="twitter:description" content="I/O模型 linux对应的IO一般分为三种类型，字符型，块设备，网络型。这三种的典型代表是串口，硬盘，socket网络。linux本着一切皆文件的思想，对这三种IO设备都当成文件处理。对三种IO有读写（收发）处理。而读写处理中，就有速度的不同。根据处理类型的不同，程序运行有CPU消耗型和IO消耗型。IO消耗型操作占用CPU较少，但往往花费时间较多，比如硬盘读写文件的操作，很多地方是用DMA来进行">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/05/01/data-check-algrithm/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/05/18/IO-system-1-model/"/>
 
 
 
 
 
-  <title>用算法实现数据校验 | wangfan 的小屋</title>
+  <title>Linux I/O系统之一--I/O模型 | wangfan 的小屋</title>
   
 
 
@@ -273,7 +273,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/01/data-check-algrithm/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/18/IO-system-1-model/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="wangfanstar@163.com">
@@ -290,7 +290,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">用算法实现数据校验</h1>
+          <h1 class="post-title" itemprop="name headline">Linux I/O系统之一--I/O模型</h1>
         
 
         <div class="post-meta">
@@ -302,8 +302,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-01T17:47:25+08:00">
-                2018-05-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-18T20:38:07+08:00">
+                2018-05-18
               </time>
             
 
@@ -343,8 +343,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/05/01/data-check-algrithm/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/05/01/data-check-algrithm/" itemprop="commentCount"></span>
+                <a href="/2018/05/18/IO-system-1-model/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/05/18/IO-system-1-model/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -372,28 +372,27 @@
       
 
       
-        <h2>数据校验的作用</h2>
-<p>在数据传输的过程中，很多时候会有干扰，导致接收方的数据与发送方的数据不一致。这样就得进行数据重传或纠错等处理，例如TCP/IP协议中就有发现数据接收错误就会要求重传数据包等机制。接收方如何判断数据是否被破坏呢，这就需要数据校验算法来实现了。</p>
-<h2>数据校验算法的需求</h2>
-<ul>
-<li>尽可能少的时间复杂度和空间复杂度，让接收方能尽快完成校验以免影响正常数据传输速率</li>
-<li>准确率必须达到一定值，如果校验出错肯定是有错，校验不出错可能有错。</li>
-</ul>
-<h2>数据校验位的实现</h2>
-<p>下面介绍一种简单的数据校验算法，此算法广泛地应用在TCP/IP协议中，在TCP/IP的数据包中，一般有一个16b的数据校验位，利用这个16b的空间和一个简单的校验算法，可以很快地求出接收方数据是否有误，具体实现如下：</p>
-<p>假设一个数据包的大小是20Byte,即160b(包括16b的校验位)，其数据的位数为160b-16b =144b，此算法的原理如下，在发送方构造 一个16b的校验位，使得所有160b数据在按16b相加后得到的数据为全F(或全0），接收方在收到数据后也按16b一组进行相加，如果收到的数据是全F，则说明数据正常，否则校验失败，判断数据有误，让发送方进行重发处理。</p>
-<p>构造此算法考虑到以下几点：</p>
-<ol>
-<li>
-<p>考虑到加法有进位，当有进位时采取进位重新加到最低位的处理方法</p>
-</li>
-<li>
-<p>发送方将144b先进行16b一组的加法处理后，得到一个16b的数据，根据正码+反码=全F的特性，可以将此16b的校验大小设置成得到数据后的反码。</p>
-<p>下面用C语言进行实现，（初始校验码全为0）数据假设为BUF, 大小为SIZE，计算出的校验位为16b 的 校验码</p>
-<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stddef.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">short</span> <span class="title">CheckSum</span><span class="params">(<span class="keyword">void</span> * Buf, <span class="keyword">size_t</span> Size)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">short</span> CheckCode = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">long</span> sum = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">short</span> * p = Buf;</span><br><span class="line">  <span class="keyword">while</span>(Size &gt; <span class="number">1</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    sum += *p;</span><br><span class="line">      p++;</span><br><span class="line">    Size = Size - <span class="number">2</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">/* 如果数据大小非偶数 */</span></span><br><span class="line">  <span class="keyword">if</span> (Size == <span class="number">1</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    sum += *(<span class="keyword">unsigned</span> <span class="keyword">char</span> *)p;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">/* 进位加法 */</span></span><br><span class="line">  <span class="keyword">while</span> ((sum &gt;&gt; <span class="number">16</span>) &gt; <span class="number">0</span>)</span><br><span class="line">  &#123;</span><br><span class="line">     sum = (sum &amp; <span class="number">0xff</span>) + (sum &gt;&gt; <span class="number">16</span>);           </span><br><span class="line">  &#125;</span><br><span class="line">         </span><br><span class="line">  <span class="keyword">return</span> ~(<span class="keyword">unsigned</span> <span class="keyword">short</span>)sum;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>​</p>
-</li>
-</ol>
+        <h2>I/O模型</h2>
+<p>linux对应的IO一般分为三种类型，字符型，块设备，网络型。这三种的典型代表是串口，硬盘，socket网络。linux本着一切皆文件的思想，对这三种IO设备都当成文件处理。对三种IO有读写（收发）处理。而读写处理中，就有速度的不同。根据处理类型的不同，程序运行有CPU消耗型和IO消耗型。IO消耗型操作占用CPU较少，但往往花费时间较多，比如硬盘读写文件的操作，很多地方是用DMA来进行的。CPU设置好后，剩下的工作就交到DMA处理，等DMA把数据操作完成后再通知CPU处理后续的事件。</p>
+<h2>多事件处理方案</h2>
+<p>在正常程序流程中，我们按预定的方案将要实现的事件进行编码，在代码中实现所有的事件处理。总结下有如下几种方案</p>
+<h3>顺序处理</h3>
+<p>最简单的方案是将所有的事件全部罗列出来，event1, event2, event3... 然后在代码中依次执行如下所示：</p>
+<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    event1;  <span class="comment">//执行事件1</span></span><br><span class="line">    event2;  <span class="comment">//执行事件2</span></span><br><span class="line">    event3;  <span class="comment">//执行事件3</span></span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这种方法的优点是实现简单，缺点是可能会造成时间上的浪费，比如如果event2是IO消耗型事件耗时较长但占用CPU较少，虽然CPU没有用，在程序中还是会一直等event2执行完成后才进行event3的处理。造成了CPU空闲浪费的情况，于是我们为了利用CPU，很容易想出另一种方案：多进程，多线程处理</p>
+<h3>多进程多线程处理</h3>
+<p>此方案的思路是将事件分别在不同的线程上，不同的线程可以在不同的核上运行，相当于并行处理。也可以在同一个核上处理，同一个核上IO消耗型事件运行时，CPU可以调度其他线程，不会空等造成CPU的浪费。</p>
+<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    pthread_create(event1);</span><br><span class="line">    pthread_create(event2);</span><br><span class="line">    pthread_create(event3);</span><br><span class="line">    wait(<span class="literal">NULL</span>);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>多进程多线程的方法让事件可以并行处理，但也有个缺陷是多进程多线程会占用大量的资源，为了节省资源，我们于是想出在单个线程上多路复用的方法。</p>
+<h3>单线程多路复用处理</h3>
+<p>多路复用的设计相当于在一个线程上同时监听3个事件，哪个事件发生就执行哪个事件的处理。其Linux多路复用的机制发展有以下方案：select, epoll, libevent。其中select是将文件描述符加入到要注意的描述符群中，当有事件发生时，将所有的描述符检查一遍，找出有事件的描述符进行相应的处理。select的不足有两个地方：一是加入描述符时，每次都必须把所有的描述符重新加入一遍，没有记住之前加入的描述符；二是有事件发生后需要扫描一下全部的描述符来检测到底是哪个描述符发生了事件。epoll改进了这两点，使用epoll后每次只需添加所需的描述符，不用再全部描述符重输一遍，二是事件发生后直接通知发生了事件的描述符，不用再遍历查询一遍。libevent机制则是封装了epoll的架构，在不同的系统的提供了相同的接口，同时把回调函数绑定在事件发生的描述符上，当事件发生时自动调用回调函数，达到类似MFC上之类的事件机制。</p>
+<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    epoll_ctl(event1); <span class="comment">// 加入监听描述符</span></span><br><span class="line">    epoll_ctl(event2); <span class="comment">// 加入监听描述符</span></span><br><span class="line">    epoll_ctl(event3); <span class="comment">// 加入监听描述符</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">            epoll_wait(); <span class="comment">//等待事件发生</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3>多事件处理的更多技巧</h3>
+<blockquote>
+<p>1、在频繁有事件发生情况下，epoll的进程切换开销也可以省下，用定长队列的方式，每次处理完事件后直接处理下一个，不直接调度来实现节省进程切换的开销。在另一篇FIFO的文章将详细再讲述</p>
+<p>2、aio异步IO机制linux用户态采多进程的方式来实现，内核态实现得不太好，好像是效果不行，提供了相关的api，但用得比较少。</p>
+<p>3、SIGIO机制，是Linux上通过信号上绑定事件来实现，linux说是有过度设计的缺陷，用得比较少。</p>
+</blockquote>
 
       
     </div>
@@ -411,9 +410,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/算法/" rel="tag"># 算法</a>
-          
-            <a href="/tags/tcp-ip/" rel="tag"># tcp/ip</a>
+            <a href="/tags/linux/" rel="tag"># linux</a>
           
         </div>
       
@@ -426,8 +423,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/30/my-blog-setting/" rel="next" title="Hexo的github配置">
-                <i class="fa fa-chevron-left"></i> Hexo的github配置
+              <a href="/2018/05/17/mem-pool/" rel="next" title="内存池">
+                <i class="fa fa-chevron-left"></i> 内存池
               </a>
             
           </div>
@@ -435,10 +432,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/02/ld-preload/" rel="prev" title="linux下不重编译替换同名函数--LD_PRELOAD">
-                linux下不重编译替换同名函数--LD_PRELOAD <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -573,7 +566,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">数据校验的作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">数据校验算法的需求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">数据校验位的实现</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">I/O模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">多事件处理方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.1.</span> <span class="nav-text">顺序处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.2.</span> <span class="nav-text">多进程多线程处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.3.</span> <span class="nav-text">单线程多路复用处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.4.</span> <span class="nav-text">多事件处理的更多技巧</span></a></li></ol></li></ol></div>
             
 
           </div>
