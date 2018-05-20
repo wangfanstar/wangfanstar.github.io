@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="wangfan 的小屋">
 <meta property="og:description" content="速率指标 在评价交换板卡的性能时，常用到线速转发，吞吐量，带宽，bps, pps等术语来描述。具体介绍这些术语  bps：bit per secondpps： pps:  packet per second 一般来说二层转发能力用bps，三层转发能力用pps。  1、带宽和吞吐量的单位都是Mbps，带宽指理论上链路一秒能传输的比特，比太网的带宽为10Mbps说明以太网的链路一秒能传输10M bit">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-20T05:00:55.139Z">
+<meta property="og:updated_time" content="2018-05-20T07:04:06.833Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="通信行业中的速率指标">
 <meta name="twitter:description" content="速率指标 在评价交换板卡的性能时，常用到线速转发，吞吐量，带宽，bps, pps等术语来描述。具体介绍这些术语  bps：bit per secondpps： pps:  packet per second 一般来说二层转发能力用bps，三层转发能力用pps。  1、带宽和吞吐量的单位都是Mbps，带宽指理论上链路一秒能传输的比特，比太网的带宽为10Mbps说明以太网的链路一秒能传输10M bit">
@@ -383,7 +383,7 @@
 <p>2、线速是指端口在满负载的情况下，对帧进行无差错的转发。</p>
 <h1>转发能力计算公式</h1>
 <p>对于以太网最小包为64BYTE，加上帧开销20BYTE，因此最小包为84BYTE。</p>
-<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">对于1个全双工1000Mbps接口达到线速时要求：转发能力＝1000Mbps/((64+20)*8bit)＝1.488Mpps</span><br><span class="line">对于1个全双工100Mbps接口达到线速时要求：转发能力＝100Mbps/((64+20)*8bit)＝0.149Mpps</span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">对于1个全双工1000Mbps接口达到线速时要求：转发能力＝1000Mbps/((64+20)*8bit)＝1.488Mpps</span><br><span class="line">对于1个全双工100Mbps接口达到线速时要求：转发能力＝100Mbps/((64+20)*8bit)＝0.149Mpps</span><br><span class="line">转发带宽=包转发速率*8*（64＋8＋12）=1344*包转发速率</span><br></pre></td></tr></table></figure></p>
 <p>#转发能力的三种类型</p>
 <p>1、转发的背板带宽：此指标考察交换机所有端口的总带宽，计算方法为__端口数*端口速率*2(全双工）__</p>
 <p>2、二层包转发线速：第二层包转发率=<strong>千兆端口数量*1.488Mpps+百兆端口数量*0.1488Mpps+其他端口数量*相应速率</strong></p>
