@@ -79,20 +79,18 @@
 
 
 
-<meta name="description" content="LINUX下的负载均衡 负载均衡是最大化利用CPU资源的方法，要求在有任务(task_struct，中断，软中断)执行时，所有的CPU都能利用上，不产生有任务处理却有CPU闲置的情况。首先从任务的优先级的角度来看，CPU处理的任务只有下面4种优先级，按高到低依次是：   中断 软中断 处于spinlock等关闭了调度区间的进程 普通进程   以上优先级的任务在linux处理规则如下：  1、中断不">
+<meta name="description" content="LINUX下的负载均衡处理对象 负载均衡是最大化利用CPU资源的方法，要求在有任务(task_struct，中断，软中断)执行时，所有的CPU都能利用上，不产生有任务处理却有CPU闲置的情况。首先从任务的优先级的角度来看，CPU处理的任务只有下面4种优先级，按高到低依次是：   中断 软中断 处于spinlock等关闭了调度区间的进程 普通进程   以上优先级的任务在linux处理规则如下：  1">
 <meta name="keywords" content="linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="宋宝华课程笔记1-负载均衡">
 <meta property="og:url" content="http://yoursite.com/2018/05/26/load-blance/index.html">
 <meta property="og:site_name" content="wangfan 的小屋">
-<meta property="og:description" content="LINUX下的负载均衡 负载均衡是最大化利用CPU资源的方法，要求在有任务(task_struct，中断，软中断)执行时，所有的CPU都能利用上，不产生有任务处理却有CPU闲置的情况。首先从任务的优先级的角度来看，CPU处理的任务只有下面4种优先级，按高到低依次是：   中断 软中断 处于spinlock等关闭了调度区间的进程 普通进程   以上优先级的任务在linux处理规则如下：  1、中断不">
+<meta property="og:description" content="LINUX下的负载均衡处理对象 负载均衡是最大化利用CPU资源的方法，要求在有任务(task_struct，中断，软中断)执行时，所有的CPU都能利用上，不产生有任务处理却有CPU闲置的情况。首先从任务的优先级的角度来看，CPU处理的任务只有下面4种优先级，按高到低依次是：   中断 软中断 处于spinlock等关闭了调度区间的进程 普通进程   以上优先级的任务在linux处理规则如下：  1">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="c:%5CUsers%5Cwangfan%5CAppData%5CLocal%5CTemp%5C1527414041327.png">
-<meta property="og:updated_time" content="2018-05-27T10:35:38.927Z">
+<meta property="og:updated_time" content="2018-05-27T10:39:38.676Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="宋宝华课程笔记1-负载均衡">
-<meta name="twitter:description" content="LINUX下的负载均衡 负载均衡是最大化利用CPU资源的方法，要求在有任务(task_struct，中断，软中断)执行时，所有的CPU都能利用上，不产生有任务处理却有CPU闲置的情况。首先从任务的优先级的角度来看，CPU处理的任务只有下面4种优先级，按高到低依次是：   中断 软中断 处于spinlock等关闭了调度区间的进程 普通进程   以上优先级的任务在linux处理规则如下：  1、中断不">
-<meta name="twitter:image" content="c:%5CUsers%5Cwangfan%5CAppData%5CLocal%5CTemp%5C1527414041327.png">
+<meta name="twitter:description" content="LINUX下的负载均衡处理对象 负载均衡是最大化利用CPU资源的方法，要求在有任务(task_struct，中断，软中断)执行时，所有的CPU都能利用上，不产生有任务处理却有CPU闲置的情况。首先从任务的优先级的角度来看，CPU处理的任务只有下面4种优先级，按高到低依次是：   中断 软中断 处于spinlock等关闭了调度区间的进程 普通进程   以上优先级的任务在linux处理规则如下：  1">
 
 
 
@@ -374,7 +372,7 @@
       
 
       
-        <h1>LINUX下的负载均衡</h1>
+        <h2>LINUX下的负载均衡处理对象</h2>
 <p>负载均衡是最大化利用CPU资源的方法，要求在有任务(task_struct，中断，软中断)执行时，所有的CPU都能利用上，不产生有任务处理却有CPU闲置的情况。首先从任务的优先级的角度来看，CPU处理的任务只有下面4种优先级，按高到低依次是：</p>
 <blockquote>
 <ol>
@@ -399,11 +397,10 @@
 <p>在TOP命令中，cpu时间占用中有一列是__hi__和__si__，分别对应中断和软中断。说明cpu时间除了在task_struct上，还有可能花在中断和软中断，当网络流量比较大进，cpu花在中断和软中断的时间比较大，可以考虑中断负载均衡。</p>
 <p>分配IRQ到某个CPU，掩码01代表CPU0，02代表CPU1，04代表CPU2，08代表CPU3</p>
 <p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#此命令将中断145分配到CPU0上处理</span></span><br><span class="line">[root@boss ~] <span class="comment"># echo 01 &gt; /proc/irq/145/smp_affinity</span></span><br><span class="line">[root@boss ~] <span class="comment"># cat /proc/irq/145/smp_affinity</span></span><br><span class="line">			00000001</span><br></pre></td></tr></table></figure></p>
-<p><img src="C:%5CUsers%5Cwangfan%5CAppData%5CLocal%5CTemp%5C1527414041327.png" alt="1527414041327"></p>
 <h2>软中断负载均衡--rps</h2>
 <p>有时候有的网卡只有一个队列，一个队列的中断只能分配到一个核，Linux设计是一个核上抛出的软中断只能在同一个核上执行，cpu 0上的中断抛出一个软中断，tcp/ip协议栈也只能在cpu 0的软中断上处理。google在linux内核里面加入了rps补丁，其作用是尽管中断是在一个cpu核上，但tcp/ip协议处理的软中断可以在多个核上进行处理。rps的原理是收到软中断后通过核间中断的方法给另外的核发中断，让其他核处理软中断，从而支持单队列情况下的网络负载均衡。</p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#rps 使能方法，除了CPU 0 外都参与TCP/IP协议栈</span></span><br><span class="line"><span class="built_in">echo</span> fffe &gt; /sys/class/net/eth1/queues/rx-0/rps_cpus</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看softirqs，</span></span><br><span class="line">wangfan@wangfan-VirtualBox:~$ cat /proc/softirqs </span><br><span class="line">                    CPU0       CPU1       </span><br><span class="line">          HI:          0          2</span><br><span class="line">       TIMER:    6841572    6725135</span><br><span class="line">      NET_TX:          1      17644</span><br><span class="line">      NET_RX:        679     224896</span><br><span class="line">       BLOCK:      61380     180153</span><br><span class="line">    IRQ_POLL:          0          0</span><br><span class="line">     TASKLET:         15       7834</span><br><span class="line">       SCHED:    3148547    3016778</span><br><span class="line">     HRTIMER:          0          0</span><br><span class="line">         RCU:     747890     885505</span><br></pre></td></tr></table></figure></p>
-<p>###利用rps解决cpu占用率高的问题</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#rps 使能方法，除了CPU 0 外都参与TCP/IP协议栈</span></span><br><span class="line"><span class="built_in">echo</span> fffe &gt; /sys/class/net/eth1/queues/rx-0/rps_cpus</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看softirqs</span></span><br><span class="line">wangfan@wangfan-VirtualBox:~$ cat /proc/softirqs </span><br><span class="line">                    CPU0       CPU1       </span><br><span class="line">          HI:          0          2</span><br><span class="line">       TIMER:    6841572    6725135</span><br><span class="line">      NET_TX:          1      17644</span><br><span class="line">      NET_RX:        679     224896</span><br><span class="line">       BLOCK:      61380     180153</span><br><span class="line">    IRQ_POLL:          0          0</span><br><span class="line">     TASKLET:         15       7834</span><br><span class="line">       SCHED:    3148547    3016778</span><br><span class="line">     HRTIMER:          0          0</span><br><span class="line">         RCU:     747890     885505</span><br></pre></td></tr></table></figure></p>
+<h3>利用rps解决cpu占用率高的问题</h3>
 <p>宋老师关于爱立信工程师的问题处理，爱立信的工程师在服务器上写了个软件发现16核有2个核占用率很高，但其他核都很闲，top命令查看发现__hi__和__si__很高，说明cpu大部分时间在处理中断和软中断，而不是处理task_struct。解决方法是登录机器后敲命令echo ffff 到rps，cpu占用率降了下来，效果很明显。</p>
 <h2>进程间（task_struct）负载均衡</h2>
 <h3>linux负载均衡算法原则</h3>
@@ -614,7 +611,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">LINUX下的负载均衡</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.1.</span> <span class="nav-text">中断负载均衡</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.2.</span> <span class="nav-text">软中断负载均衡--rps</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.3.</span> <span class="nav-text">进程间（task_struct）负载均衡</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.3.1.</span> <span class="nav-text">linux负载均衡算法原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.3.2.</span> <span class="nav-text">由于负载均衡导致cpu占用率200%的示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.3.3.</span> <span class="nav-text">设置进程在指定CPU上运行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.4.</span> <span class="nav-text">给进程指定比例的CPU负载--cgroup</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.4.1.</span> <span class="nav-text">cgroup使用方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.4.2.</span> <span class="nav-text">安卓的cgroup设计</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">LINUX下的负载均衡处理对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">中断负载均衡</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">软中断负载均衡--rps</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.1.</span> <span class="nav-text">利用rps解决cpu占用率高的问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">进程间（task_struct）负载均衡</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">4.1.</span> <span class="nav-text">linux负载均衡算法原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">4.2.</span> <span class="nav-text">由于负载均衡导致cpu占用率200%的示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">4.3.</span> <span class="nav-text">设置进程在指定CPU上运行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">5.</span> <span class="nav-text">给进程指定比例的CPU负载--cgroup</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">5.1.</span> <span class="nav-text">cgroup使用方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">5.2.</span> <span class="nav-text">安卓的cgroup设计</span></a></li></ol></li></ol></div>
             
 
           </div>
