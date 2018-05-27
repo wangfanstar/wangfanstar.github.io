@@ -377,7 +377,6 @@
         
           
             <h1>LINUX下的负载均衡</h1>
-<p>##任务的不同优先级及原则</p>
 <p>负载均衡是最大化利用CPU资源的方法，要求在有任务(task_struct，中断，软中断)执行时，所有的CPU都能利用上，不产生有任务处理却有CPU闲置的情况。首先从任务的优先级的角度来看，CPU处理的任务只有下面4种优先级，按高到低依次是：</p>
 <blockquote>
 <ol>
@@ -439,7 +438,7 @@
 <p>cgroup.procs ：将进程号echo进去</p>
 <p>cpu.cfs_period_us ： 默认是100000  基准时间100ms</p>
 <p>cpu.cfs_quota_us :  配额默认是-1最大值，设置可以比100000大，它与period的比例表示gruop内线程最高可占cpu的比例</p>
-<p>cpu.shares ： 权重，默认是1024</p>
+<p>cpu.shares ： 权重，默认是1024，调节cpu.shares可以调节不同group的cpu占用率。</p>
 </blockquote>
 <p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1 cd /sys/fs/cgroup/cpu 目录创建不同的group</span></span><br><span class="line"><span class="comment"># 2 mkdir A  创建 group A</span></span><br><span class="line"><span class="comment"># 3 mkdir B  创建 group B</span></span><br><span class="line"><span class="comment"># 4 /sys/fs/cgroup/cpu/A  echo 3582 &gt; cgroup.procs 将进程3582加入A group</span></span><br><span class="line"><span class="comment"># 5 /sys/fs/cgroup/cpu/B  echo 3581 &gt; cgroup.procs 将进程3581加入B group</span></span><br><span class="line"><span class="comment"># 6 /sys/fs/cgroup/cpu/A  echo 50000 &gt; cpu.cfs_quota_us  设置A group 权重为 50% cpu, A内线程的cpu占用率最高不超过50%</span></span><br></pre></td></tr></table></figure></p>
 <h3>安卓的cgroup设计</h3>
