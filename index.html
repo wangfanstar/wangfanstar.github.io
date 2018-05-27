@@ -273,6 +273,225 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/26/load-blance/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wangfanstar@163.com">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wangfan 的小屋">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/26/load-blance/" itemprop="url">宋宝华课程笔记1-负载均衡</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-26T21:56:04+08:00">
+                2018-05-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程/" itemprop="url" rel="index">
+                    <span itemprop="name">编程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/05/26/load-blance/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/05/26/load-blance/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1>LINUX下的负载均衡</h1>
+<p>##任务的不同优先级及原则</p>
+<p>负载均衡是最大化利用CPU资源的方法，要求在有任务(task_struct，中断，软中断)执行时，所有的CPU都能利用上，不产生有任务处理却有CPU闲置的情况。首先从任务的优先级的角度来看，CPU处理的任务只有下面4种优先级，按高到低依次是：</p>
+<blockquote>
+<ol>
+<li>中断</li>
+<li>软中断</li>
+<li>处于spinlock等关闭了调度区间的进程</li>
+<li>普通进程</li>
+</ol>
+</blockquote>
+<p>以上优先级的任务在linux处理规则如下：</p>
+<blockquote>
+<p>1、中断不可以嵌套中断，在2.6版本后，处于中断区间再次发生中断时，会等到前一个中断执行结束后再进行处理下一个中断。</p>
+<p>2、中断可以唤起软中断</p>
+<p>3、软中断可以唤起中断</p>
+<p>4、CFS等调度算法只处理普通进程和普通进程之间的调度，不涉及中断，软中断，及关闭了调度的进程。具体表现如下：</p>
+<ul>
+<li>如果CPU在处理1，2，3优先级的任务时，不受调度算法的调度，只有等处理完1，2，3优先级的任务后才会再由调度算法调度。</li>
+<li>如果CPU在处理4普通进程的任务时，高优先级的中断和软中断可以直接抢占普通进程，不用等调度算法调度。</li>
+</ul>
+</blockquote>
+<h2>中断负载均衡</h2>
+<p>在TOP命令中，cpu时间占用中有一列是__hi__和__si__，分别对应中断和软中断。说明cpu时间除了在task_struct上，还有可能花在中断和软中断，当网络流量比较大进，cpu花在中断和软中断的时间比较大，可以考虑中断负载均衡。</p>
+<p>分配IRQ到某个CPU，掩码01代表CPU0，02代表CPU1，04代表CPU2，08代表CPU3</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#此命令将中断145分配到CPU0上处理</span></span><br><span class="line">[root@boss ~] <span class="comment"># echo 01 &gt; /proc/irq/145/smp_affinity</span></span><br><span class="line">[root@boss ~] <span class="comment"># cat /proc/irq/145/smp_affinity</span></span><br><span class="line">			00000001</span><br></pre></td></tr></table></figure></p>
+<p><img src="C:%5CUsers%5Cwangfan%5CAppData%5CLocal%5CTemp%5C1527414041327.png" alt="1527414041327"></p>
+<h2>软中断负载均衡--rps</h2>
+<p>有时候有的网卡只有一个队列，一个队列的中断只能分配到一个核，Linux设计是一个核上抛出的软中断只能在同一个核上执行，cpu 0上的中断抛出一个软中断，tcp/ip协议栈也只能在cpu 0的软中断上处理。google在linux内核里面加入了rps补丁，其作用是尽管中断是在一个cpu核上，但tcp/ip协议处理的软中断可以在多个核上进行处理。rps的原理是收到软中断后通过核间中断的方法给另外的核发中断，让其他核处理软中断，从而支持单队列情况下的网络负载均衡。</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#rps 使能方法，除了CPU 0 外都参与TCP/IP协议栈</span></span><br><span class="line"><span class="built_in">echo</span> fffe &gt; /sys/class/net/eth1/queues/rx-0/rps_cpus</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看softirqs，</span></span><br><span class="line">wangfan@wangfan-VirtualBox:~$ cat /proc/softirqs </span><br><span class="line">                    CPU0       CPU1       </span><br><span class="line">          HI:          0          2</span><br><span class="line">       TIMER:    6841572    6725135</span><br><span class="line">      NET_TX:          1      17644</span><br><span class="line">      NET_RX:        679     224896</span><br><span class="line">       BLOCK:      61380     180153</span><br><span class="line">    IRQ_POLL:          0          0</span><br><span class="line">     TASKLET:         15       7834</span><br><span class="line">       SCHED:    3148547    3016778</span><br><span class="line">     HRTIMER:          0          0</span><br><span class="line">         RCU:     747890     885505</span><br></pre></td></tr></table></figure></p>
+<p>###利用rps解决cpu占用率高的问题</p>
+<p>宋老师关于爱立信工程师的问题处理，爱立信的工程师在服务器上写了个软件发现16核有2个核占用率很高，但其他核都很闲，top命令查看发现__hi__和__si__很高，说明cpu大部分时间在处理中断和软中断，而不是处理task_struct。解决方法是登录机器后敲命令echo ffff 到rps，cpu占用率降了下来，效果很明显。</p>
+<h2>进程间（task_struct）负载均衡</h2>
+<h3>linux负载均衡算法原则</h3>
+<p>linux下所有CPU核会进行分布式的PUSH和PULL操作，当CPU核空闲时会向周围的核PULL任务来执行，CPU核本身在执行任务时也会PUSH任务到其他核。</p>
+<p>每个核执行同样的负载均衡算法，负载均衡包括RT任务的负载均衡和普通任务的负载均衡</p>
+<ul>
+<li>
+<p>RT任务的负载均衡算法是将N个优先级最高的RT分布到N个核</p>
+<p>pull_rt_task(); push_rt_task()</p>
+</li>
+<li>
+<p>普通任务负载均衡有三种：IDLE式负载均衡，周期性负载均衡，FORK和EXEC式负载均衡</p>
+<p>周期性负载均衡：时钟tick的时间点上CPU核查询自己是否很闲，周围核是否很忙，是则用PULL将周围核的任务拉过来处理。</p>
+<p>IDLE式负载均衡：当CPU核在IDLE时会查询周围核是否在忙，如果旁边核比较忙时，自动PULL旁边核的task_struct任务来执行。</p>
+<p>FORK和EXEC式负载均衡：FORK和EXEC创建一个新的进程时，Linux会自动找一个最闲的核将FORK和EXEC新创建出的进程放在上面处理。</p>
+<p>以上处理由核与核之间分布式负载均衡处理是自动进行的。</p>
+</li>
+</ul>
+<h3>由于负载均衡导致cpu占用率200%的示例</h3>
+<p>在一个程序中起2个进程，每个进程都在做CPU消耗型操作（代码中调用while(1)死循环），在进程执行的过程中会自动将进程分配到2个CPU核上进行处理。可以通过查看CPU占用率和时间占用情况来验证。分配到两个CPU核后，CPU占用率会上升到200%，用time计算程序的占用时间，真实时间是系统时间的一半，因为系统时间是单独统计每个CPU核上占用的时间，2个CPU核上会统计2次，显示的结果就是系统时间是真实时间的2倍。</p>
+<h3>设置进程在指定CPU上运行</h3>
+<p>要设置进程在指定CPU上运行，在代码里可以通过调用相关API实现，也可以直接在BASH中通过taskset命令实现</p>
+<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置CPU task affinity api</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;pthread.h&gt; //注意&lt;pthread.h&gt;包含&lt;sched.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_setaffinity_np</span><span class="params">(<span class="keyword">pthread_t</span> thread,<span class="keyword">size_t</span> cpusetsize,<span class="keyword">const</span> <span class="keyword">cpu_set_t</span> *cpuset)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_getaffinity_np</span><span class="params">(<span class="keyword">pthread_t</span> thread,<span class="keyword">size_t</span> cpusetsize, <span class="keyword">cpu_set_t</span> *cpuset)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sched_setaffinity</span><span class="params">(<span class="keyword">pid_t</span> pid, <span class="keyword">size_t</span> cpusetsize, <span class="keyword">cpu_set_t</span> *mask)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sched_getaffinity</span><span class="params">(<span class="keyword">pid_t</span> pid, <span class="keyword">size_t</span> cpusetsize, <span class="keyword">cpu_set_t</span> *mask)</span></span>;</span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># taskset在bash下的使用方法</span></span><br><span class="line"><span class="comment"># 命令行形式设置CPU亲核性</span></span><br><span class="line">taskset [options] mask <span class="built_in">command</span> [arg]...</span><br><span class="line">taskset [options] -p [mask] pid</span><br><span class="line"></span><br><span class="line">PARAMETER</span><br><span class="line">　　　　mask : cpu亲和性,当没有-c选项时, 其值前无论有没有0x标记都是16进制的,</span><br><span class="line">　　　　　　　　当有-c选项时,其值是十进制的.</span><br><span class="line">　　　　<span class="built_in">command</span> : 命令或者可执行程序</span><br><span class="line">　　　　arg : <span class="built_in">command</span>的参数</span><br><span class="line">　　　　pid : 进程ID,可以通过ps/top/pidof等命令获取</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">OPTIONS</span><br><span class="line">　　　　-a, --all-tasks (旧版本中没有这个选项)</span><br><span class="line">　　　　　　　　这个选项涉及到了linux中TID的概念,他会将一个进程中所有的TID都执行一次CPU亲和性设置.</span><br><span class="line">　　　　　　　　TID就是Thread ID,他和POSIX中pthread_t表示的线程ID完全不是同一个东西.</span><br><span class="line">　　　　　　　　Linux中的POSIX线程库实现的线程其实也是一个进程(LWP),这个TID就是这个线程的真实PID.</span><br><span class="line">       -p, --pid</span><br><span class="line">              操作已存在的PID,而不是加载一个新的程序</span><br><span class="line">       -c, --cpu-list</span><br><span class="line">              声明CPU的亲和力使用数字表示而不是用位掩码表示. 例如 0,5,7,9-11.</span><br><span class="line">       -h, --<span class="built_in">help</span></span><br><span class="line">              display usage information and <span class="built_in">exit</span></span><br><span class="line">       -V, --version</span><br><span class="line">              output version information and <span class="built_in">exit</span></span><br><span class="line">USAGE</span><br><span class="line"></span><br><span class="line">　　　　1) 使用指定的CPU亲和性运行一个新程序</span><br><span class="line">　　　　　　taskset [-c] mask <span class="built_in">command</span> [arg]...</span><br><span class="line">　　　　　　　　举例:使用CPU0运行ls命令显示/etc/init.d下的所有内容 </span><br><span class="line">　　　　　　　　　　taskset -c 0 ls -al /etc/init.d/</span><br><span class="line"></span><br><span class="line">　　　　2) 显示已经运行的进程的CPU亲和性</span><br><span class="line">　　　　　　taskset -p pid</span><br><span class="line">　　　　　　　　举例:查看init进程(PID=1)的CPU亲和性</span><br><span class="line">　　　　　　　　　　taskset -p 1</span><br><span class="line"></span><br><span class="line">　　　　3) 改变已经运行进程的CPU亲和力</span><br><span class="line">　　　　    taskset -p[c] mask pid</span><br><span class="line">　　　　　　　　举例:打开2个终端,在第一个终端运行top命令,第二个终端中</span><br><span class="line">　　　　　　　　　　首先运行:[~]<span class="comment"># ps -eo pid,args,psr | grep top #获取top命令的pid和其所运行的CPU号</span></span><br><span class="line">　　　　　　　　　　其次运行:[~]<span class="comment"># taskset -cp 新的CPU号 pid       #更改top命令运行的CPU号</span></span><br><span class="line">　　　　　　　　　　最后运行:[~]<span class="comment"># ps -eo pid,args,psr | grep top #查看是否更改成功</span></span><br><span class="line"></span><br><span class="line">PERMISSIONS</span><br><span class="line">        一个用户要设定一个进程的CPU亲和性,如果目标进程是该用户的,则可以设置,如果是其他用户的,则会设置失败,提示 Operation not permitted.当然root用户没有任何限制.</span><br><span class="line">        任何用户都可以获取任意一个进程的CPU亲和性.</span><br></pre></td></tr></table></figure></p>
+<h2>给进程指定比例的CPU负载--cgroup</h2>
+<p>当前的程序是按程序的需要来占用cpu的，这样可能会出现一些问题，比如用户A和B在同一个服务器上，如果A开的线程比B多，可能导致A一直占用cpu，B因为线程少，占用的权重比例少而得不到cpu。于是我们想要一个分群的概率，让A和B各占有50%的CPU，不管A线程有多少，最多只能占50%的CPU，这样保证B即使线程数量少，也可以得到足够的CPU来运行。同样的道理类似于计费的网络带宽，可以根据用户缴费的情况分配CPU，如果未交费，就算CPU空闲也不分配CPU给用户。</p>
+<h3>cgroup使用方法</h3>
+<p>cgroup主要是设置以下3个属性，在<code>/sys/fs/cgroup/cpu</code>目录mkdir一个group后，会出现很多属性文件，我们主要通过以下属性来查询和设置。</p>
+<blockquote>
+<p>cgroup.procs ：将进程号echo进去</p>
+<p>cpu.cfs_period_us ： 默认是100000  基准时间100ms</p>
+<p>cpu.cfs_quota_us :  配额默认是-1最大值，设置可以比100000大，它与period的比例表示gruop内线程最高可占cpu的比例</p>
+<p>cpu.shares ： 权重，默认是1024</p>
+</blockquote>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1 cd /sys/fs/cgroup/cpu 目录创建不同的group</span></span><br><span class="line"><span class="comment"># 2 mkdir A  创建 group A</span></span><br><span class="line"><span class="comment"># 3 mkdir B  创建 group B</span></span><br><span class="line"><span class="comment"># 4 /sys/fs/cgroup/cpu/A  echo 3582 &gt; cgroup.procs 将进程3582加入A group</span></span><br><span class="line"><span class="comment"># 5 /sys/fs/cgroup/cpu/B  echo 3581 &gt; cgroup.procs 将进程3581加入B group</span></span><br><span class="line"><span class="comment"># 6 /sys/fs/cgroup/cpu/A  echo 50000 &gt; cpu.cfs_quota_us  设置A group 权重为 50% cpu, A内线程的cpu占用率最高不超过50%</span></span><br></pre></td></tr></table></figure></p>
+<h3>安卓的cgroup设计</h3>
+<p>安卓5.0之后的版本用到了cgroup，安卓早期版本所有进程都采用调度算法公平调度，最新版本把进程分为前台交互进程和后台非交互进程，前台的权重是1024，后台的权重是52，这样前台可以得到更多的CPU，用于提高前台程序的响应。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/23/char-ibuf/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -386,6 +605,13 @@
 <li>使用方便。</li>
 </ol>
 </blockquote>
+<h1>scnprintf相关文件</h1>
+<p>scnprintf搜索在Linux发现只在kernel.h中，用户态中没有相关的实现。在网站中搜索如下所示：</p>
+<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">include/linux/kernel.h, line <span class="number">330</span> (as a prototype)</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">scnprintf</span><span class="params">(<span class="keyword">char</span> * buf, <span class="keyword">size_t</span> size, <span class="keyword">const</span> <span class="keyword">char</span> * fmt, ...)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	va_list args;</span><br><span class="line">	<span class="keyword">ssize_t</span> ssize = size;</span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line"></span><br><span class="line">	va_start(args, fmt);</span><br><span class="line">	i = vsnprintf(buf, size, fmt, args);</span><br><span class="line">	va_end(args);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> (i &gt;= ssize) ? (ssize - <span class="number">1</span>) : i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1>内核态测试文件</h1>
+<p>bash是在用户态的，要测试内核态的程序需要用户态与内核态通信，见内核态与用户态的9种通信方式 ，下面用最简单的2种驱动模块安装和proc文件系统来实现</p>
+<h2>用insmod方式测试</h2>
+<h2>用proc方式测试</h2>
 
           
         
@@ -1719,188 +1945,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/13/multi-thread/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="wangfanstar@163.com">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="wangfan 的小屋">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/13/multi-thread/" itemprop="url">linux下多线程，多进程程序设计</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-13T09:30:37+08:00">
-                2018-05-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/编程/" itemprop="url" rel="index">
-                    <span itemprop="name">编程</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/05/13/multi-thread/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/05/13/multi-thread/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2>多进程设计</h2>
-<p>linux下调度程序对应的都task_struct，进程和线和没有区别，用户态中使用方法是fork，exec，wait三种流程。内核态中用的是kthread_create, kthread_run, wake_up_process的流程。查看进程pid及其状态的命令是top，根据进程，线程的不同显示的pid号含义也不一样，下面进行具体分析。</p>
-<h2>进程用户态父子进程设计</h2>
-<p>用户态进程调度是可抢占的，调度的对象是task_struct，要新建一个进程，可以调用fork函数来实现task_struct相关信息的复制，新进的进程称为子进程，在代码中和父进程是同一段代码。fork函数会返回两交，在代码区分父子进程部分的判定是通过fork的返回值，子进程在对应fork返回值等于0，在代码中可以通过判断if(0 == fork())后面添加子进程的代码处理。父进程的fork返回非0或错误码。父进程的代码在一般在子进程判断是否为0后的else中继续进行。</p>
-<h2>多进程样例</h2>
-<p>下面这段代码实现父子进程各自打印各自的Pid功能。</p>
-<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/wait.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">pid_t</span> stPid;</span><br><span class="line">    <span class="keyword">if</span> (<span class="number">0</span> == fork())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"this is child process pid: %d\n"</span>,getpid());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"this is parent process pid: %d\n"</span>,getpid());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>显示结果如下：</p>
-<blockquote>
-<p>this is parent process pid: 3607</p>
-<p>this is child process pid: 3608</p>
-</blockquote>
-<h2>设置进程执行顺序</h2>
-<p>在之前的代码中我们看到是父进程先打印出来的，linux在设计时不强制哪个进程先，两个是随机的，如果我们想让父进程在子进程之后执行，可以在父进程中使用等待函数wait，wait会等待子进程执行完成返回后再继续下一步，如下代码父进程会等等子进程后再执行，结果就可以按我们想要的顺序执行。</p>
-<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/wait.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">pid_t</span> stPid;</span><br><span class="line">    <span class="keyword">if</span> (<span class="number">0</span> == fork())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"this is child process pid: %d\n"</span>,getpid());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        wait(<span class="literal">NULL</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"this is parent process pid: %d\n"</span>,getpid());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>使用了wait的多进程程序如下：</p>
-<blockquote>
-<p>this is child process pid: 3683</p>
-<p>this is parent process pid: 3682</p>
-</blockquote>
-<h2>异常注意事项</h2>
-<p>上述代码没有做异常处理fork是有可能不成功的，返回的pid&lt;0要处理</p>
-<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>（(stPid = fork()）&lt; <span class="number">0</span>)</span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">	errorhandle;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2>pid查看命令</h2>
-<p>1、top 查看进程，top -H 查看线程</p>
-<p>2、cat /proc/sys/kernel/threads-max 查看最大线程数</p>
-<p>3、ps 查看线程信息</p>
-<p>4、 ulimit -a 用来显示当前的各种用户进程限制</p>
-<h2>TID PID TGID区别</h2>
-<p>对于进程来说，取TID、PID、TGID都是一样的，取到的值都是相同的，但是对于线程来说</p>
-<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. tid: 线程ID</span><br><span class="line">2. pid: 线程所属进程的ID</span><br><span class="line">3. tgid: 等同于pid，也就是线程组id，即线程组领头进程的id</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1951,7 +1995,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="wangfan 的小屋">
 <meta property="og:description" content="原有的字符串拼接函数缺陷 sprintf,snprintf,scnprintf三个函数分别代表了Linux中对字符串进行处理的三个阶段。最终的scnprintf版本可以安全地进行字符串拼接，但还是有些麻烦，比如要计算字符长度，拼接时要先算出之前字符串的长度，如下所示，如果要拼接字符串a，和字符串b，用scnprintf实现就是先申请一个长度为c的空间，将a和b写入c空间中，如下所示。 ibuf设计">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-23T10:13:14.401Z">
+<meta property="og:updated_time" content="2018-05-25T23:44:11.280Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一个安全的字符串拼接功能设计">
 <meta name="twitter:description" content="原有的字符串拼接函数缺陷 sprintf,snprintf,scnprintf三个函数分别代表了Linux中对字符串进行处理的三个阶段。最终的scnprintf版本可以安全地进行字符串拼接，但还是有些麻烦，比如要计算字符长度，拼接时要先算出之前字符串的长度，如下所示，如果要拼接字符串a，和字符串b，用scnprintf实现就是先申请一个长度为c的空间，将a和b写入c空间中，如下所示。 ibuf设计">
@@ -382,6 +382,13 @@
 <li>使用方便。</li>
 </ol>
 </blockquote>
+<h1>scnprintf相关文件</h1>
+<p>scnprintf搜索在Linux发现只在kernel.h中，用户态中没有相关的实现。在网站中搜索如下所示：</p>
+<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">include/linux/kernel.h, line <span class="number">330</span> (as a prototype)</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">scnprintf</span><span class="params">(<span class="keyword">char</span> * buf, <span class="keyword">size_t</span> size, <span class="keyword">const</span> <span class="keyword">char</span> * fmt, ...)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	va_list args;</span><br><span class="line">	<span class="keyword">ssize_t</span> ssize = size;</span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line"></span><br><span class="line">	va_start(args, fmt);</span><br><span class="line">	i = vsnprintf(buf, size, fmt, args);</span><br><span class="line">	va_end(args);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> (i &gt;= ssize) ? (ssize - <span class="number">1</span>) : i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1>内核态测试文件</h1>
+<p>bash是在用户态的，要测试内核态的程序需要用户态与内核态通信，见内核态与用户态的9种通信方式 ，下面用最简单的2种驱动模块安装和proc文件系统来实现</p>
+<h2>用insmod方式测试</h2>
+<h2>用proc方式测试</h2>
 
       
     </div>
@@ -423,6 +430,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/26/load-blance/" rel="prev" title="宋宝华课程笔记1-负载均衡">
+                宋宝华课程笔记1-负载均衡 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -502,7 +513,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -557,7 +568,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">原有的字符串拼接函数缺陷</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">ibuf设计要解决的问题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">原有的字符串拼接函数缺陷</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">ibuf设计要解决的问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">scnprintf相关文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">内核态测试文件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.1.</span> <span class="nav-text">用insmod方式测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.2.</span> <span class="nav-text">用proc方式测试</span></a></li></ol></li></ol></div>
             
 
           </div>
