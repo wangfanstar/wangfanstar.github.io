@@ -79,20 +79,20 @@
 
 
 
-<meta name="description" content="Real Time 实时系统的定义 linux不是硬实时的系统，是软实时。实时不是越快越好，是指可预期性。比如发射导弹时，必须保证在截止期限内发射出去，否则后果可能是灾难性的。硬实时强调在恶劣的情况下，从唤醒到任务真正执行之间的时间是可预期的，可以保证在预期的时间内执行到。Linux设计不保证是可预期的，因为Linux在中断，软中断，及spinlock的区间时是不可抢占的，这些区间内的执行时间是不">
+<meta name="description" content="宋宝华课程笔记2--Real Time 实时系统的定义 linux不是硬实时的系统，是软实时。实时不是越快越好，是指可预期性。比如发射导弹时，必须保证在截止期限内发射出去，否则后果可能是灾难性的。硬实时强调在恶劣的情况下，从唤醒到任务真正执行之间的时间是可预期的，可以保证在预期的时间内执行到。Linux设计不保证是可预期的，因为Linux在中断，软中断，及spinlock的区间时是不可抢占的，这些">
 <meta name="keywords" content="linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="linux实时系统设置">
 <meta property="og:url" content="http://yoursite.com/2018/05/28/linux-rt-system/index.html">
 <meta property="og:site_name" content="wangfan 的小屋">
-<meta property="og:description" content="Real Time 实时系统的定义 linux不是硬实时的系统，是软实时。实时不是越快越好，是指可预期性。比如发射导弹时，必须保证在截止期限内发射出去，否则后果可能是灾难性的。硬实时强调在恶劣的情况下，从唤醒到任务真正执行之间的时间是可预期的，可以保证在预期的时间内执行到。Linux设计不保证是可预期的，因为Linux在中断，软中断，及spinlock的区间时是不可抢占的，这些区间内的执行时间是不">
+<meta property="og:description" content="宋宝华课程笔记2--Real Time 实时系统的定义 linux不是硬实时的系统，是软实时。实时不是越快越好，是指可预期性。比如发射导弹时，必须保证在截止期限内发射出去，否则后果可能是灾难性的。硬实时强调在恶劣的情况下，从唤醒到任务真正执行之间的时间是可预期的，可以保证在预期的时间内执行到。Linux设计不保证是可预期的，因为Linux在中断，软中断，及spinlock的区间时是不可抢占的，这些">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/img/linux_rt_4type_preempt.png">
 <meta property="og:image" content="c:%5CUsers%5Cwangfan%5CAppData%5CLocal%5CTemp%5C1527456325480.png">
-<meta property="og:updated_time" content="2018-05-27T21:28:27.896Z">
+<meta property="og:updated_time" content="2018-05-27T21:31:11.714Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux实时系统设置">
-<meta name="twitter:description" content="Real Time 实时系统的定义 linux不是硬实时的系统，是软实时。实时不是越快越好，是指可预期性。比如发射导弹时，必须保证在截止期限内发射出去，否则后果可能是灾难性的。硬实时强调在恶劣的情况下，从唤醒到任务真正执行之间的时间是可预期的，可以保证在预期的时间内执行到。Linux设计不保证是可预期的，因为Linux在中断，软中断，及spinlock的区间时是不可抢占的，这些区间内的执行时间是不">
+<meta name="twitter:description" content="宋宝华课程笔记2--Real Time 实时系统的定义 linux不是硬实时的系统，是软实时。实时不是越快越好，是指可预期性。比如发射导弹时，必须保证在截止期限内发射出去，否则后果可能是灾难性的。硬实时强调在恶劣的情况下，从唤醒到任务真正执行之间的时间是可预期的，可以保证在预期的时间内执行到。Linux设计不保证是可预期的，因为Linux在中断，软中断，及spinlock的区间时是不可抢占的，这些">
 <meta name="twitter:image" content="http://yoursite.com/img/linux_rt_4type_preempt.png">
 
 
@@ -375,7 +375,7 @@
       
 
       
-        <h2>Real Time 实时系统的定义</h2>
+        <h2>宋宝华课程笔记2--Real Time 实时系统的定义</h2>
 <p>linux不是硬实时的系统，是软实时。实时不是越快越好，是指可预期性。比如发射导弹时，必须保证在截止期限内发射出去，否则后果可能是灾难性的。硬实时强调在恶劣的情况下，从唤醒到任务真正执行之间的时间是可预期的，可以保证在预期的时间内执行到。Linux设计不保证是可预期的，因为Linux在中断，软中断，及spinlock的区间时是不可抢占的，这些区间内的执行时间是不可预期的。</p>
 <p>抢占的时机很多，我们主要记住不可抢占的时机：1、中断，2、软中断，3、spinlock区间的进程。</p>
 <p>如果在这三类任务时间内唤起了高优先级的任务，任务是不能抢占的，只有当CPU脱离了这三类区间后，高优先级的任务才可以进行抢占。</p>
@@ -564,7 +564,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">Real Time 实时系统的定义</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">宋宝华课程笔记2--Real Time 实时系统的定义</span></a></li></ol></div>
             
 
           </div>
