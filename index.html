@@ -273,6 +273,192 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/28/linux-process-period/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wangfanstar@163.com">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wangfan 的小屋">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/28/linux-process-period/" itemprop="url">linux 进程生命周期</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-28T05:34:13+08:00">
+                2018-05-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程/" itemprop="url" rel="index">
+                    <span itemprop="name">编程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/05/28/linux-process-period/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/05/28/linux-process-period/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2>linux的进程描述</h2>
+<p>进程是一个资源封装的单位，资源指占用的内存，文件系统，信号及处理方法。线程是调度执行的单元。一个进程区别与另一个进程的标记就是资源。linux操作系统是可以做到进程与进程之间的资源隔离。进程的描述就是资源的描述。PCB （PROCESS CONTROL BLOCK) 在不同操作系统中用于描述进程，在Linux的PCB就是用task_struct来描述。</p>
+<blockquote>
+<p>1、mm 内存资源:  进程的内存</p>
+<p>2、fs 文件系统资源1: 根路径和当前路径指针</p>
+<p>3、 files 文件系统资源2: 进程打开的文件，文件描述符数组</p>
+<p>4、sinal 信号资源：不同进程可以针对同一信号挂不同的处理方法</p>
+<p>5、pid 属性资源：描述进程的属性</p>
+</blockquote>
+<p><img src="C:%5CUsers%5Cwangfan%5CAppData%5CLocal%5CTemp%5C1527457308673.png" alt="1527457308673"></p>
+<h3>fork炸弹让linux死机</h3>
+<p>利用pid数量是有限的特性可以用于破坏Linux，比如linux下著名的fork炸弹就是利用不断产生进程把pid耗尽的方法来实现让linux死机。</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#linux fork 炸弹</span></span><br><span class="line">:()&#123;:|:&amp;&#125;;:</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>:   函数名为冒号</p>
+<p>()  函数参数定义</p>
+<p>{} 函数定义</p>
+<p>：调用自己</p>
+<p>|：递归调用自己</p>
+<p>&amp;  后台执行</p>
+<p>;   函数结束</p>
+<p>： 调用函数：</p>
+</blockquote>
+<h3>pid数量限制导致安卓的一键root</h3>
+<p>总数Pid和用户的Pid都是有限的，可以通过ulimit命令来查看，max user processes 为对应的数量</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">wangfan@wangfan-VirtualBox:~$ <span class="built_in">ulimit</span> -a</span><br><span class="line">core file size          (blocks, -c) 0</span><br><span class="line">data seg size           (kbytes, -d) unlimited</span><br><span class="line">scheduling priority             (-e) 0</span><br><span class="line">file size               (blocks, -f) unlimited</span><br><span class="line">pending signals                 (-i) 15723</span><br><span class="line">max locked memory       (kbytes, -l) 64</span><br><span class="line">max memory size         (kbytes, -m) unlimited</span><br><span class="line">open files                      (-n) 1024</span><br><span class="line">pipe size            (512 bytes, -p) 8</span><br><span class="line">POSIX message queues     (bytes, -q) 819200</span><br><span class="line">real-time priority              (-r) 0</span><br><span class="line">stack size              (kbytes, -s) 8192</span><br><span class="line">cpu time               (seconds, -t) unlimited</span><br><span class="line">max user processes              (-u) 15723</span><br><span class="line">virtual memory          (kbytes, -v) unlimited</span><br><span class="line">file locks                      (-x) unlimited</span><br></pre></td></tr></table></figure></p>
+<p>安卓的2.2.1之前的版本被发现一个漏洞，很容易就被一键root，安卓的调试软件adb刚开始时有root权限，之后adb调用api  setuid(shell) 把自己从root用户降为shell用户。谷歌的工程师在调用时没有检查setuid的返回值，即默认setuid总是可以成功。黑客们利用uid数量有限制的属性，将shell用户内的pid进程全部用完，这样调用setuid时是无法成功的，但因为没有检查返回值，导致adb调用setuid(shell) 后没有降权成功，还是有root权限。这就是Android著名的提权漏洞：rageagainstthecage。2.2之后的安卓版本修复了此漏洞，方法是检查setuid的返回值。</p>
+<h2>linux进程task_struct的三种数据结构</h2>
+<p>linux的进程用了三种数据结构来描述task_struct</p>
+<blockquote>
+<p>1、链表：</p>
+<p>2、树：  描述进程和子进程之间的关系</p>
+<p>3、哈希表：</p>
+</blockquote>
+<h3></h3>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/28/linux-rt-system/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1794,165 +1980,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/kernel-to-user3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="wangfanstar@163.com">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="wangfan 的小屋">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/15/kernel-to-user3/" itemprop="url">linux内核态和用户态9种通信方法之三--系统调用</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-15T22:07:09+08:00">
-                2018-05-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/编程/" itemprop="url" rel="index">
-                    <span itemprop="name">编程</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/05/15/kernel-to-user3/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/05/15/kernel-to-user3/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>##500多个系统调用</p>
-<p>目前linux大概有500多个系统调用，用于用户态到内核态的通信。但很多系统调用的粒度太小，于是libc封装了很多库函数供用户使用。其实最终通信还是通过系统调用。比如malloc最终还是调用的brk系统调用来实现，printf最终还是调用read,write来实现。</p>
-<h2>系统调用的一般特点</h2>
-<ul>
-<li>一般带sys_前缀为系统调用</li>
-<li>类型一般在sys/types.h头文件中</li>
-<li>​</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2003,7 +2030,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

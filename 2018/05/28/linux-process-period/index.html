@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="linux,c,api," />
+  <meta name="keywords" content="linux," />
 
 
 
@@ -79,18 +79,20 @@
 
 
 
-<meta name="description" content="字符转换函数的使用场景 我们在程序界面输入数据时，基本上都是用字符来保存的，所有操作系统之间的信息保存和传递也是基于字符（char）单位来进行，单位再大了就有字节序问题，不能兼容所有的操作系统了。为效率考虑，现在的信息全以字符为单位。计算一段数据的大小，比如一个变量Int的大小，用sizeof操作符返回的结果就是字节数，也就是char的个数。sizeof(int)  == 4 ，在程序应用中，比如">
-<meta name="keywords" content="linux,c,api">
+<meta name="description" content="linux的进程描述 进程是一个资源封装的单位，资源指占用的内存，文件系统，信号及处理方法。线程是调度执行的单元。一个进程区别与另一个进程的标记就是资源。linux操作系统是可以做到进程与进程之间的资源隔离。进程的描述就是资源的描述。PCB （PROCESS CONTROL BLOCK) 在不同操作系统中用于描述进程，在Linux的PCB就是用task_struct来描述。  1、mm 内存资源:">
+<meta name="keywords" content="linux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="字符处理函数的使用">
-<meta property="og:url" content="http://yoursite.com/2018/05/03/character-api/index.html">
+<meta property="og:title" content="linux 进程生命周期">
+<meta property="og:url" content="http://yoursite.com/2018/05/28/linux-process-period/index.html">
 <meta property="og:site_name" content="wangfan 的小屋">
-<meta property="og:description" content="字符转换函数的使用场景 我们在程序界面输入数据时，基本上都是用字符来保存的，所有操作系统之间的信息保存和传递也是基于字符（char）单位来进行，单位再大了就有字节序问题，不能兼容所有的操作系统了。为效率考虑，现在的信息全以字符为单位。计算一段数据的大小，比如一个变量Int的大小，用sizeof操作符返回的结果就是字节数，也就是char的个数。sizeof(int)  == 4 ，在程序应用中，比如">
+<meta property="og:description" content="linux的进程描述 进程是一个资源封装的单位，资源指占用的内存，文件系统，信号及处理方法。线程是调度执行的单元。一个进程区别与另一个进程的标记就是资源。linux操作系统是可以做到进程与进程之间的资源隔离。进程的描述就是资源的描述。PCB （PROCESS CONTROL BLOCK) 在不同操作系统中用于描述进程，在Linux的PCB就是用task_struct来描述。  1、mm 内存资源:">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-03T14:26:06.862Z">
+<meta property="og:image" content="c:%5CUsers%5Cwangfan%5CAppData%5CLocal%5CTemp%5C1527457308673.png">
+<meta property="og:updated_time" content="2018-05-27T22:13:38.867Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="字符处理函数的使用">
-<meta name="twitter:description" content="字符转换函数的使用场景 我们在程序界面输入数据时，基本上都是用字符来保存的，所有操作系统之间的信息保存和传递也是基于字符（char）单位来进行，单位再大了就有字节序问题，不能兼容所有的操作系统了。为效率考虑，现在的信息全以字符为单位。计算一段数据的大小，比如一个变量Int的大小，用sizeof操作符返回的结果就是字节数，也就是char的个数。sizeof(int)  == 4 ，在程序应用中，比如">
+<meta name="twitter:title" content="linux 进程生命周期">
+<meta name="twitter:description" content="linux的进程描述 进程是一个资源封装的单位，资源指占用的内存，文件系统，信号及处理方法。线程是调度执行的单元。一个进程区别与另一个进程的标记就是资源。linux操作系统是可以做到进程与进程之间的资源隔离。进程的描述就是资源的描述。PCB （PROCESS CONTROL BLOCK) 在不同操作系统中用于描述进程，在Linux的PCB就是用task_struct来描述。  1、mm 内存资源:">
+<meta name="twitter:image" content="c:%5CUsers%5Cwangfan%5CAppData%5CLocal%5CTemp%5C1527457308673.png">
 
 
 
@@ -120,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/05/03/character-api/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/05/28/linux-process-period/"/>
 
 
 
 
 
-  <title>字符处理函数的使用 | wangfan 的小屋</title>
+  <title>linux 进程生命周期 | wangfan 的小屋</title>
   
 
 
@@ -273,7 +275,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/03/character-api/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/28/linux-process-period/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="wangfanstar@163.com">
@@ -290,7 +292,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">字符处理函数的使用</h1>
+          <h1 class="post-title" itemprop="name headline">linux 进程生命周期</h1>
         
 
         <div class="post-meta">
@@ -302,8 +304,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-03T21:11:13+08:00">
-                2018-05-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-28T05:34:13+08:00">
+                2018-05-28
               </time>
             
 
@@ -343,8 +345,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/05/03/character-api/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/05/03/character-api/" itemprop="commentCount"></span>
+                <a href="/2018/05/28/linux-process-period/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/05/28/linux-process-period/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -372,34 +374,41 @@
       
 
       
-        <h2>字符转换函数的使用场景</h2>
-<p>我们在程序界面输入数据时，基本上都是用字符来保存的，所有操作系统之间的信息保存和传递也是基于字符（char）单位来进行，单位再大了就有字节序问题，不能兼容所有的操作系统了。为效率考虑，现在的信息全以字符为单位。计算一段数据的大小，比如一个变量Int的大小，用sizeof操作符返回的结果就是字节数，也就是char的个数。sizeof(int)  == 4 ，在程序应用中，比如在计数器中我们输入一串数字和符号  123 + 456 ，内部如何计算出结果呢，123在输入时是对应3个字符char，在计算的时时候我们则必须将其转换成整型变量数据再进行加法运算。C函数提供的一个函数库API是atoi, ascii to integer 的一个函数 stdlib.h，其原型是int atoi(const char * ptr)，函数开始扫描ptr字符串，跳过空白字符(isspace检测)，从数字或正负号开始，到\0或非数字结束，返回一个整数，当无法转换成整理或ptr是空字符串时返回0</p>
-<p>同样的，也会有itoa函数，将整数转换成字符串，但奇怪的是这个函数却不是标准的C函数，在Linux下基本没有这个函数，通常windows下的非标准编译器才支持这种函数，我考虑了多方面因素，可能是以下原因，转换出的字符串一般都是一串不确定长度的空间，而这个内存空间只能通过指针的方式返回使用者，这样使用者调用后还需要手动释放这个空间，很容易造成内存泄露。linux下将数字转换成字符有以下几种方式</p>
+        <h2>linux的进程描述</h2>
+<p>进程是一个资源封装的单位，资源指占用的内存，文件系统，信号及处理方法。线程是调度执行的单元。一个进程区别与另一个进程的标记就是资源。linux操作系统是可以做到进程与进程之间的资源隔离。进程的描述就是资源的描述。PCB （PROCESS CONTROL BLOCK) 在不同操作系统中用于描述进程，在Linux的PCB就是用task_struct来描述。</p>
 <blockquote>
-<h2>int sprintf( char * buffer,  char * fmt , ...);</h2>
+<p>1、mm 内存资源:  进程的内存</p>
+<p>2、fs 文件系统资源1: 根路径和当前路径指针</p>
+<p>3、 files 文件系统资源2: 进程打开的文件，文件描述符数组</p>
+<p>4、sinal 信号资源：不同进程可以针对同一信号挂不同的处理方法</p>
+<p>5、pid 属性资源：描述进程的属性</p>
 </blockquote>
-<p>sprintf最常见的应用之一莫过于把整数打印到字符串中，所以，spritnf 在大多数场合可以替代itoa。如：</p>
-<ol>
-<li>
-<p>将整数转成字符串</p>
-<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sprintf</span> (s, <span class="string">"%d"</span>, <span class="number">123</span>); <span class="comment">// 产生"123"</span></span><br></pre></td></tr></table></figure></p>
-</li>
-<li>
-<p>连接字符串</p>
-<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> *who = <span class="string">"I"</span>;</span><br><span class="line"><span class="keyword">char</span> *whom = <span class="string">"52PHP"</span>; </span><br><span class="line"><span class="built_in">sprintf</span>(s, <span class="string">"%s love %s."</span>, who, whom); <span class="comment">// 产生："I love 52PHP. "</span></span><br></pre></td></tr></table></figure></p>
-<p><em>spintf 常见问题</em></p>
-<p>1、返回值返回的是实际写入buffer的字符长度，可以不用再用strlen计算字符长度了</p>
-<p>2、如果 s 的区域不足，写入的数据超过s长度，可能会导致内存访问错误引起崩溃，</p>
-</li>
-</ol>
+<p><img src="C:%5CUsers%5Cwangfan%5CAppData%5CLocal%5CTemp%5C1527457308673.png" alt="1527457308673"></p>
+<h3>fork炸弹让linux死机</h3>
+<p>利用pid数量是有限的特性可以用于破坏Linux，比如linux下著名的fork炸弹就是利用不断产生进程把pid耗尽的方法来实现让linux死机。</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#linux fork 炸弹</span></span><br><span class="line">:()&#123;:|:&amp;&#125;;:</span><br></pre></td></tr></table></figure></p>
 <blockquote>
-<h2>int snprintf(char *buf, size_t n, char * fmt, ...)</h2>
+<p>:   函数名为冒号</p>
+<p>()  函数参数定义</p>
+<p>{} 函数定义</p>
+<p>：调用自己</p>
+<p>|：递归调用自己</p>
+<p>&amp;  后台执行</p>
+<p>;   函数结束</p>
+<p>： 调用函数：</p>
 </blockquote>
-<p>为了防止引起内存访问错误，采用snprintf函数，此函数最多从源字符串中取n-1个字符，最后一个字节补\0，写入buf，推荐用法是将第2个参数n写成sizeof(buf)，与sprintf不同的时返回值 int 是源字符串的字符数，而非实际写入buf的字符串数目。在Linux内核中不推荐用snprintf，就是因为返回的值可能大于实际写入的buf中的字符数目，可能导致计算时越界，linux内存中推荐采用返回值为实际写入buf中的字符数字函数scnprintf，用法和snprintf一样，但返回值是实际写入buf的字符数，这样就避免了返回值比实际写入buf数值还大的现象。</p>
+<h3>pid数量限制导致安卓的一键root</h3>
+<p>总数Pid和用户的Pid都是有限的，可以通过ulimit命令来查看，max user processes 为对应的数量</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">wangfan@wangfan-VirtualBox:~$ <span class="built_in">ulimit</span> -a</span><br><span class="line">core file size          (blocks, -c) 0</span><br><span class="line">data seg size           (kbytes, -d) unlimited</span><br><span class="line">scheduling priority             (-e) 0</span><br><span class="line">file size               (blocks, -f) unlimited</span><br><span class="line">pending signals                 (-i) 15723</span><br><span class="line">max locked memory       (kbytes, -l) 64</span><br><span class="line">max memory size         (kbytes, -m) unlimited</span><br><span class="line">open files                      (-n) 1024</span><br><span class="line">pipe size            (512 bytes, -p) 8</span><br><span class="line">POSIX message queues     (bytes, -q) 819200</span><br><span class="line">real-time priority              (-r) 0</span><br><span class="line">stack size              (kbytes, -s) 8192</span><br><span class="line">cpu time               (seconds, -t) unlimited</span><br><span class="line">max user processes              (-u) 15723</span><br><span class="line">virtual memory          (kbytes, -v) unlimited</span><br><span class="line">file locks                      (-x) unlimited</span><br></pre></td></tr></table></figure></p>
+<p>安卓的2.2.1之前的版本被发现一个漏洞，很容易就被一键root，安卓的调试软件adb刚开始时有root权限，之后adb调用api  setuid(shell) 把自己从root用户降为shell用户。谷歌的工程师在调用时没有检查setuid的返回值，即默认setuid总是可以成功。黑客们利用uid数量有限制的属性，将shell用户内的pid进程全部用完，这样调用setuid时是无法成功的，但因为没有检查返回值，导致adb调用setuid(shell) 后没有降权成功，还是有root权限。这就是Android著名的提权漏洞：rageagainstthecage。2.2之后的安卓版本修复了此漏洞，方法是检查setuid的返回值。</p>
+<h2>linux进程task_struct的三种数据结构</h2>
+<p>linux的进程用了三种数据结构来描述task_struct</p>
 <blockquote>
-<h2>int scnprintf(char *buf, size_t n, char *fmt, ...)</h2>
+<p>1、链表：</p>
+<p>2、树：  描述进程和子进程之间的关系</p>
+<p>3、哈希表：</p>
 </blockquote>
-<p>参考文章：https://www.kernel.org/doc/htmldocs/kernel-api/API-scnprintf.html</p>
+<h3></h3>
 
       
     </div>
@@ -419,10 +428,6 @@
           
             <a href="/tags/linux/" rel="tag"># linux</a>
           
-            <a href="/tags/c/" rel="tag"># c</a>
-          
-            <a href="/tags/api/" rel="tag"># api</a>
-          
         </div>
       
 
@@ -434,8 +439,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/02/ld-preload/" rel="next" title="linux下不重编译替换同名函数--LD_PRELOAD">
-                <i class="fa fa-chevron-left"></i> linux下不重编译替换同名函数--LD_PRELOAD
+              <a href="/2018/05/28/linux-rt-system/" rel="next" title="linux实时系统设置">
+                <i class="fa fa-chevron-left"></i> linux实时系统设置
               </a>
             
           </div>
@@ -443,10 +448,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/04/kernel-test/" rel="prev" title="linux 内核态函数的调试方法">
-                linux 内核态函数的调试方法 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -581,7 +582,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">字符转换函数的使用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">int sprintf( char * buffer,  char * fmt , ...);</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">int snprintf(char *buf, size_t n, char * fmt, ...)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">int scnprintf(char *buf, size_t n, char *fmt, ...)</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">linux的进程描述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.1.</span> <span class="nav-text">fork炸弹让linux死机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.2.</span> <span class="nav-text">pid数量限制导致安卓的一键root</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">linux进程task_struct的三种数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.1.</span> <span class="nav-text"></span></a></li></ol></li></ol></div>
             
 
           </div>

@@ -273,6 +273,165 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/kernel-to-user3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wangfanstar@163.com">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wangfan 的小屋">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/15/kernel-to-user3/" itemprop="url">linux内核态和用户态9种通信方法之三--系统调用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-15T22:07:09+08:00">
+                2018-05-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程/" itemprop="url" rel="index">
+                    <span itemprop="name">编程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/05/15/kernel-to-user3/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/05/15/kernel-to-user3/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>##500多个系统调用</p>
+<p>目前linux大概有500多个系统调用，用于用户态到内核态的通信。但很多系统调用的粒度太小，于是libc封装了很多库函数供用户使用。其实最终通信还是通过系统调用。比如malloc最终还是调用的brk系统调用来实现，printf最终还是调用read,write来实现。</p>
+<h2>系统调用的一般特点</h2>
+<ul>
+<li>一般带sys_前缀为系统调用</li>
+<li>类型一般在sys/types.h头文件中</li>
+<li>​</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/14/5g-lenovo/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1820,190 +1979,6 @@ $$F(x)|_0^r  = F(r) - F(0) = \pi r^2$$</p>
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/05/tcl-language/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="wangfanstar@163.com">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="wangfan 的小屋">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/05/tcl-language/" itemprop="url">tcl/tk语言</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-05T21:54:10+08:00">
-                2018-05-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/编程/" itemprop="url" rel="index">
-                    <span itemprop="name">编程</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/05/05/tcl-language/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/05/05/tcl-language/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2>研究了一下tcl/tk语言</h2>
-<p>作为一名在网络公司的研发工程师，每次测试都要敲一大堆命令，之前测试的同事一直用tcl脚本来实现自动化，自己因为测试较少没有深入地了解这门语言。有一次因要测试大量的重复命令。用了tcl写完脚本后，节省了自己80%的测试时间，感觉心里痛快不少。对tcl有了进一步了解的兴趣。</p>
-<h2>tcl发明人</h2>
-<p>Tcl是伯克利作品，在SUN生存过一段时间，现在则是很小规模的社区委员会在维护，主要的优化是性能和兼容性，缓慢和保守的加入新特性。</p>
-<p>Tcl出现的年代，GUI刚起步；在各种当时还是非常封闭的平台上写高效的GUI程序并不容易，Tk图形库一出现就受到了极大欢迎，它让程序员可以非常快速的创建简单GUI应用；时至今日，包括Python在内的很多语言，最早和缺省支持的GUI Toolkit仍然是Tk，虽然界面看起来实在土不堪言；SUN选择了Java放弃了Tcl是对Tcl的最大打击；之后Tcl的创始人Ousterhout将Tcl和他创办的公司一起卖给了其他公司并离开了核心开发团队，这门语言开始停滞发展并迅速被其他活跃的商业语言或社区语言超越；到现在你已经基本上听不到它的名字了；目前Tcl还在使用的一些地方包括EDA软件的内嵌语言，某些型号的Cisco的路由器脚本，自动化测试框架，等等；</p>
-<h2>tcl 的评价</h2>
-<p>Richard Stallman明确表示Tcl是Toy language，因为，没数据结构可用，于是完全无法展示CS背景人士的专业性所在；但反过来说，构筑在数学上的CS，并非每个人都能理解，反之，我们的自然语言也不像数学那样抽象，它是不严谨，但是这不妨碍使用者经过训练之后将他用于诸如法律文书、药物说明或者科学论文等非常严谨精确的地方，看你怎么使用。这就是Tcl，易学，也不难精，简洁，一种抽象规则，变化无穷。</p>
-<h2>tcl 的应用范围</h2>
-<p>Tcl是跨平台的，但是很明显在习惯上它是unix哲学体系的。一个是前面说的类shell和类c语法，另外，在unix上，命令加参数几乎是一切非ui程序的工作方式，如果你用C写程序，最简单的也是这类，而Tcl的基本执行单元就是命令加参数，这不但意味着你可以直接调用外部程序，你还可以在脚本函数出现性能瓶颈的时候直接打开文本编辑器写一段C代码然后编译一下，就在Tcl里把脚本函数改成外部调用就可以了，既不用写库，也不用写界面定义文件。unix上另一类命令行程序是程序自身也类似shell，比如gdb，ssh，ftp，telnet等等，它们不能简化成一个命令加一组参数工作。没问题，Tcl有个非常流行的库叫expect，就是对付这种情况的利器，把Tcl脚本伪装成一个交互shell用户，填输入进去，取输出结果回来。所以你看到了，Tcl是命令和Interactive Shell自动化的超级利器，这也就难怪它在自动测试领域那么流行了。象Sqlite测试，给它测试数据库文件，命令行SQL操作，对比结果；象GCC/GDB，提交测试文件，自动执行，对比输出或者返回信息；象一个modem模块，可以AT Command发过去，检查返回信息，solicited，unsolicited；等等，诸如此类。Tk是Tcl另一个引以为豪的地方。一句脚本就能创建对话框。我不清楚它对复杂窗口程序的控制力如何，实际用Tcl/Tk交付的UI商业程序是有的，但不多，</p>
-<h2>tcl的设计理念</h2>
-<p>Tcl则处在一个奇怪的位置；它现在在TIOBE的排名是100左右，基本上排在大多数程序员听说过的所有编程语言之后，但它曾经很流行，在Java出现之前；在它流行的年代，计算设备的性能很低；Unix Shell是主要的竞争对手，LISP是一个美丽的泡泡；所以Tcl从一出生开始在形式上就带有这两种语言的特点：Shell的字符串展开，LISP的表达式优先和空格分隔符；这两点可能让熟悉类C语法的大多数现代程序员都不适应；</p>
-<p>应用程序使用Tcl作为它的命令语言有三个好处：</p>
-<p>1 Tcl提供了标准语法，一旦用户掌握了Tcl就可以很容易的发布命令给基于Tcl的程序。</p>
-<p>2 Tcl实现了很多的功能，使你的工作变得很方便。</p>
-<p>3 TCl可作为程序间通信的接口。</p>
-<p>Tcl 代表 &quot;tool command language&quot; 发音为 &quot;tickle.&quot; 。它实际上包含了两个部分：一个语言和一个库。</p>
-<p>首先，Tcl是一种简单的脚本语言，主要使用于发布命令给一些互交程序如文本编辑器、调试器和shell。它有一个简单的语法和很强可扩充性，Tcl可以创建新的过程以增强其内建命令的能力。</p>
-<p>其次，Tcl是一个库包，可以被嵌入应用程序，Tcl的库包含了一个分析器、用于执行内建命令的例程和可以使你扩充（定义新的过程）的库函数。应用程序可以产生Tcl命令并执行，命令可以由用户产生，也可以从用户接口的一个输入中读取（按钮或菜单等）。但Tcl库收到命令后将它分解并执行内建的命令，经常会产生递归的调用。</p>
-<p>Tcl Interpreters 解释器在Tcl的数据结构中的核心是Tcl_Interp.一个解释器包含了一套命令，一组变量和一些用于描述状态的东西。每一个 Tcl命令是在特定的Tcl_Interp中运行的,基于Tcl的应用程序可以同时拥有几个Tcl_Interp。Tcl_Interp是一个轻量级的结构，可以快速的新建和删除。</p>
-<p>Tcl Data Types 数据类型Tcl只支持一种数据结构：字符串（string）。所有的命令，命令的所有的参数，命令的结果，所有的变量都是字符串。请牢记这一点，所有的东西都是字符串。然而字符串的实际解释是依赖于上下文或命令的。它有三种形式：命令(command), 表达式(expresion)和表(list)。下面会讨论细节。</p>
-<p>Basic Command Syntax 基本语法Tcl有类似于shell和lisp的语法，当然也有许多的不同。一条Tcl的命令串包含了一条或多条命令用换行符或分号来隔开，而每一条命令包含了一个域(field)的集合，域使用空白分开的，第一个域是一个命令的名字，其它的是作为参数来传给它。例如：set a 22 //相当于C中的 a=22 a是一个变量这条命令分为三个域：<code>1： set 2： a 3： 22</code>   set使用于设置变量的值的命令，a、20 作为参数来传给它，a使它要操作的变量名，22是要付给的a值。Tcl的命令名可以使内建的命令也可以是用户建的新命令，在应用程序中用函数Tcl_CreateCommand 来创建。所有的参数作为字符串来传递，命令自己会按其所需来解释的参数的。命令的名字必须被打全，但 Tcl解释器找不到一同名的命令时会用 unknown命令来代替。</p>
-<h2>tcl 的语法简介</h2>
-<p>Command summary 命令综述</p>
-<blockquote>
-<p>1.一个命令就是一个字符串（string）。</p>
-<p>2.命令是用换行符或分号来分隔的。</p>
-<p>3.一个命令由许多的域组成。第一个于是命令名，其它的域作为参数来传递。</p>
-<p>4.域通常是有空白（Tab横向制表健 Space空格）来分开的。</p>
-<p>5.双引号可以使一个参数包括换行符或分号。三种子替换仍然发生。</p>
-<p>6.花括号类似于双引号，只是不进行三总体换。</p>
-<p>7.系统只进行一层子替换，机制替换的结果不会再去做子替换。而且子替换可以在任何一个域进行。</p>
-<p>8.如果第一个非控字符是`#', 这一行的所有东西都是注释。</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2054,7 +2029,7 @@ $$F(x)|_0^r  = F(r) - F(0) = \pi r^2$$</p>
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
