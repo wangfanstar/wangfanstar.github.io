@@ -273,6 +273,166 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/04/kernel-test/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wangfanstar@163.com">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wangfan 的小屋">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/04/kernel-test/" itemprop="url">linux 内核态函数的调试方法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-04T21:06:17+08:00">
+                2018-05-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程/" itemprop="url" rel="index">
+                    <span itemprop="name">编程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/05/04/kernel-test/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/05/04/kernel-test/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2>linux调试</h2>
+<p>通常我们在用户态下进行程序的编写，用一个main函数，gcc进行编译后直接在bash下执行编译生成的二进制文件即可看到程序运行结果。但内核态函数不是从main函数开始的，也无法直接在用户态运行，这时候我们一般采用module的方式来进行内核态函数的调试。</p>
+<h2>module 的使用方法</h2>
+<p>以调试内核态函数printk为例。为调试pirntk函数的功能</p>
+<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*注意不能命名为Printk.c，因为Linux内部有这个文件，再添加同名的.ko文件会报错。*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/module.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/init.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">MODULE_LICENSE(<span class="string">"Dual BSD/GPL"</span>);</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">hello_init</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    printk(<span class="string">"hello world\n"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">hello_exit</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    printk(<span class="string">"hello bye\n"</span>);</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">module_init(hello_init);</span><br><span class="line">module_exit(hello_exit);</span><br></pre></td></tr></table></figure></p>
+<p>makefile文件设置如下</p>
+<p><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">obj-m = wf_printk.o</span><br><span class="line">PWD := <span class="variable">$(<span class="built_in">shell</span> pwd)</span></span><br><span class="line"><span class="section">all:</span></span><br><span class="line">	make -C /lib/modules/<span class="variable">$(<span class="built_in">shell</span> uname -r)</span>/build M=<span class="variable">$(PWD)</span> modules</span><br><span class="line"><span class="section">clean:</span></span><br><span class="line">	rm *.o *.ko  *.mod.c *.order *.symvers</span><br></pre></td></tr></table></figure></p>
+<p>测试命令如下</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$ sudo chmod 777 wf_printk.c</span><br><span class="line">$ sudo make</span><br><span class="line">$ sudo insmod wf_printk.ko  <span class="comment">#安装模块</span></span><br><span class="line">$ dmesg -c  <span class="comment">#查看效果</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 安装模块后现象如下</span></span><br><span class="line">[ 8520.317794] 02:21:54.819662 timesync vgsvcTimeSyncWorker: Radical guest time change: 77 388 852 170 000ns (GuestNow=1 525 693 894 041 566 000 ns GuestLast=1 525 616 505 189 396 000 ns fSetTimeLastLoop=<span class="literal">true</span> )</span><br><span class="line">[ 8845.422739] hello world</span><br><span class="line"></span><br><span class="line">$ sudo rmmod wf_printk.ko  <span class="comment">#卸载模块</span></span><br><span class="line">$ dmesg -c  <span class="comment">#查看效果</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 卸载模块后现象如下</span></span><br><span class="line">[ 8520.317794] 02:21:54.819662 timesync vgsvcTimeSyncWorker: Radical guest time change: 77 388 852 170 000ns (GuestNow=1 525 693 894 041 566 000 ns GuestLast=1 525 616 505 189 396 000 ns fSetTimeLastLoop=<span class="literal">true</span> )</span><br><span class="line">[ 8845.422739] hello world</span><br><span class="line">[ 8925.981566] hello <span class="built_in">bye</span></span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/03/character-api/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1262,7 +1422,7 @@ github采用两个分支, master用于发布网站，hexo用于git源文件。</
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
