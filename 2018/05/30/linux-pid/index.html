@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="算法," />
+  <meta name="keywords" content="linux," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="xor加密原理 本文源于阮一峰的博客。 异或原先的性质如下所示，相同的位返回0，不同的位返回1。按位异或的运算有个特殊的性质，即对同一个数据异或两遍后，会得到原来的数据。因为相同的数据异或后会变成0，而0不管和什么数据异或都返回原来的数据。 1234567891 ^ 1 // 00 ^ 0 // 01 ^ 0 // 10 ^ 1 // 1    // 第一次 XOR1010 ^ 1111 // 0">
-<meta name="keywords" content="算法">
+<meta name="description" content="pid与tgid top -H 和 top 显示的同一线程显示不同 pid">
+<meta name="keywords" content="linux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="异或加密算法的实现">
-<meta property="og:url" content="http://yoursite.com/2018/05/09/xor-encryption/index.html">
+<meta property="og:title" content="linux pid的各种含义">
+<meta property="og:url" content="http://yoursite.com/2018/05/30/linux-pid/index.html">
 <meta property="og:site_name" content="wangfan 的小屋">
-<meta property="og:description" content="xor加密原理 本文源于阮一峰的博客。 异或原先的性质如下所示，相同的位返回0，不同的位返回1。按位异或的运算有个特殊的性质，即对同一个数据异或两遍后，会得到原来的数据。因为相同的数据异或后会变成0，而0不管和什么数据异或都返回原来的数据。 1234567891 ^ 1 // 00 ^ 0 // 01 ^ 0 // 10 ^ 1 // 1    // 第一次 XOR1010 ^ 1111 // 0">
+<meta property="og:description" content="pid与tgid top -H 和 top 显示的同一线程显示不同 pid">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-09T14:36:39.415Z">
+<meta property="og:updated_time" content="2018-05-30T14:49:55.818Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="异或加密算法的实现">
-<meta name="twitter:description" content="xor加密原理 本文源于阮一峰的博客。 异或原先的性质如下所示，相同的位返回0，不同的位返回1。按位异或的运算有个特殊的性质，即对同一个数据异或两遍后，会得到原来的数据。因为相同的数据异或后会变成0，而0不管和什么数据异或都返回原来的数据。 1234567891 ^ 1 // 00 ^ 0 // 01 ^ 0 // 10 ^ 1 // 1    // 第一次 XOR1010 ^ 1111 // 0">
+<meta name="twitter:title" content="linux pid的各种含义">
+<meta name="twitter:description" content="pid与tgid top -H 和 top 显示的同一线程显示不同 pid">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/05/09/xor-encryption/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/05/30/linux-pid/"/>
 
 
 
 
 
-  <title>异或加密算法的实现 | wangfan 的小屋</title>
+  <title>linux pid的各种含义 | wangfan 的小屋</title>
   
 
 
@@ -273,7 +273,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/09/xor-encryption/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/30/linux-pid/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="wangfanstar@163.com">
@@ -290,7 +290,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">异或加密算法的实现</h1>
+          <h1 class="post-title" itemprop="name headline">linux pid的各种含义</h1>
         
 
         <div class="post-meta">
@@ -302,8 +302,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-09T22:19:50+08:00">
-                2018-05-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-30T22:47:18+08:00">
+                2018-05-30
               </time>
             
 
@@ -343,8 +343,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/05/09/xor-encryption/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/05/09/xor-encryption/" itemprop="commentCount"></span>
+                <a href="/2018/05/30/linux-pid/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/05/30/linux-pid/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -372,20 +372,8 @@
       
 
       
-        <h2>xor加密原理</h2>
-<p>本文源于阮一峰的博客。</p>
-<p>异或原先的性质如下所示，相同的位返回0，不同的位返回1。按位异或的运算有个特殊的性质，即对同一个数据异或两遍后，会得到原来的数据。因为相同的数据异或后会变成0，而0不管和什么数据异或都返回原来的数据。</p>
-<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> ^ <span class="number">1</span> <span class="comment">// 0</span></span><br><span class="line"><span class="number">0</span> ^ <span class="number">0</span> <span class="comment">// 0</span></span><br><span class="line"><span class="number">1</span> ^ <span class="number">0</span> <span class="comment">// 1</span></span><br><span class="line"><span class="number">0</span> ^ <span class="number">1</span> <span class="comment">// 1</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">// 第一次 XOR</span></span><br><span class="line"><span class="number">1010</span> ^ <span class="number">1111</span> <span class="comment">// 0101</span></span><br><span class="line"><span class="comment">// 第二次 XOR</span></span><br><span class="line"><span class="number">0101</span> ^ <span class="number">1111</span> <span class="comment">// 1010</span></span><br></pre></td></tr></table></figure></p>
-<p>根据这个性质，我们可以设计一个key，在数据发送前，把数据和key异或一下再发送出去，接收端只要再重新将收到的数据用同一个key异或一次就可以还原出原来的数据了。二战期间，各国为了电报加密，对密码学进行了大量的研究和实践，其中就包括 XOR 加密。战后，英国计算机学家香农（Claude Shannon）将他的<a href="https://en.wikipedia.org/wiki/One-time_pad#Perfect_secrecy" target="_blank" rel="noopener">研究成果</a>公开发表，证明了只要满足两个条件，XOR 加密是无法破解的。</p>
-<blockquote>
-<ul>
-<li>key的长度大于等于message</li>
-<li>key必须是一次性的，且每次都要随机产生</li>
-</ul>
-</blockquote>
-<p>因为如果每次的key都是随机的，那么产生出来的加密文本也随机分布的，具有最大的信息熵，称为XOR的完美保密性，满足上面两个条件的key，叫做 <a href="https://en.wikipedia.org/wiki/One-time_pad" target="_blank" rel="noopener">one-time pad</a>（缩写为OTP），意思是&quot;一次性密码本&quot;，因为以前这样的key都是印刷成密码本，每次使用的时候，必须从其中挑选key。</p>
-<h2>xor 加密登录密码实例</h2>
-<p>先用MD5算法得到一个随机的key，再通过xor加密文本。</p>
+        <h2>pid与tgid</h2>
+<p>top -H 和 top 显示的同一线程显示不同 pid</p>
 
       
     </div>
@@ -403,7 +391,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/算法/" rel="tag"># 算法</a>
+            <a href="/tags/linux/" rel="tag"># linux</a>
           
         </div>
       
@@ -416,8 +404,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/08/lepd-cjson/" rel="next" title="lepd项目解析之一 -- cjson框架">
-                <i class="fa fa-chevron-left"></i> lepd项目解析之一 -- cjson框架
+              <a href="/2018/05/29/linux-cow/" rel="next" title="linux 写时拷贝技术">
+                <i class="fa fa-chevron-left"></i> linux 写时拷贝技术
               </a>
             
           </div>
@@ -425,10 +413,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/10/calculus-of-circle-area/" rel="prev" title="用微积分求圆面积引发的强迫症">
-                用微积分求圆面积引发的强迫症 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -563,7 +547,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">xor加密原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">xor 加密登录密码实例</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">pid与tgid</span></a></li></ol></div>
             
 
           </div>
