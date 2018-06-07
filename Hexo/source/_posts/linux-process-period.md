@@ -1,7 +1,7 @@
 ---
 title: 宋宝华课程笔记3--linux 进程生命周期
 tags: [linux]
-category: 编程
+category: 宋宝华
 date: 2018-05-28 05:34:13
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: 宋宝华课程笔记1-负载均衡
 tags: [linux]
-category: 编程
+category: 宋宝华
 date: 2018-05-26 21:56:04
 ---
 

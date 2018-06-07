@@ -1,7 +1,7 @@
 ---
 title: 宋宝华课程笔记2--linux实时系统
 tags: [linux]
-category: 编程
+category: 宋宝华
 date: 2018-05-28 04:12:12
 ---
 
