@@ -273,6 +273,171 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/09/xor-encryption/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wangfanstar@163.com">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wangfan 的小屋">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/09/xor-encryption/" itemprop="url">异或加密算法的实现</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-09T22:19:50+08:00">
+                2018-05-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程/" itemprop="url" rel="index">
+                    <span itemprop="name">编程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/05/09/xor-encryption/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/05/09/xor-encryption/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2>xor加密原理</h2>
+<p>本文源于阮一峰的博客。</p>
+<p>异或原先的性质如下所示，相同的位返回0，不同的位返回1。按位异或的运算有个特殊的性质，即对同一个数据异或两遍后，会得到原来的数据。因为相同的数据异或后会变成0，而0不管和什么数据异或都返回原来的数据。</p>
+<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> ^ <span class="number">1</span> <span class="comment">// 0</span></span><br><span class="line"><span class="number">0</span> ^ <span class="number">0</span> <span class="comment">// 0</span></span><br><span class="line"><span class="number">1</span> ^ <span class="number">0</span> <span class="comment">// 1</span></span><br><span class="line"><span class="number">0</span> ^ <span class="number">1</span> <span class="comment">// 1</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">// 第一次 XOR</span></span><br><span class="line"><span class="number">1010</span> ^ <span class="number">1111</span> <span class="comment">// 0101</span></span><br><span class="line"><span class="comment">// 第二次 XOR</span></span><br><span class="line"><span class="number">0101</span> ^ <span class="number">1111</span> <span class="comment">// 1010</span></span><br></pre></td></tr></table></figure></p>
+<p>根据这个性质，我们可以设计一个key，在数据发送前，把数据和key异或一下再发送出去，接收端只要再重新将收到的数据用同一个key异或一次就可以还原出原来的数据了。二战期间，各国为了电报加密，对密码学进行了大量的研究和实践，其中就包括 XOR 加密。战后，英国计算机学家香农（Claude Shannon）将他的<a href="https://en.wikipedia.org/wiki/One-time_pad#Perfect_secrecy" target="_blank" rel="noopener">研究成果</a>公开发表，证明了只要满足两个条件，XOR 加密是无法破解的。</p>
+<blockquote>
+<ul>
+<li>key的长度大于等于message</li>
+<li>key必须是一次性的，且每次都要随机产生</li>
+</ul>
+</blockquote>
+<p>因为如果每次的key都是随机的，那么产生出来的加密文本也随机分布的，具有最大的信息熵，称为XOR的完美保密性，满足上面两个条件的key，叫做 <a href="https://en.wikipedia.org/wiki/One-time_pad" target="_blank" rel="noopener">one-time pad</a>（缩写为OTP），意思是&quot;一次性密码本&quot;，因为以前这样的key都是印刷成密码本，每次使用的时候，必须从其中挑选key。</p>
+<h2>xor 加密登录密码实例</h2>
+<p>先用MD5算法得到一个随机的key，再通过xor加密文本。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/08/lepd-cjson/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1962,181 +2127,11 @@ github采用两个分支, master用于发布网站，hexo用于git源文件。</
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/29/monitor-frame/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="wangfanstar@163.com">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="wangfan 的小屋">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/29/monitor-frame/" itemprop="url">实现一个常用的监控框架</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-29T12:36:32+08:00">
-                2018-04-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/编程/" itemprop="url" rel="index">
-                    <span itemprop="name">编程</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/04/29/monitor-frame/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/04/29/monitor-frame/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2>Linux下用C语言实现监控框架</h2>
-<p>假设一个工程代码分为A,B 两个模块，未来可能加上其他C,D等模块。每个模块实现不同的功能，但会调用同一个故障日志监控模块，比如A模块中有故障标志 flagA置1时会调用故障提示函数。B模块中故障标志flagB置1时调用故障提示的。正常代码如下所示：</p>
-<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">moudle A:</span><br><span class="line">	<span class="keyword">if</span>（<span class="number">1</span> == flagA)</span><br><span class="line">      	notify_user(<span class="string">"A moudle state is wrong, do step A "</span>)</span><br><span class="line">moudle B:</span><br><span class="line">	<span class="keyword">if</span> (<span class="number">1</span> == flagB)</span><br><span class="line">      	notify_user(<span class="string">"B moudle state is wrong, do step B"</span>)</span><br></pre></td></tr></table></figure></p>
-<p>按照这种代码架构，我们需要提供一个notify_user的接口，每次出故障时都调用一个这个接口。这种架构实现简单，容易理解，但这种接口有以下几个问题：
-1、notify_user的接口固定死了，每个模块都需要调用这个接口，如果修改一下显示日志的格式，增加一个notify_user的参数，就要每个模块查找修改，工作量非常大，每个模块都耦合比较深。
-2、增加一个模块时，每次都得加用这个判断语句，重复度高，不简洁。
-根据以上缺点，我们希望构建一个模块达到以下效果：
-1、把监控模块的notify_user的检测和输出都放到moudle monitor里面实现，其他模块需要检测时只要加一行代码，比如 register_monitor(flagA), 添加后监控模块就会自动对模块A的变量flagA进行监控，当标记置1时，输出故障信息
-2、监控模块里面实现监控相关的内容，如果有格式修改，只在监控模块修改，不需要再找其他模块的负责人修改其他模块。实现松耦合，目的是当程序代码比较大时，修改只限制在各人负责的模块上，不会影响到其他模块的人，提高工作效率。</p>
-<h2>监控框架的设计目标</h2>
-<p>在很多地方，我们需要对一些设备状态进行监控，比如流量达到多少时我们需要发送警告，硬件发生故障时记录日志等等，在用代码实现这些设计时，有很多设计流程是可以复用的，把这些公共的流程抽象出来，不关注 具体要监控的对象，用代码实现，后续再新增和删除监控对象时，尽可能少地对代码进行修改，而后续维护的人也可以直接参考之前的代码快速地实现监控功能的添加，删除。这就是框架的意义，如下所述：库函数是代码的复用，框架是设计的复用。</p>
-<p>在实现不同业务功能的过程中，前人设计出了多种模式，简称设计模式，设计模式并没有新发明东西，是对代码编程技巧的一种总结，方便大家用于沟通描述而已。其中常用的有观察者模式，这种模式我们会在实现这个框架的过程中详细描述是哪些编程技巧是归结于这种模式，如何在不同的业务场景中使用这些模式，以及采用这种模式有什么好处。</p>
-<h2>监控原始设计原型</h2>
-<p>下面举个简单的例子来实现监控有两个程序A,B，程序内部分别实现变量i从0加到1000，要实现A中变量每隔500打印一次提示，B中变量每隔1000打印一次提示。如下所示：</p>
-<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">funA</span><span class="params">(<span class="keyword">int</span> a)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">funB</span><span class="params">(<span class="keyword">int</span> a)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> * argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    funA(<span class="number">1000</span>);</span><br><span class="line">    funB(<span class="number">1000</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">funB</span><span class="params">(<span class="keyword">int</span> a)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">int</span> times=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; a; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (i % <span class="number">500</span> == <span class="number">0</span>) </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"fun B 500 %d times\n"</span>,  ++times);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">funA</span><span class="params">(<span class="keyword">int</span> a)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">int</span> times=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; a; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (i % <span class="number">100</span> == <span class="number">0</span>) </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"100 %d times\n"</span>,  ++times);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2>改进目标1：提取监控函数</h2>
-<p>从代码中很容易看出中间的一段Printf函数是监控的代码，我们可以提取其公共部分，封装成监控函数供A,B调用。</p>
-<h2>改进目标2：A，B输出不同的结果，采用不同的监控函数</h2>
-<p>通过函数指针的方式，我们对不同的函数采用不同的监控措施。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2182,7 +2177,7 @@ github采用两个分支, master用于发布网站，hexo用于git源文件。</
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2204,7 +2199,7 @@ github采用两个分支, master用于发布网站，hexo用于git源文件。</
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
